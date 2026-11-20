@@ -39,4 +39,14 @@ for dest in "${TARGETS[@]}"; do
 done
 
 [ -n "$TMP_DIR" ] && rm -rf "$TMP_DIR"
-echo "Installed $SKILL_NAME (20,000+ GitHub tools & Native MCP Server) successfully!"
+
+# Install short global CLI command: `fazah`
+mkdir -p "$HOME/.local/bin"
+cat > "$HOME/.local/bin/fazah" <<'EOF'
+#!/usr/bin/env bash
+exec python3 "$HOME/.agents/skills/github-ai-arsenal/scripts/gh_arsenal.py" "$@"
+EOF
+chmod +x "$HOME/.local/bin/fazah"
+
+echo "Installed $SKILL_NAME (20,078+ GitHub tools, Native MCP Server & short 'fazah' CLI) successfully!"
+echo "Try now: fazah doc | fazah r 'telegram bot' | fazah m -q 'postgres'"
