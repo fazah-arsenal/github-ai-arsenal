@@ -1,0 +1,19 @@
+# Smithery.ai MCP Registry Configuration for FAZAH AI Arsenal v5.0
+# https://smithery.ai
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      githubToken:
+        type: string
+        description: Optional GitHub Personal Access Token for 5,000 req/hr live API quota (offline 20,078+ index works with zero token).
+  commandFunction: |-
+    (config) => ({
+      command: "python3",
+      args: ["scripts/mcp_server.py"],
+      env: config.githubToken ? { GITHUB_TOKEN: config.githubToken } : {}
+    })
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .
