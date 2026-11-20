@@ -40,18 +40,18 @@
   <rect x="60" y="38" width="370" height="32" rx="16" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
   <circle cx="80" cy="54" r="5" fill="#22c55e"/>
   <text x="96" y="59" fill="#e2e8f0" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13" font-weight="600">
-    UNIVERSAL AI AGENT SKILL &amp; NATIVE MCP SERVER v4.0
+    AUTONOMOUS AI TOOL BROKER &amp; NATIVE MCP SERVER v6.5
   </text>
 
   <!-- Main Title -->
   <text x="60" y="130" fill="url(#accent)" font-family="Segoe UI, Ubuntu, sans-serif" font-size="54" font-weight="800">
-    GitHub AI Arsenal
+    FAZAH AI Arsenal v6.5
   </text>
   <text x="60" y="172" fill="#f8fafc" font-family="Segoe UI, Ubuntu, sans-serif" font-size="22" font-weight="600">
-    20,078+ Real Curated GitHub Tools • 12 Native MCP Tools • Zero Python Dependencies
+    20,078+ Real GitHub Tools • 17 MCP Tools + Prompts &amp; Resources • Zero Dependencies
   </text>
   <text x="60" y="206" fill="#94a3b8" font-family="Segoe UI, Ubuntu, sans-serif" font-size="16">
-    Works seamlessly with Antigravity • DeepSeek Harness • Claude Code • Cursor • Windsurf • Codex
+    1-Call Tool Broker (fazah g) • Deep Security Scanner • Local Web UI (fazah ui) • Live GitHub Pages
   </text>
 
   <!-- 4 Feature Cards -->
@@ -59,26 +59,26 @@
     <!-- Card 1 -->
     <rect x="0" y="0" width="250" height="96" rx="12" fill="url(#cardBg)" stroke="#38bdf8" stroke-opacity="0.45"/>
     <text x="20" y="34" fill="#38bdf8" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">20,078+ Tools</text>
-    <text x="20" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">Instant Offline BM25 Search</text>
+    <text x="20" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">1-Call Broker (fazah g) &amp; BM25</text>
     <text x="20" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">37 Domains • Zero Rate Limits</text>
 
     <!-- Card 2 -->
     <rect x="272" y="0" width="250" height="96" rx="12" fill="url(#cardBg)" stroke="#818cf8" stroke-opacity="0.45"/>
-    <text x="292" y="34" fill="#818cf8" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">Native MCP</text>
-    <text x="292" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">12 Built-in JSON-RPC Tools</text>
-    <text x="292" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">Pure Python Stdlib • Auto Inject</text>
+    <text x="292" y="34" fill="#818cf8" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">17 MCP Tools</text>
+    <text x="292" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">+ 4 Resources &amp; 3 Prompts</text>
+    <text x="292" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">Smithery, Glama &amp; Auto Inject</text>
 
     <!-- Card 3 -->
     <rect x="544" y="0" width="250" height="96" rx="12" fill="url(#cardBg)" stroke="#c084fc" stroke-opacity="0.45"/>
-    <text x="564" y="34" fill="#c084fc" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">Security Audit</text>
-    <text x="564" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">Trust Score (0-100) &amp; Compare</text>
-    <text x="564" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">License, Stars &amp; Risk Checks</text>
+    <text x="564" y="34" fill="#c084fc" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">Deep Security</text>
+    <text x="564" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">Trust Score &amp; Supply-Chain Scan</text>
+    <text x="564" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">Snippet Extractor &amp; Sandbox</text>
 
     <!-- Card 4 -->
     <rect x="816" y="0" width="264" height="96" rx="12" fill="url(#cardBg)" stroke="#22c55e" stroke-opacity="0.45"/>
-    <text x="836" y="34" fill="#22c55e" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">8 Turnkey Stacks</text>
-    <text x="836" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">1-Command Project Scaffolder</text>
-    <text x="836" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">SaaS, Telegram Bot, RAG, Security</text>
+    <text x="836" y="34" fill="#22c55e" font-family="Segoe UI, sans-serif" font-size="24" font-weight="800">Web UI &amp; Stacks</text>
+    <text x="836" y="58" fill="#cbd5e1" font-family="Segoe UI, sans-serif" font-size="13">fazah ui • 8 Turnkey Stacks</text>
+    <text x="836" y="78" fill="#64748b" font-family="Segoe UI, sans-serif" font-size="12">Project Advisor &amp; Self-Updater</text>
   </g>
 
   <!-- Developer Footer Bar -->
