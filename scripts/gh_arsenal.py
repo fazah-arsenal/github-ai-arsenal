@@ -1102,113 +1102,113 @@ def cmd_publish(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="gh_arsenal",
-        description="GitHub AI Arsenal v4.0 by FAZAH (@testtttttttt11222) — 20,000+ Real GitHub Tools & Native MCP Server",
+        prog="fazah",
+        description="FAZAH AI Arsenal v4.0 (@testtttttttt11222) — 20,078+ Real GitHub Tools & Native MCP Server",
     )
     sub = p.add_subparsers(dest="command", required=True)
 
-    p_doc = sub.add_parser("doctor", help="Inspect local runtimes, skills & index health")
+    p_doc = sub.add_parser("doctor", aliases=["doc"], help="Inspect local runtimes, skills & index health")
     p_doc.add_argument("--json", action="store_true")
     p_doc.set_defaults(func=cmd_doctor)
 
-    p_sta = sub.add_parser("stats", help="Show breakdown of 20,000+ indexed GitHub tools")
+    p_sta = sub.add_parser("stats", aliases=["info"], help="Show breakdown of 20,000+ indexed GitHub tools")
     p_sta.add_argument("--json", action="store_true")
     p_sta.set_defaults(func=cmd_stats)
 
-    p_meg = sub.add_parser("mega", help="Instant offline BM25/synonym search across 20,000+ tools")
+    p_meg = sub.add_parser("mega", aliases=["m"], help="Instant offline BM25/synonym search across 20,000+ tools")
     p_meg.add_argument("--category", "-c", default="")
     p_meg.add_argument("--query", "-q", default="")
     p_meg.add_argument("--limit", "-n", type=int, default=15)
     p_meg.add_argument("--json", action="store_true")
     p_meg.set_defaults(func=cmd_mega)
 
-    p_rec = sub.add_parser("recommend", help="Recommend best GitHub tools (Core + 20k Mega Index)")
+    p_rec = sub.add_parser("recommend", aliases=["r", "rec"], help="Recommend best GitHub tools (Core + 20k Mega Index)")
     p_rec.add_argument("task")
     p_rec.add_argument("--limit", "-n", type=int, default=5)
     p_rec.add_argument("--json", action="store_true")
     p_rec.set_defaults(func=cmd_recommend)
 
-    p_stk = sub.add_parser("stack", help="Get or scaffold a complete cohesive project tech stack (or 'list')")
+    p_stk = sub.add_parser("stack", aliases=["st"], help="Get or scaffold a complete cohesive project tech stack (or 'list')")
     p_stk.add_argument("name", nargs="?", default="list")
     p_stk.add_argument("--scaffold", "-s", default="", help="Destination directory to scaffold starter project")
     p_stk.add_argument("--json", action="store_true")
     p_stk.set_defaults(func=cmd_stack)
 
-    p_qst = sub.add_parser("quickstart", help="Auto-detect how to install & run any GitHub repo immediately")
+    p_qst = sub.add_parser("quickstart", aliases=["q", "run"], help="Auto-detect how to install & run any GitHub repo immediately")
     p_qst.add_argument("repo")
     p_qst.add_argument("--json", action="store_true")
     p_qst.set_defaults(func=cmd_quickstart)
 
-    p_cmp = sub.add_parser("compare", help="Side-by-side comparison of 2+ GitHub repos (Trust Score, Stars, License)")
+    p_cmp = sub.add_parser("compare", aliases=["cmp"], help="Side-by-side comparison of 2+ GitHub repos (Trust Score, Stars, License)")
     p_cmp.add_argument("repos", nargs="+")
     p_cmp.add_argument("--json", action="store_true")
     p_cmp.set_defaults(func=cmd_compare)
 
-    p_bmk = sub.add_parser("bookmark", help="Save or list favorite GitHub tools with notes (list/add/remove)")
+    p_bmk = sub.add_parser("bookmark", aliases=["bm"], help="Save or list favorite GitHub tools with notes (list/add/remove)")
     p_bmk.add_argument("action", nargs="?", default="list", choices=["list", "add", "remove"])
     p_bmk.add_argument("repo", nargs="?", default="")
     p_bmk.add_argument("--note", "-m", default="")
     p_bmk.add_argument("--json", action="store_true")
     p_bmk.set_defaults(func=cmd_bookmark)
 
-    p_aud = sub.add_parser("audit-repo", help="Security & Trust Score (0-100) audit for any GitHub repo")
+    p_aud = sub.add_parser("audit-repo", aliases=["a", "audit"], help="Security & Trust Score (0-100) audit for any GitHub repo")
     p_aud.add_argument("repo")
     p_aud.add_argument("--json", action="store_true")
     p_aud.set_defaults(func=cmd_audit_repo)
 
-    p_cat = sub.add_parser("catalog", help="Browse hand-curated core elite tools")
+    p_cat = sub.add_parser("catalog", aliases=["cat"], help="Browse hand-curated core elite tools")
     p_cat.add_argument("--category", "-c", default="")
     p_cat.add_argument("--query", "-q", default="")
     p_cat.add_argument("--json", action="store_true")
     p_cat.set_defaults(func=cmd_catalog)
 
-    p_mcp = sub.add_parser("mcp-config", help="Print ready-to-paste MCP JSON config (or 'list')")
+    p_mcp = sub.add_parser("mcp-config", aliases=["mc"], help="Print ready-to-paste MCP JSON config (or 'list')")
     p_mcp.add_argument("server")
     p_mcp.set_defaults(func=cmd_mcp_config)
 
-    p_inj = sub.add_parser("mcp-inject", help="Inject an MCP server directly into .mcp.json with backup")
+    p_inj = sub.add_parser("mcp-inject", aliases=["mi"], help="Inject an MCP server directly into .mcp.json with backup")
     p_inj.add_argument("server")
     p_inj.add_argument("--target", "-t", default="")
     p_inj.add_argument("--json", action="store_true")
     p_inj.set_defaults(func=cmd_mcp_inject)
 
-    p_trd = sub.add_parser("trending", help="Fetch trending GitHub AI/MCP repos live")
+    p_trd = sub.add_parser("trending", aliases=["t"], help="Fetch trending GitHub AI/MCP repos live")
     p_trd.add_argument("--topic", "-t", default="")
     p_trd.add_argument("--days", "-d", type=int, default=14)
     p_trd.add_argument("--limit", "-n", type=int, default=8)
     p_trd.add_argument("--json", action="store_true")
     p_trd.set_defaults(func=cmd_trending)
 
-    p_sea = sub.add_parser("search", help="Search GitHub repositories live")
+    p_sea = sub.add_parser("search", aliases=["s"], help="Search GitHub repositories live")
     p_sea.add_argument("query")
     p_sea.add_argument("--sort", choices=["stars", "updated", "best-match"], default="stars")
     p_sea.add_argument("--limit", "-n", type=int, default=8)
     p_sea.add_argument("--json", action="store_true")
     p_sea.set_defaults(func=cmd_search)
 
-    p_ins = sub.add_parser("inspect", help="Inspect a GitHub repo metadata, files & README")
+    p_ins = sub.add_parser("inspect", aliases=["i"], help="Inspect a GitHub repo metadata, files & README")
     p_ins.add_argument("repo")
     p_ins.set_defaults(func=cmd_inspect)
 
-    p_fet = sub.add_parser("fetch", help="Fetch a raw file from a GitHub repo")
+    p_fet = sub.add_parser("fetch", aliases=["f"], help="Fetch a raw file from a GitHub repo")
     p_fet.add_argument("repo")
     p_fet.add_argument("file_path")
     p_fet.add_argument("--branch", "-b", default="")
     p_fet.add_argument("--max-chars", type=int, default=15000)
     p_fet.set_defaults(func=cmd_fetch)
 
-    p_pul = sub.add_parser("pull", help="Download and extract a GitHub repo ZIP without git")
+    p_pul = sub.add_parser("pull", aliases=["p"], help="Download and extract a GitHub repo ZIP without git")
     p_pul.add_argument("repo")
     p_pul.add_argument("--dest", "-d", default="./github_tools")
     p_pul.add_argument("--branch", "-b", default="")
     p_pul.set_defaults(func=cmd_pull)
 
-    p_skl = sub.add_parser("install-skill", help="Install a GitHub repo as a local SKILL.md")
+    p_skl = sub.add_parser("install-skill", aliases=["is"], help="Install a GitHub repo as a local SKILL.md")
     p_skl.add_argument("repo")
     p_skl.add_argument("--target", "-t", default=str(Path.home() / ".agents" / "skills"))
     p_skl.set_defaults(func=cmd_install_skill)
 
-    p_pub = sub.add_parser("publish", help="Publish the entire skill directly to GitHub via REST API (no git required)")
+    p_pub = sub.add_parser("publish", aliases=["pub"], help="Publish the entire skill directly to GitHub via REST API (no git required)")
     p_pub.add_argument("--repo", "-r", default="fazah-arsenal/github-ai-arsenal")
     p_pub.add_argument("--token", "-k", default="")
     p_pub.set_defaults(func=cmd_publish)
