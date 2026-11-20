@@ -1,0 +1,97 @@
+{
+  "version": "1.0.0",
+  "stacks": {
+    "saas-ai": {
+      "name": "Full-Stack AI SaaS Web App",
+      "name_ar": "تطبيق ويب AI SaaS متكامل",
+      "description": "Production web app with typed REST/WS backend, Postgres + Auth + pgvector, modern UI, and multi-LLM failover.",
+      "components": [
+        {"role": "Backend API", "repo": "fastapi/fastapi", "install": "pip install fastapi uvicorn"},
+        {"role": "Database & Auth", "repo": "supabase/supabase", "install": "npx supabase init"},
+        {"role": "Multi-LLM Router", "repo": "BerriAI/litellm", "install": "pip install litellm"},
+        {"role": "UI Components", "repo": "shadcn-ui/ui", "install": "npx shadcn@latest init"},
+        {"role": "Live Docs MCP", "repo": "upstash/context7", "install": "npx -y @upstash/context7-mcp"}
+      ]
+    },
+    "telegram-ai-bot": {
+      "name": "Autonomous Telegram AI Bot",
+      "name_ar": "بوت تليجرام ذكي بالصوت والذاكرة وكشط الويب",
+      "description": "Async Telegram bot with persistent semantic memory, Arabic/English voice transcription, and stealth web scraping.",
+      "components": [
+        {"role": "Bot Framework", "repo": "aiogram/aiogram", "install": "pip install aiogram"},
+        {"role": "LLM Gateway", "repo": "BerriAI/litellm", "install": "pip install litellm"},
+        {"role": "Long-Term Memory", "repo": "mem0ai/mem0", "install": "pip install mem0ai"},
+        {"role": "Voice STT (Arabic/EN)", "repo": "SYSTRAN/faster-whisper", "install": "pip install faster-whisper"},
+        {"role": "Web Scraper", "repo": "D4Vinci/Scrapling", "install": "pip install scrapling"}
+      ]
+    },
+    "scraping-rag": {
+      "name": "Web Scraping & Local Knowledge Graph RAG",
+      "name_ar": "منظومة كشط ويب وبناء قاعدة معرفة RAG محلية",
+      "description": "Crawl JS-heavy websites, convert PDF/Office docs to Markdown, and index into a local Graph + Vector RAG.",
+      "components": [
+        {"role": "LLM Web Crawler", "repo": "unclecode/crawl4ai", "install": "pip install crawl4ai"},
+        {"role": "Stealth Scraper", "repo": "D4Vinci/Scrapling", "install": "pip install scrapling"},
+        {"role": "PDF/Office Converter", "repo": "microsoft/markitdown", "install": "pip install markitdown"},
+        {"role": "Graph RAG", "repo": "HKUDS/LightRAG", "install": "pip install lightrag-hku"},
+        {"role": "Vector Database", "repo": "qdrant/qdrant", "install": "pip install qdrant-client"}
+      ]
+    },
+    "security-pentest-lab": {
+      "name": "Authorized Security & Code Audit Lab",
+      "name_ar": "معمل فحص الأمان والكود والثغرات",
+      "description": "Complete SAST code audit, secret/API-key leak hunting, HTTP probing, and HTTPS traffic inspection.",
+      "components": [
+        {"role": "Static Code Audit", "repo": "semgrep/semgrep", "install": "pip install semgrep"},
+        {"role": "Secret Scanner", "repo": "gitleaks/gitleaks", "install": "winget install Gitleaks.Gitleaks"},
+        {"role": "Vulnerability Templates", "repo": "projectdiscovery/nuclei", "install": "go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest"},
+        {"role": "HTTP Prober", "repo": "projectdiscovery/httpx", "install": "go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest"},
+        {"role": "HTTPS Traffic Proxy", "repo": "mitmproxy/mitmproxy", "install": "pip install mitmproxy"}
+      ]
+    },
+    "reverse-engineering-lab": {
+      "name": "Reverse Engineering & Decompilation Lab",
+      "name_ar": "معمل الهندسة العكسية وفك التطبيقات (EXE / ASAR / APK)",
+      "description": "Inspect Electron app.asar, native binaries, Android APKs, and live API traffic with agentic assistance.",
+      "components": [
+        {"role": "Agentic Reverse Eng", "repo": "morluto/rea", "install": "npm i -g reverse-engineer-anything"},
+        {"role": "Android APK/DEX", "repo": "skylot/jadx", "install": "winget install skylot.jadx"},
+        {"role": "HTTPS Interceptor", "repo": "mitmproxy/mitmproxy", "install": "pip install mitmproxy"},
+        {"role": "Ultra-Fast Search", "repo": "BurntSushi/ripgrep", "install": "winget install BurntSushi.ripgrep.MSVC"}
+      ]
+    },
+    "desktop-app": {
+      "name": "Modern Lightweight Desktop App",
+      "name_ar": "تطبيق سطح مكتب عصري وخفيف (Windows / Cross-Platform)",
+      "description": "Build fast native desktop apps with either Rust/Tauri webview or pure Python CustomTkinter.",
+      "components": [
+        {"role": "Webview Native Shell", "repo": "tauri-apps/tauri", "install": "npm create tauri-app@latest"},
+        {"role": "Python Dark GUI", "repo": "TomSchimansky/CustomTkinter", "install": "pip install customtkinter"},
+        {"role": "Local API Server", "repo": "fastapi/fastapi", "install": "pip install fastapi uvicorn"},
+        {"role": "Icons", "repo": "lucide-icons/lucide", "install": "npm install lucide-react"}
+      ]
+    },
+    "voice-ai-agent": {
+      "name": "Local Voice AI Assistant (STT + LLM + TTS)",
+      "name_ar": "مساعد صوتي ذكي محلي بالكامل",
+      "description": "Low-latency speech-to-text, LLM reasoning, and natural local text-to-speech synthesis.",
+      "components": [
+        {"role": "Speech-to-Text", "repo": "SYSTRAN/faster-whisper", "install": "pip install faster-whisper"},
+        {"role": "Local TTS Voice", "repo": "hexgrad/kokoro", "install": "pip install kokoro"},
+        {"role": "Local/Cloud LLM", "repo": "BerriAI/litellm", "install": "pip install litellm"},
+        {"role": "Offline Models", "repo": "ollama/ollama", "install": "winget install Ollama.Ollama"}
+      ]
+    },
+    "mcp-builder": {
+      "name": "Custom MCP Server & Agent Toolsmith",
+      "name_ar": "بناء خوادم MCP وأدوات وكلاء الذكاء الاصطناعي",
+      "description": "Create custom Python MCP servers and integrate official GitHub, Playwright, and Context7 MCPs.",
+      "components": [
+        {"role": "Python MCP SDK", "repo": "jlowin/fastmcp", "install": "pip install fastmcp"},
+        {"role": "Official MCP Suite", "repo": "modelcontextprotocol/servers", "install": "npx -y @modelcontextprotocol/server-filesystem ."},
+        {"role": "Browser MCP", "repo": "microsoft/playwright-mcp", "install": "npx -y @playwright/mcp@latest"},
+        {"role": "Docs MCP", "repo": "upstash/context7", "install": "npx -y @upstash/context7-mcp"}
+      ]
+    }
+  }
+}
