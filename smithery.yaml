@@ -1,4 +1,4 @@
-# Smithery.ai MCP Registry Configuration for FAZAH AI Arsenal v5.0
+# Smithery.ai MCP Registry Configuration for FAZAH AI Arsenal v6.5
 # https://smithery.ai
 startCommand:
   type: stdio
