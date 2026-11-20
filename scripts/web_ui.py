@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-FAZAH AI Arsenal v5.0 — Zero-Dependency Interactive Local Web UI (`fazah ui`)
+FAZAH AI Arsenal v6.5 — Zero-Dependency Interactive Local Web UI (`fazah ui`)
 Runs on pure Python stdlib (http.server) with instant live search across 20,078+ GitHub tools,
 Deep Security Scanner, Quickstart generator, and 8 Turnkey Project Stacks.
 """
@@ -254,7 +254,7 @@ class ArsenalUIHandler(BaseHTTPRequestHandler):
 def run_ui(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True) -> None:
     server = ThreadingHTTPServer((host, port), ArsenalUIHandler)
     url = f"http://{host}:{port}"
-    print(f"⚡ FAZAH AI Arsenal v5.0 Web UI running at {url} (Press Ctrl+C to stop)")
+    print(f"⚡ FAZAH AI Arsenal v6.5 Web UI running at {url} (Press Ctrl+C to stop)")
     if open_browser:
         try:
             webbrowser.open(url)
