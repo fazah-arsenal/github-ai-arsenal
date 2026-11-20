@@ -29,7 +29,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import gh_arsenal as arsenal
 
-SERVER_INFO = {"name": "github-ai-arsenal", "version": "5.0.0"}
+SERVER_INFO = {"name": "github-ai-arsenal", "version": "6.0.0"}
 PROTOCOL_VERSION = "2024-11-05"
 
 MCP_TOOLS: List[Dict[str, Any]] = [
@@ -181,6 +181,70 @@ MCP_TOOLS: List[Dict[str, Any]] = [
             "properties": {"path": {"type": "string", "default": "."}},
         },
     },
+    {
+        "name": "arsenal_give_tool",
+        "description": "1-Call Autonomous Tool Broker: give me any task in English or Arabic and I will return the #1 GitHub tool from 20,078+ repos, its supply-chain security scan, install command, extracted code snippet, and optionally auto-pull it.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "task": {"type": "string", "description": "What you need the tool to do (English or Arabic)"},
+                "auto_pull": {"type": "boolean", "default": False},
+                "dest": {"type": "string", "default": "./github_tools"},
+            },
+            "required": ["task"],
+        },
+    },
+    {
+        "name": "arsenal_get_snippet",
+        "description": "Extract clean, runnable code snippets directly from any GitHub repo README without downloading the whole README (saves 85% tokens).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "repo": {"type": "string"},
+                "max_blocks": {"type": "integer", "default": 4},
+            },
+            "required": ["repo"],
+        },
+    },
+    {
+        "name": "arsenal_memory",
+        "description": "Agent experience memory: log, list, or clear verified working/failed GitHub tools on this machine so future calls remember what works best.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "action": {"type": "string", "default": "list"},
+                "repo": {"type": "string", "default": ""},
+                "task": {"type": "string", "default": ""},
+                "outcome": {"type": "string", "default": "success"},
+                "note": {"type": "string", "default": ""},
+            },
+        },
+    },
+]
+
+MCP_RESOURCES: List[Dict[str, Any]] = [
+    {"uri": "arsenal://stats", "name": "Index Statistics (20,078+ Tools)", "mimeType": "application/json"},
+    {"uri": "arsenal://stacks", "name": "8 Turnkey Project Stacks", "mimeType": "application/json"},
+    {"uri": "arsenal://bookmarks", "name": "Saved Favorite Tools", "mimeType": "application/json"},
+    {"uri": "arsenal://memory", "name": "Agent Experience Memory", "mimeType": "application/json"},
+]
+
+MCP_PROMPTS: List[Dict[str, Any]] = [
+    {
+        "name": "fazah-give-tool",
+        "description": "Ask FAZAH AI Arsenal to pick, security-scan, and deliver the #1 GitHub tool with runnable code for a task.",
+        "arguments": [{"name": "task", "description": "Task description", "required": True}],
+    },
+    {
+        "name": "fazah-build-stack",
+        "description": "Scaffold a complete production project from one of the 8 FAZAH AI Arsenal blueprints.",
+        "arguments": [{"name": "stack", "description": "Stack ID (e.g. saas-ai, telegram-ai-bot)", "required": True}],
+    },
+    {
+        "name": "fazah-security-audit",
+        "description": "Run both Trust Score audit and Deep Supply-Chain Scan on a GitHub repository before installing it.",
+        "arguments": [{"name": "repo", "description": "owner/repo", "required": True}],
+    },
 ]
 
 
@@ -221,6 +285,20 @@ def _call_tool(name: str, args: Dict[str, Any]) -> Dict[str, Any]:
         return arsenal.deep_scan_repo_data(args["repo"])
     if name == "arsenal_analyze_project":
         return arsenal.analyze_project_data(args.get("path", "."))
+    if name == "arsenal_give_tool":
+        return arsenal.give_tool_data(
+            args["task"], auto_pull=bool(args.get("auto_pull", False)), dest=args.get("dest", "./github_tools")
+        )
+    if name == "arsenal_get_snippet":
+        return arsenal.snippet_repo_data(args["repo"], max_blocks=int(args.get("max_blocks") or 4))
+    if name == "arsenal_memory":
+        return arsenal.memory_data(
+            args.get("action", "list"),
+            args.get("repo", ""),
+            args.get("task", ""),
+            args.get("outcome", "success"),
+            args.get("note", ""),
+        )
     raise ValueError(f"Unknown MCP tool: {name}")
 
 
@@ -240,7 +318,7 @@ def handle_message(msg: Dict[str, Any]) -> None:
             "id": req_id,
             "result": {
                 "protocolVersion": PROTOCOL_VERSION,
-                "capabilities": {"tools": {}},
+                "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
                 "serverInfo": SERVER_INFO,
             },
         })
@@ -255,6 +333,52 @@ def handle_message(msg: Dict[str, Any]) -> None:
 
     if method == "tools/list":
         _send({"jsonrpc": "2.0", "id": req_id, "result": {"tools": MCP_TOOLS}})
+        return
+
+    if method == "resources/list":
+        _send({"jsonrpc": "2.0", "id": req_id, "result": {"resources": MCP_RESOURCES}})
+        return
+
+    if method == "resources/read":
+        uri = params.get("uri", "")
+        if uri == "arsenal://stats":
+            mega = arsenal.load_mega_index()
+            payload = {"mega_index_total": mega.get("total_tools", 0), "categories": mega.get("categories", {})}
+        elif uri == "arsenal://stacks":
+            payload = arsenal.stack_data("list")
+        elif uri == "arsenal://bookmarks":
+            payload = arsenal.bookmark_data("list")
+        elif uri == "arsenal://memory":
+            payload = arsenal.memory_data("list")
+        else:
+            payload = {"error": f"Unknown resource URI: {uri}"}
+        _send({
+            "jsonrpc": "2.0",
+            "id": req_id,
+            "result": {"contents": [{"uri": uri, "mimeType": "application/json", "text": json.dumps(payload, ensure_ascii=False, indent=2)}]},
+        })
+        return
+
+    if method == "prompts/list":
+        _send({"jsonrpc": "2.0", "id": req_id, "result": {"prompts": MCP_PROMPTS}})
+        return
+
+    if method == "prompts/get":
+        p_name = params.get("name", "")
+        p_args = params.get("arguments") or {}
+        if p_name == "fazah-give-tool":
+            text = f"Call the `arsenal_give_tool` MCP tool with task='{p_args.get('task', '')}' and deliver the verified #1 GitHub tool, security scan, install command, and runnable code snippet."
+        elif p_name == "fazah-build-stack":
+            text = f"Call `arsenal_scaffold_stack` with name='{p_args.get('stack', 'saas-ai')}' and guide the user through launching it."
+        elif p_name == "fazah-security-audit":
+            text = f"Call both `arsenal_audit_repo` and `arsenal_deep_scan` on '{p_args.get('repo', '')}' and summarize all security findings before installing."
+        else:
+            text = f"Use FAZAH AI Arsenal tools to assist with: {p_name}"
+        _send({
+            "jsonrpc": "2.0",
+            "id": req_id,
+            "result": {"messages": [{"role": "user", "content": {"type": "text", "text": text}}]},
+        })
         return
 
     if method == "tools/call":
