@@ -8,6 +8,7 @@
 ### **Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) — 20,078+ GitHub Tools, 1-Call Delivery (`fazah g`), Code Snippet Extractor, Isolated Sandbox, Local Web UI & Security Scanner**
 
 [![PyPI](https://img.shields.io/pypi/v/fazah-arsenal?color=38bdf8&style=for-the-badge&logo=pypi)](https://pypi.org/project/fazah-arsenal/)
+[![Docker](https://img.shields.io/badge/Docker%20Hub-fazaharsenal-2496ed?style=for-the-badge&logo=docker)](https://hub.docker.com/r/fazaharsenal/github-ai-arsenal)
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
 [![Live Site](https://img.shields.io/badge/Live%20Website-GitHub%20Pages-0ea5e9?style=for-the-badge)](https://fazah-arsenal.github.io/github-ai-arsenal/)
 [![MCP Server](https://img.shields.io/badge/Native%20MCP-17%20Tools%20%2B%20Prompts%20%2B%20Resources-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
@@ -73,6 +74,11 @@ pip install fazah-arsenal
 *Or run any command immediately without installing via `uvx`:*
 ```bash
 uvx fazah-arsenal doctor
+```
+
+### 🐳 Docker (Instant Containerized MCP Server)
+```bash
+docker run -i --rm fazaharsenal/github-ai-arsenal
 ```
 
 ### Windows (PowerShell Installer)
