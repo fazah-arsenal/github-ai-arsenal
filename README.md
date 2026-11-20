@@ -120,54 +120,30 @@ python scripts/gh_arsenal.py mcp-inject github-ai-arsenal
 
 ---
 
-## 🛠️ دليل أوامر الـ CLI الكامل (`scripts/gh_arsenal.py`)
+## 🛠️ دليل الأوامر القصيرة الفورية (`fazah` CLI)
+
+بعد التثبيت، يمكنك تشغيل أي أمر بكلمة **`fazah`** مع اختصارات فائقة السرعة:
 
 ```bash
-# 1. فحص جاهزية الجهاز واللغات والمهارات المثبتة
-python scripts/gh_arsenal.py doctor
-
-# 2. عرض إحصائيات الـ 20,078+ أداة موزعة على 37 تخصصاً
-python scripts/gh_arsenal.py stats
-
-# 3. ترشيح الأدوات باللغة العربية أو الإنجليزية
-python scripts/gh_arsenal.py recommend "بوت تليجرام ذكي مع كشط مواقع وتفريغ صوتي"
-python scripts/gh_arsenal.py recommend "reverse engineering android apk and electron asar"
-
-# 4. بحث أوفلاين فوري في +20,000 أداة
-python scripts/gh_arsenal.py mega --query "postgres vector" --limit 10
-python scripts/gh_arsenal.py mega --category security-pentest --limit 15
-
-# 5. معرفة طريقة تثبيت وتشغيل أي مستودع فوراً
-python scripts/gh_arsenal.py quickstart unclecode/crawl4ai
-
-# 6. مقارنة مستودعين أو أكثر لاختيار الأفضل
-python scripts/gh_arsenal.py compare unclecode/crawl4ai mendableai/firecrawl
-
-# 7. فحص الأمان ودرجة الموثوقية (Trust Score 0-100)
-python scripts/gh_arsenal.py audit-repo modelcontextprotocol/servers
-
-# 8. استعراض أو بناء مشروع متكامل من الحزم الجاهزة
-python scripts/gh_arsenal.py stack list
-python scripts/gh_arsenal.py stack saas-ai --scaffold ./my-saas-project
-
-# 9. إدارة قائمة الأدوات المفضلة (Bookmarks)
-python scripts/gh_arsenal.py bookmark add unclecode/crawl4ai --note "أفضل أداة كشط للـ LLM"
-python scripts/gh_arsenal.py bookmark list
-
-# 10. طباعة أو حقن إعدادات خوادم الـ MCP الشهيرة
-python scripts/gh_arsenal.py mcp-config list
-python scripts/gh_arsenal.py mcp-inject github-ai-arsenal
-
-# 11. استكشاف المشاريع الصاعدة والبحث المباشر على GitHub
-python scripts/gh_arsenal.py trending --topic "mcp" --days 14
-python scripts/gh_arsenal.py search "deepseek agent" --sort stars
-
-# 12. فحص أو سحب ملف أو تنزيل مستودع كامل بدون Git
-python scripts/gh_arsenal.py inspect danielmiessler/fabric
-python scripts/gh_arsenal.py fetch danielmiessler/fabric README.md
-python scripts/gh_arsenal.py pull unclecode/crawl4ai --dest ./github_tools
-python scripts/gh_arsenal.py install-skill anthropics/skills
+fazah doc                                  # فحص جاهزية الجهاز واللغات والمهارات
+fazah info                                 # عرض إحصائيات الـ 20,078+ أداة (37 تخصصاً)
+fazah r "بوت تليجرام وكشط مواقع"           # ترشيح أفضل الأدوات (عربي أو إنجليزي)
+fazah m -q "postgres vector" -n 10         # بحث أوفلاين BM25 في +20,078 أداة
+fazah q unclecode/crawl4ai                 # معرفة أوامر التثبيت والتشغيل فوراً
+fazah a modelcontextprotocol/servers       # فحص الأمان ودرجة الموثوقية (Trust Score)
+fazah cmp unclecode/crawl4ai mendableai/firecrawl   # مقارنة أداتين جنباً إلى جنب
+fazah st list                              # عرض حزم المشاريع الجاهزة
+fazah st saas-ai -s ./my-saas-app          # بناء مشروع متكامل بضغطة زر
+fazah bm add unclecode/crawl4ai -m "أفضل كاشط"      # حفظ أداة في المفضلة
+fazah mi github-ai-arsenal                 # حقن سيرفر الـ MCP تلقائياً في .mcp.json
+fazah t -t mcp                             # أحدث المشاريع الصاعدة على GitHub
+fazah s "deepseek agent"                   # بحث مباشر على GitHub
+fazah i danielmiessler/fabric              # فحص ملفات مستودع بدون تحميله
+fazah p unclecode/crawl4ai -d ./tools      # تنزيل مستودع كامل بدون Git
+fazah is anthropics/skills                 # تثبيت مستودع كمهارة AI فوراً
 ```
+
+*(تعمل الأوامر الكاملة أيضاً مثل `fazah recommend` أو `python scripts/gh_arsenal.py recommend` بنفس الكفاءة).*
 
 ---
 
