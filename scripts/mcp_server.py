@@ -29,7 +29,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import gh_arsenal as arsenal
 
-SERVER_INFO = {"name": "github-ai-arsenal", "version": "4.0.0"}
+SERVER_INFO = {"name": "github-ai-arsenal", "version": "5.0.0"}
 PROTOCOL_VERSION = "2024-11-05"
 
 MCP_TOOLS: List[Dict[str, Any]] = [
@@ -164,6 +164,23 @@ MCP_TOOLS: List[Dict[str, Any]] = [
             "required": ["server"],
         },
     },
+    {
+        "name": "arsenal_deep_scan",
+        "description": "Deep supply-chain security scan of a GitHub repo's install/build files (setup.py, package.json, install.sh, Dockerfile) for malicious patterns (curl|sh, eval, webhooks, postinstall hooks).",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"repo": {"type": "string"}},
+            "required": ["repo"],
+        },
+    },
+    {
+        "name": "arsenal_analyze_project",
+        "description": "Analyze a local project directory (package.json, requirements.txt, Cargo.toml, etc.) and recommend the best missing GitHub tools & MCP servers from the 20,078+ index.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"path": {"type": "string", "default": "."}},
+        },
+    },
 ]
 
 
@@ -200,6 +217,10 @@ def _call_tool(name: str, args: Dict[str, Any]) -> Dict[str, Any]:
         )
     if name == "arsenal_mcp_inject":
         return arsenal.mcp_inject_data(args["server"], args.get("target", ""))
+    if name == "arsenal_deep_scan":
+        return arsenal.deep_scan_repo_data(args["repo"])
+    if name == "arsenal_analyze_project":
+        return arsenal.analyze_project_data(args.get("path", "."))
     raise ValueError(f"Unknown MCP tool: {name}")
 
 
