@@ -48,4 +48,19 @@ if ($TempExtract -and (Test-Path $TempExtract)) {
     Remove-Item $TempExtract -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-Write-Host "Installed $SkillName (20,000+ GitHub tools & Native MCP Server) successfully!" -ForegroundColor Green
+# Install short global CLI command: `fazah`
+$BinDir = Join-Path $env:USERPROFILE ".local\bin"
+New-Item -ItemType Directory -Path $BinDir -Force | Out-Null
+$FazahCmd = Join-Path $BinDir "fazah.cmd"
+$MainScript = Join-Path $env:USERPROFILE ".agents\skills\$SkillName\scripts\gh_arsenal.py"
+"@echo off`r`npython `"$MainScript`" %*" | Set-Content -Path $FazahCmd -Encoding ASCII
+
+$UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if (-not $UserPath -or ($UserPath -notlike "*$BinDir*")) {
+    $NewPath = if ($UserPath) { "$UserPath;$BinDir" } else { $BinDir }
+    [Environment]::SetEnvironmentVariable("Path", $NewPath, "User")
+    $env:Path = "$env:Path;$BinDir"
+}
+
+Write-Host "Installed $SkillName (20,078+ GitHub tools, Native MCP Server & short 'fazah' CLI) successfully!" -ForegroundColor Green
+Write-Host "Try now: fazah doc | fazah r `"telegram bot`" | fazah m -q `"postgres`"" -ForegroundColor Yellow
