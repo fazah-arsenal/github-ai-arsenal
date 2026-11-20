@@ -114,7 +114,39 @@ class TestGitHubAIArsenal(unittest.TestCase):
         dg = json.loads(proc_g.stdout)
         self.assertIn("delivered_tool", dg)
         self.assertIn("security_scan", dg)
+        self.assertIn("self_healing", dg)
         self.assertGreaterEqual(len(dg["verified_in_memory"]), 1)
+
+    def test_adaptive_error_learning_and_self_healing(self):
+        # 1. Teach Arsenal about a broken tool and its alternative
+        proc_l = self._run_cli(
+            "memory", "learn", "bogus/broken-scraper",
+            "--task", "scraping",
+            "--outcome", "failed",
+            "--error", "ModuleNotFoundError: No module named 'libxml2'",
+            "--fix", "Use unclecode/crawl4ai which is pure python",
+            "--alt", "unclecode/crawl4ai",
+            "--json"
+        )
+        self.assertEqual(proc_l.returncode, 0, proc_l.stderr)
+        dl = json.loads(proc_l.stdout)
+        self.assertEqual(dl["action"], "learned")
+        self.assertEqual(dl["entry"]["error_type"], "missing_dependency")
+        self.assertGreaterEqual(dl["entry"]["fail_count"], 1)
+
+        # 2. Query recorded mistakes
+        proc_mis = self._run_cli("memory", "mistakes", "--json")
+        self.assertEqual(proc_mis.returncode, 0, proc_mis.stderr)
+        dmis = json.loads(proc_mis.stdout)
+        self.assertGreaterEqual(dmis["count"], 1)
+        self.assertTrue(any(m["repo"] == "bogus/broken-scraper" for m in dmis["mistakes"]))
+
+        # 3. Test recommendation surfaces the learned fix and penalizes the failing tool
+        proc_rec = self._run_cli("recommend", "scraping", "--json")
+        self.assertEqual(proc_rec.returncode, 0, proc_rec.stderr)
+        drec = json.loads(proc_rec.stdout)
+        self.assertIn("learned_replacements", drec)
+        self.assertTrue(any(r["failed_repo"] == "bogus/broken-scraper" for r in drec["learned_replacements"]))
 
     def test_native_mcp_server_stdio(self):
         # Simulate stdio JSON-RPC handshake, tools, resources & prompts listing
