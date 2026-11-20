@@ -1209,7 +1209,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_skl.set_defaults(func=cmd_install_skill)
 
     p_pub = sub.add_parser("publish", help="Publish the entire skill directly to GitHub via REST API (no git required)")
-    p_pub.add_argument("--repo", "-r", default="mhamadabdalla150150-blip/github-ai-arsenal")
+    p_pub.add_argument("--repo", "-r", default="fazah-arsenal/github-ai-arsenal")
     p_pub.add_argument("--token", "-k", default="")
     p_pub.set_defaults(func=cmd_publish)
 
