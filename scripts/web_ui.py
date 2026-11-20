@@ -246,6 +246,14 @@ class ArsenalUIHandler(BaseHTTPRequestHandler):
                 repo = (qs.get("repo") or [""])[0]
                 self._send_json(arsenal.quickstart_repo_data(repo))
                 return
+            if parsed.path == "/api/recommend":
+                task = (qs.get("task") or qs.get("q") or [""])[0]
+                self._send_json(arsenal.recommend_data(task))
+                return
+            if parsed.path == "/api/memory":
+                action = (qs.get("action") or ["list"])[0]
+                self._send_json(arsenal.memory_data(action=action))
+                return
             self._send_json({"error": "Not found"}, 404)
         except Exception as exc:
             self._send_json({"error": str(exc)}, 500)
