@@ -4,3 +4,8 @@ __pycache__/
 Thumbs.db
 github_tools/
 .venv/
+.fazah_sandbox/
+dist/
+build/
+*.egg-info/
+*.bak
