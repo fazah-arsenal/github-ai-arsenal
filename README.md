@@ -7,6 +7,7 @@
 # ⚡ FAZAH AI Arsenal v6.5 (`github-ai-arsenal`)
 ### **Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) — 20,078+ GitHub Tools, 1-Call Delivery (`fazah g`), Code Snippet Extractor, Isolated Sandbox, Local Web UI & Security Scanner**
 
+[![PyPI](https://img.shields.io/pypi/v/fazah-arsenal?color=38bdf8&style=for-the-badge&logo=pypi)](https://pypi.org/project/fazah-arsenal/)
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
 [![Live Site](https://img.shields.io/badge/Live%20Website-GitHub%20Pages-0ea5e9?style=for-the-badge)](https://fazah-arsenal.github.io/github-ai-arsenal/)
 [![MCP Server](https://img.shields.io/badge/Native%20MCP-17%20Tools%20%2B%20Prompts%20%2B%20Resources-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
@@ -65,9 +66,16 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 ## ⚡ 1-Command Installation
 
-Installs the Universal Skill into `~/.agents/skills`, `~/.gemini/config/skills` (plus Claude/Cursor/Codex if present) and registers the global **`fazah`** CLI command automatically:
+### 🐍 PyPI (Cross-Platform — Recommended)
+```bash
+pip install fazah-arsenal
+```
+*Or run any command immediately without installing via `uvx`:*
+```bash
+uvx fazah-arsenal doctor
+```
 
-### Windows (PowerShell)
+### Windows (PowerShell Installer)
 ```powershell
 irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex
 ```
@@ -85,7 +93,7 @@ curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/ma
 
 Inject automatically into your workspace `.mcp.json`:
 ```bash
-fazah mi github-ai-arsenal
+fazah mi arsenal
 ```
 
 Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, Windsurf, DeepSeek):
