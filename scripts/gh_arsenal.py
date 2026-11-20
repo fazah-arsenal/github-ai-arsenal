@@ -1270,6 +1270,36 @@ def cmd_try(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_update(args: argparse.Namespace) -> int:
+    slug = parse_repo_slug(args.repo)
+    url = f"https://api.github.com/repos/{slug}/zipball/{args.branch}"
+    st, raw = _http_get_bytes(url, timeout=45)
+    if st != 200:
+        print(f"Update failed (HTTP {st}) from {url}", file=sys.stderr)
+        return 1
+    updated_count = 0
+    allowed_prefixes = ("scripts/", "references/", "SKILL.md", "README.md")
+    with zipfile.ZipFile(io.BytesIO(raw)) as zf:
+        members = zf.namelist()
+        top_prefix = members[0].split("/")[0] + "/" if members and "/" in members[0] else ""
+        for member in members:
+            if member.endswith("/"):
+                continue
+            rel = member[len(top_prefix):] if top_prefix and member.startswith(top_prefix) else member
+            if not rel or ".." in Path(rel).parts or not rel.startswith(allowed_prefixes):
+                continue
+            out_path = (SKILL_ROOT / rel).resolve()
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            with zf.open(member) as src, open(out_path, "wb") as dst:
+                shutil.copyfileobj(src, dst)
+            updated_count += 1
+    mega = load_mega_index()
+    print(f"⚡ FAZAH AI Arsenal updated successfully from {slug}@{args.branch}!")
+    print(f"   Files refreshed : {updated_count}")
+    print(f"   Indexed tools   : {mega.get('total_tools', 0):,}+")
+    return 0
+
+
 def cmd_audit_repo(args: argparse.Namespace) -> int:
     res = audit_repo_data(args.repo)
     if args.json:
@@ -1636,6 +1666,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_try.add_argument("--cmd", "-c", default="", help="Optional test command to run inside the sandbox")
     p_try.add_argument("--json", action="store_true")
     p_try.set_defaults(func=cmd_try)
+
+    p_upd = sub.add_parser("update", aliases=["up"], help="Self-update FAZAH AI Arsenal & its 20,078+ index directly from GitHub")
+    p_upd.add_argument("--repo", "-r", default="fazah-arsenal/github-ai-arsenal")
+    p_upd.add_argument("--branch", "-b", default="main")
+    p_upd.set_defaults(func=cmd_update)
 
     return p
 
