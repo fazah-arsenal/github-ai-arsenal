@@ -1,4 +1,4 @@
-# ⚡ FAZAH AI Arsenal v4.0 — Short CLI Quickstart
+# ⚡ FAZAH AI Arsenal v6.5 — Short CLI Quickstart
 > Official Repository: [github.com/fazah-arsenal/github-ai-arsenal](https://github.com/fazah-arsenal/github-ai-arsenal)  
 > Developer: **FAZAH** | Telegram: [@testtttttttt11222](https://t.me/testtttttttt11222)
 
