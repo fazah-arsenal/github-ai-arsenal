@@ -42,44 +42,20 @@ Exposed MCP Tools:
 
 ---
 
-## 2. Bundled CLI Commands (`scripts/gh_arsenal.py`)
+## 2. Short CLI Commands (`fazah` or `python scripts/gh_arsenal.py`)
 
 ```bash
-# Check local runtimes & index health
-python scripts/gh_arsenal.py doctor
-
-# Show breakdown of 20,078+ tools across 37 domains
-python scripts/gh_arsenal.py stats
-
-# Smart Arabic/English recommender
-python scripts/gh_arsenal.py recommend "بوت تليجرام مع كشط ويب وذاكرة"
-python scripts/gh_arsenal.py recommend "security audit, SAST, and reverse engineering"
-
-# Instant offline BM25 search across 20,078+ tools
-python scripts/gh_arsenal.py mega --query "postgres vector" --limit 10
-
-# Auto-detect how to install & run any GitHub repo
-python scripts/gh_arsenal.py quickstart unclecode/crawl4ai
-
-# Compare competing repositories side-by-side
-python scripts/gh_arsenal.py compare unclecode/crawl4ai mendableai/firecrawl
-
-# Security & Trust Score (0-100) audit
-python scripts/gh_arsenal.py audit-repo modelcontextprotocol/servers
-
-# List or scaffold a turnkey project stack
-python scripts/gh_arsenal.py stack list
-python scripts/gh_arsenal.py stack saas-ai --scaffold ./my-saas-app
-
-# Bookmark favorite tools
-python scripts/gh_arsenal.py bookmark add unclecode/crawl4ai --note "Best LLM scraper"
-python scripts/gh_arsenal.py bookmark list
-
-# Inject MCP config into .mcp.json
-python scripts/gh_arsenal.py mcp-inject github-ai-arsenal
-
-# Inspect, fetch, pull without git, or install as skill
-python scripts/gh_arsenal.py inspect danielmiessler/fabric
-python scripts/gh_arsenal.py pull unclecode/crawl4ai --dest ./github_tools
-python scripts/gh_arsenal.py install-skill anthropics/skills
+fazah doc                                  # Check local runtimes & index health
+fazah info                                 # Breakdown of 20,078+ tools across 37 domains
+fazah r "بوت تليجرام وكشط مواقع"           # Smart Arabic/English recommender
+fazah m -q "postgres vector" -n 10         # Instant offline BM25 search
+fazah q unclecode/crawl4ai                 # Auto-detect install & run commands
+fazah cmp unclecode/crawl4ai mendableai/firecrawl   # Side-by-side repo comparison
+fazah a modelcontextprotocol/servers       # Security & Trust Score (0-100) audit
+fazah st saas-ai -s ./my-saas-app          # Scaffold turnkey project stack
+fazah bm add unclecode/crawl4ai -m "Best"  # Bookmark favorite tools
+fazah mi github-ai-arsenal                 # Inject MCP config into .mcp.json
+fazah i danielmiessler/fabric              # Inspect repo without cloning
+fazah p unclecode/crawl4ai -d ./tools      # Pull repo ZIP without git
+fazah is anthropics/skills                 # Install repo as local Agent Skill
 ```
