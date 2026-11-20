@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fazah-arsenal"
-version = "6.0.0"
-description = "FAZAH AI Arsenal v5.0 — 20,078+ Curated GitHub Tools, 14-Tool Native MCP Server, Deep Security Scanner, Local Web UI & Project Advisor"
+version = "6.5.0"
+description = "FAZAH AI Arsenal v6.5 — 20,078+ Curated GitHub Tools, 17-Tool Native MCP Server (+ Prompts & Resources), 1-Call Tool Broker, Deep Security Scanner, Local Web UI & Project Advisor"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
