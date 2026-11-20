@@ -47,7 +47,7 @@ SKILL_ROOT = Path(__file__).resolve().parent.parent
 CATALOG_PATH = SKILL_ROOT / "references" / "catalog.json"
 MEGA_INDEX_PATH = SKILL_ROOT / "references" / "mega_index.json.gz"
 STACKS_PATH = SKILL_ROOT / "references" / "stacks.json"
-USER_AGENT = "GitHub-AI-Arsenal-Skill/3.0"
+USER_AGENT = "FAZAH-AI-Arsenal/4.0"
 
 SYNONYM_MAP: Dict[str, List[str]] = {
     # English abbreviations & developer slang
@@ -719,7 +719,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
         _print_json(report)
         return 0
 
-    print("=== GitHub AI Arsenal v3.0 Doctor ===")
+    print("=== FAZAH AI Arsenal v4.0 Doctor (github.com/fazah-arsenal/github-ai-arsenal) ===")
     print(f"Core Elite Tools : {report['core_elite_tools']}")
     print(f"Mega Index Tools : {report['mega_index_tools']:,} (across {report['mega_index_categories']} domains)")
     print(f"Project Stacks   : {report['project_stacks']} ready blueprints")
