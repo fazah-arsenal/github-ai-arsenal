@@ -11,7 +11,7 @@
 
   <!-- Terminal Body -->
   <g font-family="Consolas, 'Courier New', monospace" font-size="14">
-    <text x="28" y="74" fill="#38bdf8">$ fazah r "بوت تليجرام ذكي وكشط مواقع"</text>
+    <text x="28" y="74" fill="#38bdf8">$ fazah r "telegram bot and stealth web scraping"</text>
     <text x="28" y="98" fill="#22c55e">[Core Elite Picks]</text>
     <text x="28" y="120" fill="#e6edf3">1. aiogram — https://github.com/aiogram/aiogram [bots-automation]  (pip install aiogram)</text>
     <text x="28" y="142" fill="#e6edf3">2. Crawl4AI — https://github.com/unclecode/crawl4ai [web-scraping-search]  (pip install crawl4ai)</text>
