@@ -11,7 +11,7 @@ metadata:
   compatible_with: "DeepSeek Harness, Antigravity, Claude Code, Codex, Cursor, Windsurf"
 ---
 
-# GitHub AI Arsenal v4.0 (`github-ai-arsenal`)
+# GitHub AI Arsenal v6.5 (`github-ai-arsenal`)
 
 **Developed by FAZAH** (`@testtttttttt11222` | `mhamadabdalla150150@gmail.com`)
 
