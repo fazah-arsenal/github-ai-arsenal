@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FAZAH AI Arsenal — 20,078+ GitHub Tools & 17-Tool Native MCP Server</title>
-<meta name="description" content="Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) giving Claude Code, Cursor, DeepSeek, Antigravity & Windsurf instant offline access to 20,078+ GitHub tools." />
+<title>FAZAH AI Arsenal — The Autonomous GitHub Toolbox & Native MCP Server</title>
+<meta name="description" content="Arm Claude Code, Cursor, Google Antigravity, DeepSeek Harness & Windsurf with 20,078+ curated GitHub tools, 17-tool Native MCP Server, Deep Supply-Chain Scanner & 1-Click Stack Scaffolder." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #030712;
-    --bg-elev: rgba(15, 23, 42, 0.65);
-    --card: rgba(15, 23, 42, 0.55);
-    --card-hover: rgba(30, 41, 59, 0.7);
-    --border: rgba(148, 163, 184, 0.14);
-    --border-hi: rgba(56, 189, 248, 0.45);
+    --bg: #02040a;
+    --surface: rgba(13, 19, 34, 0.72);
+    --surface-2: rgba(20, 29, 52, 0.82);
+    --border: rgba(148, 163, 184, 0.13);
     --cyan: #38bdf8;
+    --blue: #3b82f6;
     --indigo: #818cf8;
     --purple: #c084fc;
     --emerald: #34d399;
     --amber: #fbbf24;
+    --rose: #fb7185;
     --text: #f8fafc;
     --muted: #94a3b8;
     --dim: #64748b;
@@ -28,273 +28,314 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background-color: var(--bg);
+    background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
-    position: relative;
   }
-  /* Subtle Grid + Aurora Glow */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(56, 189, 248, 0.18), transparent),
-      radial-gradient(ellipse 60% 45% at 90% 10%, rgba(168, 85, 247, 0.14), transparent),
-      linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
-    pointer-events: none;
-    z-index: -1;
-  }
-  a { color: inherit; text-decoration: none; }
   code, pre { font-family: 'JetBrains Mono', Consolas, monospace; }
+  a { color: inherit; text-decoration: none; }
 
-  /* Navbar */
-  .nav-wrap {
-    position: sticky; top: 0; z-index: 50;
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    background: rgba(3, 7, 18, 0.72);
-    border-bottom: 1px solid var(--border);
+  /* Animated Particle Canvas + Aurora Orbs */
+  #bg-canvas {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    z-index: -2; pointer-events: none; opacity: 0.55;
+  }
+  .aurora {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60% 45% at 50% -10%, rgba(56, 189, 248, 0.22), transparent 70%),
+      radial-gradient(45% 40% at 88% 18%, rgba(168, 85, 247, 0.18), transparent 70%),
+      radial-gradient(40% 35% at 12% 60%, rgba(52, 211, 153, 0.10), transparent 70%);
+  }
+
+  /* Floating Glass Navbar */
+  .nav-shell {
+    position: sticky; top: 14px; z-index: 60;
+    max-width: 1160px; margin: 14px auto 0; padding: 0 20px;
   }
   nav {
-    max-width: 1200px; margin: 0 auto; padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 11px 20px; border-radius: 16px;
+    background: rgba(8, 13, 26, 0.72);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
   }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
-  .brand-icon {
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; letter-spacing: -0.02em; }
+  .brand-mark {
     width: 32px; height: 32px; border-radius: 9px;
-    background: linear-gradient(135deg, var(--cyan), var(--purple));
-    display: grid; place-items: center; font-size: 16px; box-shadow: 0 0 24px rgba(56,189,248,0.35);
+    background: linear-gradient(135deg, var(--cyan), var(--indigo), var(--purple));
+    display: grid; place-items: center; font-size: 16px;
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.45);
   }
-  .brand span { background: linear-gradient(90deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .nav-links { display: flex; gap: 26px; font-size: 14px; font-weight: 500; color: var(--muted); }
-  .nav-links a:hover { color: var(--text); }
-  .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .nav-links { display: flex; gap: 24px; font-size: 13.5px; font-weight: 500; color: var(--muted); }
+  .nav-links a { transition: color 0.15s; }
+  .nav-links a:hover { color: #fff; }
+  .nav-cta { display: flex; gap: 8px; align-items: center; }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 9px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
-    cursor: pointer; border: 1px solid transparent; transition: all 0.18s ease;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .btn-primary {
-    background: linear-gradient(135deg, #0ea5e9, #6366f1, #a855f7);
-    color: #fff; box-shadow: 0 4px 22px rgba(99, 102, 241, 0.35);
+  .btn-glow {
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 55%, #a855f7 100%);
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 8px 26px rgba(99, 102, 241, 0.4);
   }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(56, 189, 248, 0.45); }
-  .btn-outline {
-    background: rgba(15, 23, 42, 0.7); border-color: var(--border); color: var(--text);
+  .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(255,255,255,0.22) inset, 0 12px 34px rgba(56, 189, 248, 0.5); }
+  .btn-glass {
+    background: rgba(15, 23, 42, 0.65); border-color: rgba(148, 163, 184, 0.2); color: var(--text);
   }
-  .btn-outline:hover { border-color: rgba(148,163,184,0.4); background: rgba(30,41,59,0.8); }
+  .btn-glass:hover { background: rgba(30, 41, 59, 0.85); border-color: rgba(56, 189, 248, 0.45); }
 
-  /* Hero */
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-  .hero { padding: 72px 0 40px; text-align: center; }
-  .hero-badge {
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* HERO */
+  .hero { padding: 68px 0 36px; text-align: center; }
+  .pill-live {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.28);
-    color: #7dd3fc; font-size: 12.5px; font-weight: 600; margin-bottom: 22px;
+    padding: 6px 15px; border-radius: 999px; margin-bottom: 24px;
+    background: linear-gradient(90deg, rgba(56,189,248,0.12), rgba(168,85,247,0.12));
+    border: 1px solid rgba(56, 189, 248, 0.32);
+    font-size: 12.5px; font-weight: 600; color: #bae6fd;
   }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 10px var(--emerald); }
+  .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--emerald);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+  }
   .hero h1 {
-    font-size: clamp(36px, 5.6vw, 66px); font-weight: 900; letter-spacing: -0.04em;
-    line-height: 1.07; max-width: 920px; margin: 0 auto 20px;
+    font-size: clamp(38px, 6vw, 72px); font-weight: 900; letter-spacing: -0.045em;
+    line-height: 1.04; max-width: 960px; margin: 0 auto 22px;
   }
-  .grad-text {
-    background: linear-gradient(95deg, #38bdf8 0%, #818cf8 48%, #c084fc 100%);
+  .grad {
+    background: linear-gradient(92deg, #38bdf8 0%, #818cf8 45%, #e879f9 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .hero-sub {
-    font-size: clamp(16px, 2vw, 19px); color: var(--muted);
-    max-width: 740px; margin: 0 auto 32px; font-weight: 400;
+  .hero-lead {
+    font-size: clamp(16px, 2vw, 19.5px); color: var(--muted);
+    max-width: 740px; margin: 0 auto 34px;
   }
-  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 42px; }
-  .hero-cta .btn { padding: 12px 22px; font-size: 14.5px; border-radius: 12px; }
+  .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 42px; }
+  .hero-actions .btn { padding: 13px 24px; font-size: 15px; border-radius: 12px; }
+
+  /* Cover Banner Bezel */
+  .bezel {
+    max-width: 980px; margin: 0 auto 44px; padding: 8px; border-radius: 22px;
+    background: linear-gradient(135deg, rgba(56,189,248,0.35), rgba(168,85,247,0.28), rgba(15,23,42,0.5));
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.65), 0 0 60px rgba(56, 189, 248, 0.14);
+  }
+  .bezel img {
+    display: block; width: 100%; border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
 
   /* Install Switcher */
-  .install-card {
-    max-width: 780px; margin: 0 auto 44px;
-    background: rgba(9, 13, 24, 0.9); border: 1px solid var(--border);
+  .install-wrap {
+    max-width: 820px; margin: 0 auto 42px;
+    background: rgba(7, 11, 22, 0.92); border: 1px solid rgba(148,163,184,0.18);
     border-radius: 16px; overflow: hidden; text-align: left;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
   }
-  .install-tabs {
-    display: flex; border-bottom: 1px solid var(--border);
-    background: rgba(15, 23, 42, 0.5); padding: 0 12px; gap: 4px; overflow-x: auto;
+  .itabs {
+    display: flex; gap: 4px; padding: 0 12px; overflow-x: auto;
+    background: rgba(15, 23, 42, 0.65); border-bottom: 1px solid var(--border);
   }
   .itab {
-    padding: 11px 14px; font-size: 12.5px; font-weight: 600; color: var(--muted);
+    padding: 12px 15px; font-size: 12.5px; font-weight: 600; color: var(--muted);
     cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap;
   }
   .itab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
-  .install-body {
-    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  .ibody { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 20px; }
+  .ibody pre { font-size: 13px; color: #e2e8f0; white-space: pre-wrap; word-break: break-all; flex: 1; }
+  .copy-pill {
+    background: rgba(56,189,248,0.14); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.3);
+    padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
   }
-  .install-body pre {
-    color: #e2e8f0; font-size: 13px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; flex: 1;
-  }
-  .copy-btn {
-    background: rgba(56, 189, 248, 0.12); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.28);
-    padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
-  }
-  .copy-btn:hover { background: rgba(56, 189, 248, 0.22); }
+  .copy-pill:hover { background: rgba(56,189,248,0.24); }
 
-  /* Compatibility Logos Strip */
-  .compat {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-    margin-bottom: 52px; color: var(--dim); font-size: 12.5px; font-weight: 600;
-  }
-  .compat span {
-    padding: 6px 13px; border-radius: 8px;
-    background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); color: var(--muted);
+  /* Platform Strip */
+  .strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 56px; }
+  .strip span {
+    padding: 7px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: #cbd5e1;
+    background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border);
   }
 
-  /* Metrics Grid */
+  /* Metrics Bar */
   .metrics {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 16px; margin-bottom: 72px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 72px;
   }
   .metric {
-    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-    padding: 22px; text-align: center; backdrop-filter: blur(10px);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 24px 18px; text-align: center; backdrop-filter: blur(12px);
+    position: relative; overflow: hidden;
   }
-  .metric-val { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: var(--text); }
-  .metric-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .metric::after {
+    content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.6), transparent);
+  }
+  .m-num { font-size: 36px; font-weight: 900; letter-spacing: -0.04em; }
+  .m-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; font-weight: 500; }
 
-  /* Section Headers */
-  .sec { padding: 48px 0; }
-  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
-  .sec-eyebrow { color: var(--cyan); font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
-  .sec-head h2 { font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+  /* Sections */
+  section.block { padding: 54px 0; }
+  .sec-head { text-align: center; max-width: 700px; margin: 0 auto 38px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 10px;
+  }
+  .sec-head h2 { font-size: clamp(28px, 3.8vw, 42px); font-weight: 900; letter-spacing: -0.035em; margin-bottom: 12px; }
   .sec-head p { color: var(--muted); font-size: 15.5px; }
 
-  /* Bento Feature Grid */
-  .bento { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
-  .bcard {
-    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-    padding: 26px; transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  /* Interactive Playground Terminal */
+  .play-shell {
+    max-width: 980px; margin: 0 auto; border-radius: 20px; overflow: hidden;
+    background: #030712; border: 1px solid rgba(148,163,184,0.2);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
   }
-  .bcard:hover { border-color: var(--border-hi); transform: translateY(-3px); background: var(--card-hover); }
-  .bicon {
-    width: 42px; height: 42px; border-radius: 11px;
-    display: grid; place-items: center; font-size: 20px; margin-bottom: 16px;
-    background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);
+  .play-top {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    padding: 12px 18px; background: rgba(15, 23, 42, 0.9); border-bottom: 1px solid var(--border);
   }
-  .bcard h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-  .bcard p { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
-  .bcmd {
-    display: inline-block; font-size: 12px; padding: 5px 10px; border-radius: 7px;
-    background: rgba(2, 6, 23, 0.85); border: 1px solid var(--border); color: var(--emerald);
+  .dots { display: flex; gap: 7px; align-items: center; }
+  .dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .play-presets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .preset-btn {
+    background: rgba(30, 41, 59, 0.8); border: 1px solid var(--border); color: #cbd5e1;
+    padding: 5px 11px; border-radius: 7px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; cursor: pointer; transition: all 0.15s;
+  }
+  .preset-btn:hover, .preset-btn.active { border-color: var(--cyan); color: #fff; background: rgba(56,189,248,0.16); }
+  .play-body {
+    padding: 24px 26px; min-height: 235px; font-size: 13.5px; line-height: 1.75;
+    font-family: 'JetBrains Mono', monospace; color: #e2e8f0;
   }
 
-  /* Terminal Showcase */
-  .terminal {
-    background: #020617; border: 1px solid var(--border); border-radius: 18px;
-    overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.6); max-width: 960px; margin: 0 auto;
+  /* Spotlight Cards (Bento + Explorer) */
+  .bento { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px; }
+  .spot-card {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px; overflow: hidden;
+    transition: transform 0.22s ease, border-color 0.22s ease;
   }
-  .term-bar {
-    background: #0f172a; padding: 12px 18px; display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--border);
+  .spot-card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.25s;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(56,189,248,0.14), transparent 65%);
   }
-  .t-dot { width: 11px; height: 11px; border-radius: 50%; }
-  .term-title { margin-left: 10px; font-size: 12.5px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-  .term-body { padding: 22px 24px; font-size: 13.5px; line-height: 1.75; overflow-x: auto; }
-  .t-prompt { color: var(--cyan); font-weight: 600; }
-  .t-ok { color: var(--emerald); }
-  .t-hi { color: var(--purple); font-weight: 600; }
-  .t-dim { color: var(--dim); }
+  .spot-card:hover::before { opacity: 1; }
+  .spot-card:hover { transform: translateY(-3px); border-color: rgba(56, 189, 248, 0.42); }
+  .icon-box {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    font-size: 21px; margin-bottom: 16px;
+    background: linear-gradient(135deg, rgba(56,189,248,0.16), rgba(168,85,247,0.14));
+    border: 1px solid rgba(56,189,248,0.28);
+  }
+  .spot-card h3 { font-size: 17.5px; font-weight: 700; margin-bottom: 8px; }
+  .spot-card p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .cmd-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 11px; border-radius: 8px; font-size: 12px;
+    background: rgba(2, 6, 23, 0.85); border: 1px solid var(--border); color: var(--emerald);
+    cursor: pointer;
+  }
+  .cmd-chip:hover { border-color: var(--emerald); }
 
   /* Explorer */
-  .explorer-controls { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
-  .search-input {
-    width: 100%; padding: 14px 18px; border-radius: 12px;
-    background: rgba(9, 13, 24, 0.9); border: 1px solid var(--border);
-    color: var(--text); font-size: 15px; outline: none; transition: border-color 0.15s;
+  .search-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+  .search-box {
+    width: 100%; padding: 15px 20px; border-radius: 14px; font-size: 15px;
+    background: rgba(7, 11, 22, 0.9); border: 1px solid rgba(148,163,184,0.2);
+    color: #fff; outline: none; transition: all 0.15s;
   }
-  .search-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,189,248,0.14); }
+  .search-box:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(56,189,248,0.14); }
   .pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .pill {
-    padding: 6px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
-    background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+    background: rgba(15, 23, 42, 0.72); border: 1px solid var(--border);
     color: var(--muted); cursor: pointer; transition: all 0.15s;
   }
-  .pill:hover, .pill.active {
-    background: rgba(56, 189, 248, 0.15); border-color: var(--cyan); color: #fff;
-  }
-  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+  .pill:hover, .pill.active { background: rgba(56,189,248,0.18); border-color: var(--cyan); color: #fff; }
+
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(335px, 1fr)); gap: 16px; }
   .tcard {
-    background: var(--card); border: 1px solid var(--border); border-radius: 15px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
     padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
     transition: border-color 0.18s, transform 0.18s;
   }
-  .tcard:hover { border-color: var(--border-hi); transform: translateY(-2px); }
-  .tcard-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
-  .tcard h3 { font-size: 15.5px; font-weight: 700; }
-  .tcard h3 a:hover { color: var(--cyan); }
-  .tcat {
-    font-size: 11px; padding: 3px 9px; border-radius: 6px;
-    background: rgba(129, 140, 248, 0.14); color: #c7d2fe; white-space: nowrap; font-weight: 600;
+  .tcard:hover { border-color: rgba(56,189,248,0.45); transform: translateY(-2px); }
+  .thead { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+  .thead h3 { font-size: 15.5px; font-weight: 700; }
+  .thead h3 a:hover { color: var(--cyan); }
+  .badge-cat {
+    font-size: 11px; padding: 3px 9px; border-radius: 6px; font-weight: 600;
+    background: rgba(129, 140, 248, 0.15); color: #c7d2fe; white-space: nowrap;
   }
-  .tdesc { font-size: 13.5px; color: var(--muted); }
   .tfoot {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    background: rgba(2, 6, 23, 0.85); border: 1px solid var(--border);
-    border-radius: 9px; padding: 8px 11px;
+    background: rgba(2, 6, 23, 0.88); border: 1px solid var(--border);
+    border-radius: 9px; padding: 8px 12px;
   }
   .tfoot code { font-size: 12px; color: var(--emerald); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .mini-copy {
-    background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 600;
-  }
-  .mini-copy:hover { color: var(--cyan); }
+  .copy-mini { background: transparent; border: none; color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; }
+  .copy-mini:hover { color: var(--cyan); }
 
   /* Footer */
   footer {
-    margin-top: 84px; border-top: 1px solid var(--border);
-    background: rgba(2, 6, 23, 0.7); padding: 48px 24px;
+    margin-top: 90px; border-top: 1px solid var(--border);
+    background: rgba(2, 4, 10, 0.85); padding: 52px 24px;
   }
-  .foot-inner {
-    max-width: 1200px; margin: 0 auto;
+  .foot-grid {
+    max-width: 1180px; margin: 0 auto;
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;
   }
-  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; font-size: 14px; color: var(--muted); font-weight: 500; }
   .foot-links a:hover { color: var(--cyan); }
 
   /* Toast */
   #toast {
-    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    position: fixed; bottom: 26px; right: 26px; z-index: 100;
     background: #0f172a; border: 1px solid var(--cyan); color: #fff;
-    padding: 11px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5); opacity: 0; transform: translateY(12px);
-    transition: all 0.2s; pointer-events: none;
+    padding: 12px 18px; border-radius: 12px; font-size: 13.5px; font-weight: 600;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.55); opacity: 0; transform: translateY(14px);
+    transition: all 0.22s; pointer-events: none;
   }
   #toast.show { opacity: 1; transform: translateY(0); }
 
-  @media (max-width: 720px) {
+  @media (max-width: 760px) {
     .nav-links { display: none; }
-    .hero { padding-top: 44px; }
+    .hero { padding-top: 42px; }
   }
 </style>
 </head>
 <body>
 
-<div class="nav-wrap">
+<canvas id="bg-canvas"></canvas>
+<div class="aurora"></div>
+
+<!-- Floating Glass Navbar -->
+<div class="nav-shell">
   <nav>
     <a class="brand" href="#">
-      <div class="brand-icon">⚡</div>
+      <div class="brand-mark">⚡</div>
       <span>FAZAH AI Arsenal</span>
     </a>
     <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#terminal">CLI Demo</a>
-      <a href="#explorer">Tool Explorer</a>
+      <a href="#playground">Live Demo</a>
+      <a href="#features">Capabilities</a>
+      <a href="#explorer">20k+ Explorer</a>
       <a href="#stacks">8 Stacks</a>
     </div>
-    <div class="nav-actions">
-      <a class="btn btn-outline" href="https://t.me/testtttttttt11222" target="_blank">Telegram</a>
-      <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">★ Star <span id="nav-stars"></span></a>
+    <div class="nav-cta">
+      <a class="btn btn-glass" href="https://t.me/testtttttttt11222" target="_blank">Telegram</a>
+      <a class="btn btn-glow" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">★ Star <span id="star-count"></span></a>
     </div>
   </nav>
 </div>
@@ -302,32 +343,37 @@
 <main class="container">
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge"><span class="dot"></span> v6.5 Released • 17 Native MCP Tools + Prompts & Resources</div>
-    <h1>The Autonomous GitHub Toolbox for <span class="grad-text">Every AI Agent</span></h1>
-    <p class="hero-sub">
-      Give Claude Code, Cursor, Google Antigravity, DeepSeek Harness, and Windsurf instant offline BM25 access to <strong>20,078+ curated GitHub repositories</strong>, supply-chain security scanning, and 1-command project scaffolding — with <strong>zero Python dependencies</strong>.
+    <div class="pill-live"><span class="pulse"></span> v6.5 Live • 17 Native MCP Tools + 4 Resources + 3 Prompts</div>
+    <h1>Arm Any AI Agent With <span class="grad">20,078+ GitHub Tools</span></h1>
+    <p class="hero-lead">
+      The zero-dependency <strong>Autonomous AI Tool Broker</strong> &amp; <strong>Native MCP Server</strong>. Search 20,078+ real repos offline in milliseconds, audit supply-chain security, extract code snippets, and scaffold full stacks in one command.
     </p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">Explore on GitHub →</a>
-      <a class="btn btn-outline" href="#explorer">Browse Live Catalog</a>
-      <a class="btn btn-outline" href="https://github.com/fazah-arsenal/github-ai-arsenal/releases/latest" target="_blank">Latest Release</a>
+    <div class="hero-actions">
+      <a class="btn btn-glow" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">View on GitHub →</a>
+      <a class="btn btn-glass" href="#playground">Try Interactive CLI</a>
+      <a class="btn btn-glass" href="https://github.com/fazah-arsenal/github-ai-arsenal/releases/latest" target="_blank">Latest Release (v6.5)</a>
     </div>
 
-    <!-- 1-Command Install Tabs -->
-    <div class="install-card">
-      <div class="install-tabs">
+    <!-- Framed Hero Cover -->
+    <div class="bezel">
+      <img src="https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/assets/fazah-cover.jpg" alt="FAZAH AI Arsenal Banner" />
+    </div>
+
+    <!-- 1-Command Installer -->
+    <div class="install-wrap">
+      <div class="itabs">
         <div class="itab active" onclick="setInstall('win', this)">Windows (PowerShell)</div>
         <div class="itab" onclick="setInstall('nix', this)">Linux / macOS</div>
         <div class="itab" onclick="setInstall('pip', this)">Python pip</div>
         <div class="itab" onclick="setInstall('mcp', this)">MCP Config JSON</div>
       </div>
-      <div class="install-body">
+      <div class="ibody">
         <pre id="install-code">irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex</pre>
-        <button class="copy-btn" onclick="copyText(document.getElementById('install-code').textContent)">Copy</button>
+        <button class="copy-pill" onclick="copyText(document.getElementById('install-code').textContent)">Copy</button>
       </div>
     </div>
 
-    <div class="compat">
+    <div class="strip">
       <span>Google Antigravity</span>
       <span>DeepSeek Harness</span>
       <span>Claude Code</span>
@@ -337,131 +383,123 @@
       <span>Smithery &amp; Glama MCP</span>
     </div>
 
-    <!-- Metrics -->
     <div class="metrics">
-      <div class="metric"><div class="metric-val grad-text">20,078+</div><div class="metric-lbl">Curated Real GitHub Tools</div></div>
-      <div class="metric"><div class="metric-val">17 + 7</div><div class="metric-lbl">MCP Tools + Resources &amp; Prompts</div></div>
-      <div class="metric"><div class="metric-val">37</div><div class="metric-lbl">Engineering Domains Indexed</div></div>
-      <div class="metric"><div class="metric-val" style="color:var(--emerald);">0 Deps</div><div class="metric-lbl">Pure Python 3.9+ Stdlib</div></div>
+      <div class="metric"><div class="m-num grad" id="cnt-tools">20,078+</div><div class="m-lbl">Curated Real GitHub Repos</div></div>
+      <div class="metric"><div class="m-num">17 + 7</div><div class="m-lbl">MCP Tools + Resources &amp; Prompts</div></div>
+      <div class="metric"><div class="m-num">37</div><div class="m-lbl">Engineering Domains Covered</div></div>
+      <div class="metric"><div class="m-num" style="color:var(--emerald);">0 Deps</div><div class="m-lbl">Pure Python 3.9+ Stdlib Only</div></div>
     </div>
   </section>
 
-  <!-- BENTO FEATURES -->
-  <section id="features" class="sec">
+  <!-- INTERACTIVE PLAYGROUND -->
+  <section id="playground" class="block">
     <div class="sec-head">
-      <div class="sec-eyebrow">Built for Autonomous Agents</div>
-      <h2>Everything an AI Needs to Ship Faster &amp; Safer</h2>
-      <p>Stop wasting tokens and API limits. One lightweight skill turns any coding agent into a full-stack toolsmith.</p>
+      <div class="eyebrow">Interactive Terminal Demo</div>
+      <h2>Click Any Command to See <code>fazah</code> in Action</h2>
+      <p>Experience 1-call autonomous tool delivery, deep supply-chain security scanning, and 1-command scaffolding.</p>
+    </div>
+    <div class="play-shell">
+      <div class="play-top">
+        <div class="dots">
+          <i style="background:#ef4444;"></i>
+          <i style="background:#f59e0b;"></i>
+          <i style="background:#22c55e;"></i>
+          <span style="margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);">fazah@arsenal ~ v6.5</span>
+        </div>
+        <div class="play-presets">
+          <button class="preset-btn active" onclick="runDemo('give', this)">fazah g "telegram bot"</button>
+          <button class="preset-btn" onclick="runDemo('scan', this)">fazah scan crawl4ai</button>
+          <button class="preset-btn" onclick="runDemo('az', this)">fazah az .</button>
+          <button class="preset-btn" onclick="runDemo('stack', this)">fazah st saas-ai</button>
+        </div>
+      </div>
+      <div class="play-body" id="demo-out"></div>
+    </div>
+  </section>
+
+  <!-- BENTO CAPABILITIES -->
+  <section id="features" class="block">
+    <div class="sec-head">
+      <div class="eyebrow">Engineered for AI Agents</div>
+      <h2>Six Superpowers in One Lightweight Skill</h2>
+      <p>Move your cursor across the cards — every command works both in your terminal and natively over MCP.</p>
     </div>
     <div class="bento">
-      <div class="bcard">
-        <div class="bicon">🤖</div>
+      <div class="spot-card">
+        <div class="icon-box">🤖</div>
         <h3>1-Call Autonomous Tool Broker</h3>
-        <p>Ask once in English or Arabic — returns the #1 repo from 20,078+ tools, supply-chain security verdict, install command, and clean code snippet.</p>
-        <code class="bcmd">fazah g "stealth web scraper" --pull</code>
+        <p>Ask once in English or Arabic — delivers the #1 repo from 20,078+ tools, security verdict, install command, and clean code snippet.</p>
+        <div class="cmd-chip" onclick="copyText('fazah g &quot;stealth web scraper&quot; --pull')">$ fazah g "stealth web scraper" --pull</div>
       </div>
-      <div class="bcard">
-        <div class="bicon">🔌</div>
+      <div class="spot-card">
+        <div class="icon-box">🔌</div>
         <h3>17-Tool Native MCP Server</h3>
         <p>Full Model Context Protocol server over stdio JSON-RPC with 17 tools, 4 live resources, and 3 slash prompts — zero external packages.</p>
-        <code class="bcmd">fazah mi github-ai-arsenal</code>
+        <div class="cmd-chip" onclick="copyText('fazah mi github-ai-arsenal')">$ fazah mi github-ai-arsenal</div>
       </div>
-      <div class="bcard">
-        <div class="bicon">🛡️</div>
+      <div class="spot-card">
+        <div class="icon-box">🛡️</div>
         <h3>Deep Supply-Chain Scanner</h3>
-        <p>Audits Trust Score (0–100) and scans <code>setup.py</code>, <code>package.json</code>, <code>install.sh</code> &amp; <code>Dockerfile</code> for malicious hooks before installing.</p>
-        <code class="bcmd">fazah scan unclecode/crawl4ai</code>
+        <p>Calculates Trust Score (0–100) and scans <code>setup.py</code>, <code>package.json</code>, <code>install.sh</code> &amp; <code>Dockerfile</code> for malicious patterns.</p>
+        <div class="cmd-chip" onclick="copyText('fazah scan unclecode/crawl4ai')">$ fazah scan unclecode/crawl4ai</div>
       </div>
-      <div class="bcard">
-        <div class="bicon">🖥️</div>
-        <h3>Zero-Dependency Local Web UI</h3>
-        <p>Launch a sleek local dashboard on <code>127.0.0.1:8765</code> with live BM25 filtering across 20,078+ repos, 1-click audit, and stack previews.</p>
-        <code class="bcmd">fazah ui</code>
+      <div class="spot-card">
+        <div class="icon-box">🖥️</div>
+        <h3>Interactive Local Web UI</h3>
+        <p>Launch a fast offline dashboard on <code>127.0.0.1:8765</code> with live BM25 filtering across all 20,078+ tools and 1-click security audits.</p>
+        <div class="cmd-chip" onclick="copyText('fazah ui')">$ fazah ui</div>
       </div>
-      <div class="bcard">
-        <div class="bicon">🧠</div>
-        <h3>Project Advisor &amp; Memory</h3>
-        <p>Analyzes your local project dependencies to suggest missing GitHub tools &amp; MCPs, while remembering verified tools on your machine.</p>
-        <code class="bcmd">fazah az .</code>
+      <div class="spot-card">
+        <div class="icon-box">✂️</div>
+        <h3>Code Snippet Extractor &amp; Advisor</h3>
+        <p>Extracts clean runnable code blocks from READMEs (saves 85% AI tokens) and inspects local repos to suggest missing tools &amp; MCPs.</p>
+        <div class="cmd-chip" onclick="copyText('fazah sn unclecode/crawl4ai')">$ fazah sn unclecode/crawl4ai</div>
       </div>
-      <div class="bcard">
-        <div class="bicon">🧪</div>
+      <div class="spot-card">
+        <div class="icon-box">🧪</div>
         <h3>Isolated Sandbox &amp; Self-Updater</h3>
-        <p>Test unfamiliar Python repos inside an isolated temporary <code>venv</code> without polluting global packages, and stay updated in 1 command.</p>
-        <code class="bcmd">fazah try owner/repo &amp;&amp; fazah up</code>
-      </div>
-    </div>
-  </section>
-
-  <!-- TERMINAL PREVIEW -->
-  <section id="terminal" class="sec">
-    <div class="sec-head">
-      <div class="sec-eyebrow">Ultra-Short CLI</div>
-      <h2>One Word: <code>fazah</code></h2>
-      <p>Designed for speed — both for human developers and autonomous agent loops.</p>
-    </div>
-    <div class="terminal">
-      <div class="term-bar">
-        <div class="t-dot" style="background:#ef4444;"></div>
-        <div class="t-dot" style="background:#f59e0b;"></div>
-        <div class="t-dot" style="background:#22c55e;"></div>
-        <span class="term-title">fazah@arsenal ~ v6.5 (20,078+ Tools • 17 MCP Tools)</span>
-      </div>
-      <div class="term-body">
-        <div><span class="t-prompt">$ fazah g "telegram bot and stealth web scraping"</span></div>
-        <div class="t-ok">=== ⚡ FAZAH Autonomous Tool Delivery ===</div>
-        <div>Winner   : <strong>aiogram</strong> — https://github.com/aiogram/aiogram (<span class="t-ok">pip install aiogram</span>)</div>
-        <div>Security : <span class="t-ok">[SAFE]</span> Risk Score: 0/100 — Scanned setup &amp; build files, 0 red flags</div>
-        <div class="t-dim">Snippet  : Clean runnable async Python snippet extracted (saved 85% AI tokens)</div>
-        <br/>
-        <div><span class="t-prompt">$ fazah cmp unclecode/crawl4ai mendableai/firecrawl</span></div>
-        <div class="t-hi">=== Repository Comparison (Winner: unclecode/crawl4ai) ===</div>
-        <div>1. unclecode/crawl4ai     | Trust: <span class="t-ok">100/100 [TRUSTED]</span> | ★ 58,400+ | Python     | Apache-2.0</div>
-        <div>2. mendableai/firecrawl   | Trust: <span class="t-ok"> 90/100 [TRUSTED]</span> | ★ 62,100+ | TypeScript | AGPL-3.0</div>
-        <br/>
-        <div><span class="t-prompt">$ fazah st saas-ai -s ./my-saas-app</span></div>
-        <div class="t-ok">=== Scaffolded Stack 'saas-ai' -&gt; ./my-saas-app ===</div>
-        <div class="t-dim">  [+] README.md   [+] setup_stack.ps1   [+] .env.example   [+] .mcp.json</div>
+        <p>Test unfamiliar Python repos safely inside a clean temporary <code>venv</code> without touching global packages, and self-update in 2 seconds.</p>
+        <div class="cmd-chip" onclick="copyText('fazah try owner/repo')">$ fazah try owner/repo &amp;&amp; fazah up</div>
       </div>
     </div>
   </section>
 
   <!-- LIVE EXPLORER -->
-  <section id="explorer" class="sec">
+  <section id="explorer" class="block">
     <div class="sec-head">
-      <div class="sec-eyebrow">Interactive Catalog</div>
-      <h2>Live Core Elite Tool Explorer</h2>
-      <p>Search curated elite picks live from GitHub — install the CLI to search all 20,078+ repositories offline.</p>
+      <div class="eyebrow">Live GitHub Catalog</div>
+      <h2>Explore Curated Elite Tools</h2>
+      <p>Filter hand-curated elite picks right here — or run <code>fazah m</code> locally to search all 20,078+ indexed repos offline.</p>
     </div>
-    <div class="explorer-controls">
-      <input id="q" class="search-input" placeholder="Search tools by name, use-case, or keyword (e.g. mcp, telegram, scraping, security, reverse, rag)..." oninput="renderTools()" />
+    <div class="search-row">
+      <input id="q" class="search-box" placeholder="Search tools by name, category, or use-case (e.g. mcp, telegram, scraping, security, reverse, rag)..." oninput="renderTools()" />
       <div class="pills" id="cat-pills"></div>
     </div>
     <div class="tool-grid" id="tools-grid">Loading live catalog from GitHub...</div>
   </section>
 
   <!-- TURNKEY STACKS -->
-  <section id="stacks" class="sec">
+  <section id="stacks" class="block">
     <div class="sec-head">
-      <div class="sec-eyebrow">1-Command Scaffolding</div>
-      <h2>8 Battle-Tested Project Stacks</h2>
-      <p>Generate complete starter architectures with install scripts, environment templates, and pre-wired MCP configs.</p>
+      <div class="eyebrow">1-Command Scaffolding</div>
+      <h2>8 Turnkey Project Blueprints</h2>
+      <p>Generate complete starter projects with install scripts, <code>.env.example</code>, and pre-wired <code>.mcp.json</code>.</p>
     </div>
     <div class="tool-grid" id="stacks-grid">Loading turnkey stacks...</div>
   </section>
 </main>
 
 <footer>
-  <div class="foot-inner">
+  <div class="foot-grid">
     <div>
       <div class="brand" style="margin-bottom:6px;">
-        <div class="brand-icon" style="width:26px;height:26px;font-size:13px;">⚡</div>
+        <div class="brand-mark" style="width:26px;height:26px;font-size:13px;">⚡</div>
         <span>FAZAH AI Arsenal</span>
       </div>
-      <div style="font-size:13px;color:var(--dim);">Created by <strong style="color:var(--text);">FAZAH</strong> • Open Source under MIT License</div>
+      <div style="font-size:13px;color:var(--dim);">Engineered by <strong style="color:#fff;">FAZAH</strong> • MIT Open Source License</div>
     </div>
     <div class="foot-links">
-      <a href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">GitHub Repository</a>
+      <a href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">GitHub</a>
       <a href="https://t.me/testtttttttt11222" target="_blank">Telegram (@testtttttttt11222)</a>
       <a href="mailto:mhamadabdalla150150@gmail.com">mhamadabdalla150150@gmail.com</a>
     </div>
@@ -471,19 +509,66 @@
 <div id="toast">Copied to clipboard!</div>
 
 <script>
-const INSTALL_CMDS = {
+/* 1. Subtle Animated Neural Particle Background */
+(() => {
+  const c = document.getElementById('bg-canvas');
+  const ctx = c.getContext('2d');
+  let w, h, pts = [];
+  function resize() {
+    w = c.width = window.innerWidth;
+    h = c.height = window.innerHeight;
+    pts = Array.from({length: Math.min(55, Math.floor(w / 28))}, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.6
+    }));
+  }
+  window.addEventListener('resize', resize);
+  resize();
+  function loop() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > w) a.vx *= -1;
+      if (a.y < 0 || a.y > h) a.vy *= -1;
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.55)'; ctx.fill();
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 135) {
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(129, 140, 248, ${0.14 * (1 - d / 135)})`;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* 2. Spotlight Hover Tracking */
+document.querySelectorAll('.spot-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+/* 3. Install Switcher & Clipboard */
+const INSTALLS = {
   win: 'irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex',
   nix: 'curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash',
   pip: 'pip install git+https://github.com/fazah-arsenal/github-ai-arsenal.git',
   mcp: '{\n  "mcpServers": {\n    "github-ai-arsenal": {\n      "command": "python",\n      "args": ["~/.agents/skills/github-ai-arsenal/scripts/mcp_server.py"]\n    }\n  }\n}'
 };
-
-function setInstall(key, el) {
+function setInstall(k, el) {
   document.querySelectorAll('.itab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('install-code').textContent = INSTALL_CMDS[key];
+  document.getElementById('install-code').textContent = INSTALLS[k];
 }
-
 function copyText(txt) {
   navigator.clipboard.writeText(txt);
   const t = document.getElementById('toast');
@@ -491,54 +576,84 @@ function copyText(txt) {
   setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-let allTools = [];
-let activeCat = '';
+/* 4. Interactive Playground Terminal */
+const DEMOS = {
+  give: `<span style="color:#38bdf8">$ fazah g "telegram bot"</span>
+<span style="color:#34d399">=== ⚡ FAZAH Autonomous Tool Delivery ===</span>
+Task     : telegram bot
+Winner   : <strong>aiogram Async Telegram Bot Framework</strong> — https://github.com/aiogram/aiogram
+Why      : High-performance async Telegram bots in Python 3.9+
+Install  : <span style="color:#34d399">pip install aiogram</span>
+Security : <span style="color:#34d399">[SAFE]</span> Risk Score: 0/100 — Scanned setup.py &amp; pyproject.toml: 0 red flags
+<span style="color:#94a3b8">Snippet  : Extracted clean async Dispatcher starter snippet (saved 85% tokens)</span>`,
+  scan: `<span style="color:#38bdf8">$ fazah scan unclecode/crawl4ai</span>
+<span style="color:#c084fc">=== 🔬 Deep Supply-Chain Security Scan: unclecode/crawl4ai ===</span>
+Verdict       : <span style="color:#34d399">[SAFE]</span> (Risk Score: 0/100)
+Files Scanned : setup.py, pyproject.toml, Dockerfile
+Summary       : No curl|sh pipes, obfuscated base64, webhooks, or suspicious hooks found.`,
+  az: `<span style="color:#38bdf8">$ fazah az .</span>
+<span style="color:#38bdf8">=== 🧠 FAZAH Project Advisor ===</span>
+Detected Stack : Python (Modern), Docker, FastAPI
+Tip            : Run <span style="color:#34d399">fazah mi github-ai-arsenal</span> to connect 17 Native MCP tools!
+Top Missing Picks:
+  1. upstash/context7        — Live up-to-date library docs MCP
+  2. unclecode/crawl4ai      — Stealth LLM-ready web crawler
+  3. semgrep/semgrep         — Instant SAST security auditor`,
+  stack: `<span style="color:#38bdf8">$ fazah st saas-ai -s ./my-saas-app</span>
+<span style="color:#34d399">=== 🏗️ Scaffolded Stack 'saas-ai' -&gt; ./my-saas-app ===</span>
+  [+] Created README.md        (FastAPI + Supabase + LiteLLM + shadcn/ui)
+  [+] Created setup_stack.ps1  (Windows 1-click installer)
+  [+] Created setup_stack.sh   (Linux/macOS installer)
+  [+] Created .env.example     (Pre-configured API keys template)
+  [+] Created .mcp.json        (Connected to 17-Tool FAZAH AI Arsenal MCP)`
+};
+function runDemo(key, btn) {
+  if (btn) {
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  document.getElementById('demo-out').innerHTML = DEMOS[key];
+}
+runDemo('give');
 
+/* 5. Live Catalog & Stacks Loader */
+let allTools = [], activeCat = '';
 function selectCat(cat, el) {
   activeCat = cat;
   document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   renderTools();
 }
-
 function renderTools() {
   const q = (document.getElementById('q').value || '').toLowerCase();
-  const filtered = allTools.filter(t => {
-    const catOk = !activeCat || t.category === activeCat;
-    const qOk = !q || JSON.stringify(t).toLowerCase().includes(q);
-    return catOk && qOk;
-  });
+  const list = allTools.filter(t => (!activeCat || t.category === activeCat) && (!q || JSON.stringify(t).toLowerCase().includes(q)));
   const grid = document.getElementById('tools-grid');
-  if (!filtered.length) {
-    grid.innerHTML = '<div style="color:var(--muted);padding:20px;">No matching tools in Core Elite — run <code>fazah m -q "' + q + '"</code> to search all 20,078+ repos offline!</div>';
+  if (!list.length) {
+    grid.innerHTML = `<div style="color:var(--muted);padding:16px;">No match in Core Elite — run <code>fazah m -q "${q}"</code> to search all 20,078+ repos offline!</div>`;
     return;
   }
-  grid.innerHTML = filtered.slice(0, 24).map(t => `
+  grid.innerHTML = list.slice(0, 24).map(t => `
     <div class="tcard">
       <div>
-        <div class="tcard-head">
+        <div class="thead">
           <h3><a href="https://github.com/${t.repo}" target="_blank">${t.name}</a></h3>
-          <span class="tcat">${t.category}</span>
+          <span class="badge-cat">${t.category}</span>
         </div>
-        <p class="tdesc" style="margin-top:8px;">${t.use_when}</p>
+        <p style="font-size:13.5px;color:var(--muted);margin-top:8px;">${t.use_when}</p>
       </div>
       <div class="tfoot">
         <code title="${t.install}">${t.install}</code>
-        <button class="mini-copy" onclick="copyText('${t.install.replace(/'/g, "\\'")}')">Copy</button>
+        <button class="copy-mini" onclick="copyText('${t.install.replace(/'/g, "\\'")}')">Copy</button>
       </div>
     </div>
   `).join('');
 }
 
 async function init() {
-  // Fetch live GitHub Stars
   try {
-    const repo = await (await fetch('https://api.github.com/repos/fazah-arsenal/github-ai-arsenal')).json();
-    if (typeof repo.stargazers_count === 'number') {
-      document.getElementById('nav-stars').textContent = `(${repo.stargazers_count})`;
-    }
+    const r = await (await fetch('https://api.github.com/repos/fazah-arsenal/github-ai-arsenal')).json();
+    if (typeof r.stargazers_count === 'number') document.getElementById('star-count').textContent = `(${r.stargazers_count})`;
   } catch {}
-
   const base = 'https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/references';
   try {
     const cat = await (await fetch(`${base}/catalog.json`)).json();
@@ -548,10 +663,7 @@ async function init() {
       `<div class="pill active" onclick="selectCat('', this)">All (${allTools.length})</div>` +
       cats.map(c => `<div class="pill" onclick="selectCat('${c}', this)">${c}</div>`).join('');
     renderTools();
-  } catch {
-    document.getElementById('tools-grid').textContent = 'Unable to load catalog.';
-  }
-
+  } catch {}
   try {
     const st = await (await fetch(`${base}/stacks.json`)).json();
     document.getElementById('stacks-grid').innerHTML = Object.entries(st.stacks || {}).map(([id, s]) => {
@@ -559,21 +671,17 @@ async function init() {
       return `
         <div class="tcard">
           <div>
-            <div class="tcard-head">
-              <h3>${s.name}</h3>
-              <span class="tcat">${id}</span>
-            </div>
-            <p class="tdesc" style="margin-top:8px;">${s.description}</p>
+            <div class="thead"><h3>${s.name}</h3><span class="badge-cat">${id}</span></div>
+            <p style="font-size:13.5px;color:var(--muted);margin-top:8px;">${s.description}</p>
             <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-              ${(s.components || []).map(c => `<span style="font-size:11px;padding:2px 7px;border-radius:5px;background:rgba(56,189,248,0.1);color:#7dd3fc;">${c.repo.split('/')[1]}</span>`).join('')}
+              ${(s.components || []).map(c => `<span style="font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(56,189,248,0.12);color:#7dd3fc;">${c.repo.split('/')[1]}</span>`).join('')}
             </div>
           </div>
           <div class="tfoot">
             <code>${cmd}</code>
-            <button class="mini-copy" onclick="copyText('${cmd}')">Copy</button>
+            <button class="copy-mini" onclick="copyText('${cmd}')">Copy</button>
           </div>
-        </div>
-      `;
+        </div>`;
     }).join('');
   } catch {}
 }
