@@ -1,8 +1,8 @@
 ---
 name: github-ai-arsenal
-description: Master GitHub AI Toolbox Skill v4.0 (by FAZAH | @testtttttttt11222) equipping any AI agent with 20,078+ real, curated GitHub tools across 37 domains, a 12-tool zero-dependency Native MCP Server (`scripts/mcp_server.py`), Turnkey Project Scaffolder (`stack --scaffold`), Repository Security & Trust Auditor (`audit-repo` & `compare`), Smart Quickstart (`quickstart`), Bookmarks (`bookmark`), Auto MCP Injector (`mcp-inject`), and instant offline BM25 search (`mega` & `recommend`).
+description: Master GitHub AI Toolbox Skill v6.5 (by FAZAH | @testtttttttt11222) equipping any AI agent with 20,078+ real, curated GitHub tools across 37 domains, a 17-tool zero-dependency Native MCP Server (+ 4 Resources & 3 Prompts), 1-Call Autonomous Tool Broker (`fazah g`), Deep Supply-Chain Security Scanner (`fazah scan`), Local Web UI (`fazah ui`), Project Advisor (`fazah az`), Isolated Sandbox (`fazah try`), Self-Updater (`fazah up`), and instant offline BM25 search.
 metadata:
-  version: "4.0.0"
+  version: "6.5.0"
   author: "FAZAH"
   telegram: "@testtttttttt11222"
   email: "mhamadabdalla150150@gmail.com"
