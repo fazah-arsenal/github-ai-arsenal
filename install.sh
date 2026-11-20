@@ -8,7 +8,7 @@ TMP_DIR=""
 if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "$(dirname "${BASH_SOURCE[0]}")/SKILL.md" ]; then
   SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 else
-  REPO="${GH_ARSENAL_REPO:-mhamadabdalla150150-blip/github-ai-arsenal}"
+  REPO="${GH_ARSENAL_REPO:-fazah-arsenal/github-ai-arsenal}"
   BRANCH="${GH_ARSENAL_BRANCH:-main}"
   TMP_DIR="$(mktemp -d)"
   echo "Downloading $SKILL_NAME from https://github.com/$REPO ($BRANCH)..."
