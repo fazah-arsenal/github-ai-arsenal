@@ -646,7 +646,7 @@ def scaffold_stack_data(stack_name: str, dest: str) -> Dict[str, Any]:
     # 3. Generate .mcp.json connected to GitHub AI Arsenal
     mcp_cfg = {
         "mcpServers": {
-            "github-ai-arsenal": MCP_TEMPLATES["github-ai-arsenal"],
+            "arsenal": MCP_TEMPLATES["arsenal"],
             "context7": MCP_TEMPLATES["context7"],
         }
     }
@@ -789,7 +789,7 @@ def analyze_project_data(path_input: str = ".") -> Dict[str, Any]:
         "detected_files": files_found,
         "detected_stack": sorted(set(detected_stack)) or ["General Workspace"],
         "missing_mcp_config": missing_mcp,
-        "quick_tip": "Run `fazah mi github-ai-arsenal` to connect 14 Native MCP tools to this project!" if missing_mcp else "MCP config detected.",
+        "quick_tip": "Run `fazah mi arsenal` to connect the GitHub AI Arsenal Native MCP server to this project!" if missing_mcp else "MCP config detected.",
         "recommended_core_tools": recs.get("core_matches", [])[:5],
         "recommended_mega_tools": recs.get("mega_matches", [])[:5],
     }
