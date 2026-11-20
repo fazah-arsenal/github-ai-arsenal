@@ -2,7 +2,7 @@
   "$schema": "https://glama.ai/mcp/schemas/server.json",
   "maintainers": ["fazah-arsenal"],
   "name": "FAZAH AI Arsenal (github-ai-arsenal)",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "Zero-dependency 14-tool Native MCP Server & Universal Agent Skill giving AI agents instant offline BM25 access to 20,078+ curated GitHub repositories, Deep Supply-Chain Security Scanner, Project Advisor, and 1-Click Stack Scaffolder.",
   "repository": "https://github.com/fazah-arsenal/github-ai-arsenal",
   "author": {
