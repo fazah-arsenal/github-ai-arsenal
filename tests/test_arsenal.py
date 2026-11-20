@@ -106,12 +106,26 @@ class TestGitHubAIArsenal(unittest.TestCase):
         self.assertIn("verdict", dsc)
         self.assertIn("files_scanned", dsc)
 
+    def test_give_snippet_and_memory(self):
+        proc_m = self._run_cli("memory", "log", "unclecode/crawl4ai", "--task", "web scraping", "--outcome", "success", "--note", "Works great", "--json")
+        self.assertEqual(proc_m.returncode, 0, proc_m.stderr)
+        proc_g = self._run_cli("give", "web scraping", "--json")
+        self.assertEqual(proc_g.returncode, 0, proc_g.stderr)
+        dg = json.loads(proc_g.stdout)
+        self.assertIn("delivered_tool", dg)
+        self.assertIn("security_scan", dg)
+        self.assertGreaterEqual(len(dg["verified_in_memory"]), 1)
+
     def test_native_mcp_server_stdio(self):
-        # Simulate stdio JSON-RPC handshake & tools listing
+        # Simulate stdio JSON-RPC handshake, tools, resources & prompts listing
         reqs = (
             json.dumps({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
             + "\n"
             + json.dumps({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
+            + "\n"
+            + json.dumps({"jsonrpc": "2.0", "id": 3, "method": "resources/list", "params": {}})
+            + "\n"
+            + json.dumps({"jsonrpc": "2.0", "id": 4, "method": "prompts/list", "params": {}})
             + "\n"
         )
         proc = subprocess.run(
@@ -124,15 +138,19 @@ class TestGitHubAIArsenal(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 0, proc.stderr)
         lines = [line.strip() for line in proc.stdout.strip().split("\n") if line.strip()]
-        self.assertGreaterEqual(len(lines), 2)
+        self.assertGreaterEqual(len(lines), 4)
         resp1 = json.loads(lines[0])
-        self.assertEqual(resp1.get("result", {}).get("serverInfo", {}).get("name"), "github-ai-arsenal")
+        self.assertEqual(resp1.get("result", {}).get("serverInfo", {}).get("version"), "6.0.0")
         resp2 = json.loads(lines[1])
         tool_names = [t["name"] for t in resp2.get("result", {}).get("tools", [])]
-        self.assertIn("arsenal_recommend", tool_names)
-        self.assertIn("arsenal_search_offline", tool_names)
-        self.assertIn("arsenal_stack", tool_names)
-        self.assertIn("arsenal_audit_repo", tool_names)
+        self.assertGreaterEqual(len(tool_names), 17)
+        self.assertIn("arsenal_give_tool", tool_names)
+        self.assertIn("arsenal_get_snippet", tool_names)
+        self.assertIn("arsenal_memory", tool_names)
+        resp3 = json.loads(lines[2])
+        self.assertGreaterEqual(len(resp3.get("result", {}).get("resources", [])), 4)
+        resp4 = json.loads(lines[3])
+        self.assertGreaterEqual(len(resp4.get("result", {}).get("prompts", [])), 3)
 
 
 if __name__ == "__main__":
