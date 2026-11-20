@@ -4,13 +4,13 @@
 
 <br/>
 
-# ⚡ FAZAH AI Arsenal v5.0 (`github-ai-arsenal`)
-### **The #1 Universal AI Agent Skill & 14-Tool Native MCP Server — 20,078+ Curated GitHub Tools, Local Web UI, Deep Supply-Chain Scanner, Project Advisor & 1-Command Stack Scaffolder**
+# ⚡ FAZAH AI Arsenal v6.0 (`github-ai-arsenal`)
+### **Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) — 20,078+ GitHub Tools, 1-Call Delivery (`fazah g`), Code Snippet Extractor, Isolated Sandbox, Local Web UI & Security Scanner**
 
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
-[![MCP Server](https://img.shields.io/badge/Native%20MCP-14%20Tools%20(Stdio)-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
+[![MCP Server](https://img.shields.io/badge/Native%20MCP-17%20Tools%20%2B%20Prompts%20%2B%20Resources-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
 [![Dependencies](https://img.shields.io/badge/Python%20Deps-Zero%20(Stdlib%20Only)-22c55e?style=for-the-badge&logo=python)](scripts/gh_arsenal.py)
-[![CLI](https://img.shields.io/badge/Short%20CLI-fazah%20%7C%20fazah%20ui-f59e0b?style=for-the-badge)](scripts/gh_arsenal.py)
+[![CLI](https://img.shields.io/badge/Short%20CLI-fazah%20g%20%7C%20fazah%20ui-f59e0b?style=for-the-badge)](scripts/gh_arsenal.py)
 [![Registries](https://img.shields.io/badge/Smithery%20%26%20Glama-Ready-06b6d4?style=for-the-badge)](smithery.yaml)
 [![Author](https://img.shields.io/badge/Developer-FAZAH-f43f5e?style=for-the-badge)](https://t.me/testtttttttt11222)
 [![Telegram](https://img.shields.io/badge/Telegram-@testtttttttt11222-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/testtttttttt11222)
@@ -120,6 +120,11 @@ Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, W
 ## 🛠️ Ultra-Short CLI Cheatsheet (`fazah`)
 
 ```bash
+fazah g "convert pdf to markdown"          # 1-Call Autonomous Tool Broker (pick + scan + snippet)
+fazah g "web scraper" --pull               # Pick, security-scan & auto-download ZIP in 1 call
+fazah sn unclecode/crawl4ai                # Extract clean runnable code snippets (saves 85% tokens)
+fazah mem log unclecode/crawl4ai -t scrape # Log verified working tool into agent experience memory
+fazah try unclecode/crawl4ai               # Pull into isolated Python venv sandbox safely
 fazah ui                                   # Launch Interactive Local Web Dashboard (http://127.0.0.1:8765)
 fazah az .                                 # Analyze current project & recommend missing tools/MCPs
 fazah scan unclecode/crawl4ai              # Deep supply-chain security scan of setup.py/package.json
