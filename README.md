@@ -7,7 +7,7 @@
 # ⚡ FAZAH AI Arsenal v4.0 (`github-ai-arsenal`)
 ### **The #1 Universal AI Agent Skill & Native MCP Server — 20,078+ Real Curated GitHub Tools, 5,000+ MCP Servers, Security Auditor & 1-Click Stack Scaffolder**
 
-[![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/mhamadabdalla150150-blip/github-ai-arsenal)
+[![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
 [![MCP Server](https://img.shields.io/badge/Native%20MCP-12%20Tools%20(Stdio)-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
 [![Dependencies](https://img.shields.io/badge/Python%20Deps-Zero%20(Stdlib%20Only)-22c55e?style=for-the-badge&logo=python)](scripts/gh_arsenal.py)
 [![Author](https://img.shields.io/badge/Developer-FAZAH-f43f5e?style=for-the-badge)](https://t.me/testtttttttt11222)
@@ -30,7 +30,7 @@
 | **اسم المطور (Creator & Lead Developer)** | **FAZAH** |
 | **حساب تليجرام الرسمي (Telegram)** | [@testtttttttt11222](https://t.me/testtttttttt11222) |
 | **البريد الإلكتروني للتواصل (Email)** | [mhamadabdalla150150@gmail.com](mailto:mhamadabdalla150150@gmail.com) |
-| **المستودع الرسمي (GitHub Repository)** | [github.com/mhamadabdalla150150-blip/github-ai-arsenal](https://github.com/mhamadabdalla150150-blip/github-ai-arsenal) |
+| **المستودع الرسمي (GitHub Repository)** | [github.com/fazah-arsenal/github-ai-arsenal](https://github.com/fazah-arsenal/github-ai-arsenal) |
 
 ---
 
@@ -65,7 +65,7 @@
 ### 1️⃣ على نظام Windows (PowerShell)
 **تثبيت مباشر بأمر واحد من الإنترنت (One-Liner Remote Install):**
 ```powershell
-$env:GH_ARSENAL_REPO="mhamadabdalla150150-blip/github-ai-arsenal"; irm "https://raw.githubusercontent.com/mhamadabdalla150150-blip/github-ai-arsenal/main/install.ps1" | iex
+$env:GH_ARSENAL_REPO="fazah-arsenal/github-ai-arsenal"; irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex
 ```
 **أو التثبيت المحلي بعد تحميل المستودع:**
 ```powershell
@@ -75,7 +75,7 @@ $env:GH_ARSENAL_REPO="mhamadabdalla150150-blip/github-ai-arsenal"; irm "https://
 ### 2️⃣ على نظام Linux / macOS
 **تثبيت مباشر بأمر واحد:**
 ```bash
-GH_ARSENAL_REPO="mhamadabdalla150150-blip/github-ai-arsenal" curl -fsSL "https://raw.githubusercontent.com/mhamadabdalla150150-blip/github-ai-arsenal/main/install.sh" | bash
+GH_ARSENAL_REPO="fazah-arsenal/github-ai-arsenal" curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash
 ```
 **أو التثبيت المحلي:**
 ```bash
