@@ -26,7 +26,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>⚡ FAZAH AI Arsenal v5.0 — 20,078+ GitHub Tools</title>
+<title>⚡ FAZAH AI Arsenal v6.5 — 20,078+ GitHub Tools</title>
 <style>
   :root {
     --bg: #070b14; --panel: #0f172a; --card: #131c31; --border: #1e293b;
@@ -69,12 +69,12 @@ HTML_PAGE = r"""<!DOCTYPE html>
 <body>
 <header>
   <div class="brand">
-    <h1>⚡ FAZAH AI Arsenal v5.0</h1>
+    <h1>⚡ FAZAH AI Arsenal v6.5</h1>
     <p>Developer: FAZAH (@testtttttttt11222) • Zero-Dependency Local Dashboard</p>
   </div>
   <div class="badges">
     <span class="badge" id="stat-total">Loading index...</span>
-    <span class="badge" style="color:#22c55e;">14 Native MCP Tools</span>
+    <span class="badge" style="color:#22c55e;">17 Native MCP Tools</span>
   </div>
 </header>
 
