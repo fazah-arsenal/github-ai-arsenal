@@ -29,7 +29,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import gh_arsenal as arsenal
 
-SERVER_INFO = {"name": "github-ai-arsenal", "version": "6.0.0"}
+SERVER_INFO = {"name": "github-ai-arsenal", "version": "6.5.0"}
 PROTOCOL_VERSION = "2024-11-05"
 
 MCP_TOOLS: List[Dict[str, Any]] = [
