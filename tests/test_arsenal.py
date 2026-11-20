@@ -140,7 +140,8 @@ class TestGitHubAIArsenal(unittest.TestCase):
         lines = [line.strip() for line in proc.stdout.strip().split("\n") if line.strip()]
         self.assertGreaterEqual(len(lines), 4)
         resp1 = json.loads(lines[0])
-        self.assertEqual(resp1.get("result", {}).get("serverInfo", {}).get("version"), "6.0.0")
+        expected_ver = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertEqual(resp1.get("result", {}).get("serverInfo", {}).get("version"), expected_ver)
         resp2 = json.loads(lines[1])
         tool_names = [t["name"] for t in resp2.get("result", {}).get("tools", [])]
         self.assertGreaterEqual(len(tool_names), 17)
