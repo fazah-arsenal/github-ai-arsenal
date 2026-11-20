@@ -8,6 +8,7 @@
 ### **Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) — 20,078+ GitHub Tools, 1-Call Delivery (`fazah g`), Code Snippet Extractor, Isolated Sandbox, Local Web UI & Security Scanner**
 
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
+[![Live Site](https://img.shields.io/badge/Live%20Website-GitHub%20Pages-0ea5e9?style=for-the-badge)](https://fazah-arsenal.github.io/github-ai-arsenal/)
 [![MCP Server](https://img.shields.io/badge/Native%20MCP-17%20Tools%20%2B%20Prompts%20%2B%20Resources-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
 [![Dependencies](https://img.shields.io/badge/Python%20Deps-Zero%20(Stdlib%20Only)-22c55e?style=for-the-badge&logo=python)](scripts/gh_arsenal.py)
 [![CLI](https://img.shields.io/badge/Short%20CLI-fazah%20g%20%7C%20fazah%20ui-f59e0b?style=for-the-badge)](scripts/gh_arsenal.py)
@@ -144,6 +145,7 @@ fazah s "deepseek coding agent"            # Live GitHub API search
 fazah i danielmiessler/fabric              # Inspect repo structure & README without cloning
 fazah p unclecode/crawl4ai -d ./tools      # Download & extract repo ZIP without git
 fazah is anthropics/skills                 # Install any GitHub repo as a local SKILL.md
+fazah up                                   # Self-update FAZAH AI Arsenal & 20k+ index from GitHub
 ```
 
 ### 📦 Install via Python `pip`
