@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="assets/fazah-cover.jpg" alt="FAZAH AI Arsenal v4.0 — 20,078+ GitHub Tools & Native MCP Server" width="100%"/>
+<img src="assets/fazah-cover.jpg" alt="FAZAH AI Arsenal v6.5 — 20,078+ GitHub Tools & 17-Tool Native MCP Server" width="100%"/>
 
 <br/>
 
-# ⚡ FAZAH AI Arsenal v6.0 (`github-ai-arsenal`)
+# ⚡ FAZAH AI Arsenal v6.5 (`github-ai-arsenal`)
 ### **Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) — 20,078+ GitHub Tools, 1-Call Delivery (`fazah g`), Code Snippet Extractor, Isolated Sandbox, Local Web UI & Security Scanner**
 
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
