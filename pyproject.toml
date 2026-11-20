@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fazah-arsenal"
+version = "5.0.0"
+description = "FAZAH AI Arsenal v5.0 — 20,078+ Curated GitHub Tools, 14-Tool Native MCP Server, Deep Security Scanner, Local Web UI & Project Advisor"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+  {name = "FAZAH", email = "mhamadabdalla150150@gmail.com"}
+]
+keywords = ["mcp", "mcp-server", "ai-agents", "agent-skills", "github-tools", "claude-code", "cursor", "deepseek", "antigravity", "fazah"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Security",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/fazah-arsenal/github-ai-arsenal"
+Repository = "https://github.com/fazah-arsenal/github-ai-arsenal"
+Telegram = "https://t.me/testtttttttt11222"
+
+[project.scripts]
+fazah = "scripts.gh_arsenal:main"
+fazah-mcp = "scripts.mcp_server:main"
+fazah-ui = "scripts.web_ui:run_ui"
+
+[tool.setuptools.packages.find]
+include = ["scripts*", "references*"]
