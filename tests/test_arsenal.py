@@ -1,0 +1,126 @@
+import json
+import subprocess
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+CLI = ROOT / "scripts" / "gh_arsenal.py"
+MCP_SERVER = ROOT / "scripts" / "mcp_server.py"
+
+
+class TestGitHubAIArsenal(unittest.TestCase):
+    def _run_cli(self, *args: str) -> subprocess.CompletedProcess:
+        return subprocess.run(
+            [sys.executable, str(CLI), *args],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=25,
+        )
+
+    def test_stats_has_over_20000_tools(self):
+        proc = self._run_cli("stats", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertGreaterEqual(data["mega_index_total"], 20000)
+        self.assertGreaterEqual(data["core_elite_tools"], 50)
+
+    def test_doctor_command(self):
+        proc = self._run_cli("doctor", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertIn("runtimes", data)
+        self.assertGreaterEqual(data["mega_index_tools"], 20000)
+
+    def test_mega_offline_search_and_ranking(self):
+        proc = self._run_cli("mega", "--query", "mcp postgres", "--limit", "5", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertGreater(data["total_matches"], 0)
+        self.assertLessEqual(len(data["tools"]), 5)
+
+    def test_recommend_arabic_and_english(self):
+        p_ar = self._run_cli("recommend", "بوت تليجرام وكشط مواقع", "--json")
+        self.assertEqual(p_ar.returncode, 0, p_ar.stderr)
+        d_ar = json.loads(p_ar.stdout)
+        self.assertGreater(len(d_ar["core_matches"]), 0)
+
+        p_en = self._run_cli("recommend", "security audit and reverse engineering", "--json")
+        self.assertEqual(p_en.returncode, 0, p_en.stderr)
+        d_en = json.loads(p_en.stdout)
+        self.assertGreater(len(d_en["core_matches"]), 0)
+
+    def test_stack_command(self):
+        proc_list = self._run_cli("stack", "list", "--json")
+        self.assertEqual(proc_list.returncode, 0, proc_list.stderr)
+        data_list = json.loads(proc_list.stdout)
+        self.assertIn("available_stacks", data_list)
+        self.assertGreaterEqual(len(data_list["available_stacks"]), 8)
+
+        proc_saas = self._run_cli("stack", "saas-ai", "--json")
+        self.assertEqual(proc_saas.returncode, 0, proc_saas.stderr)
+        data_saas = json.loads(proc_saas.stdout)
+        self.assertEqual(data_saas["id"], "saas-ai")
+        self.assertGreater(len(data_saas["components"]), 3)
+
+    def test_audit_repo_offline_fallback(self):
+        # Test audit-repo produces structured output
+        proc = self._run_cli("audit-repo", "torvalds/linux", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertIn("trust_score", data)
+        self.assertIn("verdict", data)
+
+    def test_mcp_config_generator(self):
+        proc = self._run_cli("mcp-config", "github")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertIn("mcpServers", data)
+        self.assertIn("github", data["mcpServers"])
+
+    def test_quickstart_and_bookmarks(self):
+        proc_q = self._run_cli("quickstart", "unclecode/crawl4ai", "--json")
+        self.assertEqual(proc_q.returncode, 0, proc_q.stderr)
+        dq = json.loads(proc_q.stdout)
+        self.assertEqual(dq["repo"], "unclecode/crawl4ai")
+
+        proc_b = self._run_cli("bookmark", "add", "unclecode/crawl4ai", "--note", "Great LLM Crawler", "--json")
+        self.assertEqual(proc_b.returncode, 0, proc_b.stderr)
+        proc_l = self._run_cli("bookmark", "list", "--json")
+        self.assertEqual(proc_l.returncode, 0, proc_l.stderr)
+        dl = json.loads(proc_l.stdout)
+        self.assertGreaterEqual(dl["count"], 1)
+
+    def test_native_mcp_server_stdio(self):
+        # Simulate stdio JSON-RPC handshake & tools listing
+        reqs = (
+            json.dumps({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
+            + "\n"
+            + json.dumps({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
+            + "\n"
+        )
+        proc = subprocess.run(
+            [sys.executable, str(MCP_SERVER)],
+            input=reqs,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=15,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        lines = [line.strip() for line in proc.stdout.strip().split("\n") if line.strip()]
+        self.assertGreaterEqual(len(lines), 2)
+        resp1 = json.loads(lines[0])
+        self.assertEqual(resp1.get("result", {}).get("serverInfo", {}).get("name"), "github-ai-arsenal")
+        resp2 = json.loads(lines[1])
+        tool_names = [t["name"] for t in resp2.get("result", {}).get("tools", [])]
+        self.assertIn("arsenal_recommend", tool_names)
+        self.assertIn("arsenal_search_offline", tool_names)
+        self.assertIn("arsenal_stack", tool_names)
+        self.assertIn("arsenal_audit_repo", tool_names)
+
+
+if __name__ == "__main__":
+    unittest.main()
