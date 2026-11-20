@@ -4,13 +4,14 @@
 
 <br/>
 
-# ⚡ FAZAH AI Arsenal v4.0 (`github-ai-arsenal`)
-### **The #1 Universal AI Agent Skill & Native MCP Server — 20,078+ Curated GitHub Tools, 5,000+ MCP Servers, Security Auditor & 1-Command Stack Scaffolder**
+# ⚡ FAZAH AI Arsenal v5.0 (`github-ai-arsenal`)
+### **The #1 Universal AI Agent Skill & 14-Tool Native MCP Server — 20,078+ Curated GitHub Tools, Local Web UI, Deep Supply-Chain Scanner, Project Advisor & 1-Command Stack Scaffolder**
 
 [![Tools](https://img.shields.io/badge/GitHub%20Tools-20%2C078%2B-38bdf8?style=for-the-badge&logo=github)](https://github.com/fazah-arsenal/github-ai-arsenal)
-[![MCP Server](https://img.shields.io/badge/Native%20MCP-12%20Tools%20(Stdio)-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
+[![MCP Server](https://img.shields.io/badge/Native%20MCP-14%20Tools%20(Stdio)-8b5cf6?style=for-the-badge)](scripts/mcp_server.py)
 [![Dependencies](https://img.shields.io/badge/Python%20Deps-Zero%20(Stdlib%20Only)-22c55e?style=for-the-badge&logo=python)](scripts/gh_arsenal.py)
-[![CLI](https://img.shields.io/badge/Short%20CLI-fazah-f59e0b?style=for-the-badge)](scripts/gh_arsenal.py)
+[![CLI](https://img.shields.io/badge/Short%20CLI-fazah%20%7C%20fazah%20ui-f59e0b?style=for-the-badge)](scripts/gh_arsenal.py)
+[![Registries](https://img.shields.io/badge/Smithery%20%26%20Glama-Ready-06b6d4?style=for-the-badge)](smithery.yaml)
 [![Author](https://img.shields.io/badge/Developer-FAZAH-f43f5e?style=for-the-badge)](https://t.me/testtttttttt11222)
 [![Telegram](https://img.shields.io/badge/Telegram-@testtttttttt11222-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/testtttttttt11222)
 
@@ -119,6 +120,9 @@ Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, W
 ## 🛠️ Ultra-Short CLI Cheatsheet (`fazah`)
 
 ```bash
+fazah ui                                   # Launch Interactive Local Web Dashboard (http://127.0.0.1:8765)
+fazah az .                                 # Analyze current project & recommend missing tools/MCPs
+fazah scan unclecode/crawl4ai              # Deep supply-chain security scan of setup.py/package.json
 fazah doc                                  # Check local runtimes, skills & index health
 fazah info                                 # Show breakdown of 20,078+ tools across 37 domains
 fazah r "telegram bot and web scraping"    # Smart tool recommender (English & Arabic)
@@ -135,6 +139,11 @@ fazah s "deepseek coding agent"            # Live GitHub API search
 fazah i danielmiessler/fabric              # Inspect repo structure & README without cloning
 fazah p unclecode/crawl4ai -d ./tools      # Download & extract repo ZIP without git
 fazah is anthropics/skills                 # Install any GitHub repo as a local SKILL.md
+```
+
+### 📦 Install via Python `pip`
+```bash
+pip install git+https://github.com/fazah-arsenal/github-ai-arsenal.git
 ```
 
 *(Full command names like `fazah recommend` and `python scripts/gh_arsenal.py recommend` also work identically.)*
