@@ -11,22 +11,22 @@
 
   <!-- Terminal Body -->
   <g font-family="Consolas, 'Courier New', monospace" font-size="14">
-    <text x="28" y="74" fill="#38bdf8">$ python scripts/gh_arsenal.py recommend "بوت تليجرام ذكي وكشط مواقع"</text>
+    <text x="28" y="74" fill="#38bdf8">$ fazah r "بوت تليجرام ذكي وكشط مواقع"</text>
     <text x="28" y="98" fill="#22c55e">[Core Elite Picks]</text>
     <text x="28" y="120" fill="#e6edf3">1. aiogram — https://github.com/aiogram/aiogram [bots-automation]  (pip install aiogram)</text>
     <text x="28" y="142" fill="#e6edf3">2. Crawl4AI — https://github.com/unclecode/crawl4ai [web-scraping-search]  (pip install crawl4ai)</text>
     <text x="28" y="164" fill="#e6edf3">3. Scrapling — https://github.com/D4Vinci/Scrapling [web-scraping-search]  (pip install scrapling)</text>
 
-    <text x="28" y="204" fill="#38bdf8">$ python scripts/gh_arsenal.py compare unclecode/crawl4ai mendableai/firecrawl</text>
+    <text x="28" y="204" fill="#38bdf8">$ fazah cmp unclecode/crawl4ai mendableai/firecrawl</text>
     <text x="28" y="228" fill="#c084fc">=== Repository Comparison (Winner: unclecode/crawl4ai) ===</text>
     <text x="28" y="250" fill="#e6edf3">1. unclecode/crawl4ai       | Trust: 100/100 [TRUSTED] | ★ 58,400+ | Lang: Python     | License: Apache-2.0</text>
     <text x="28" y="272" fill="#e6edf3">2. mendableai/firecrawl     | Trust:  90/100 [TRUSTED] | ★ 62,100+ | Lang: TypeScript | License: AGPL-3.0</text>
 
-    <text x="28" y="312" fill="#38bdf8">$ python scripts/gh_arsenal.py stack saas-ai --scaffold ./my-saas-app</text>
+    <text x="28" y="312" fill="#38bdf8">$ fazah st saas-ai -s ./my-saas-app</text>
     <text x="28" y="336" fill="#22c55e">=== Scaffolded Stack 'saas-ai' -&gt; ./my-saas-app ===</text>
     <text x="28" y="358" fill="#8b949e">  [+] Created README.md  [+] Created setup_stack.ps1  [+] Created .env.example  [+] Created .mcp.json</text>
 
-    <text x="28" y="398" fill="#38bdf8">$ python scripts/gh_arsenal.py mcp-inject github-ai-arsenal</text>
+    <text x="28" y="398" fill="#38bdf8">$ fazah mi github-ai-arsenal</text>
     <text x="28" y="420" fill="#22c55e">Injected MCP Server 'github-ai-arsenal' -&gt; .mcp.json (12 Native Tools Active!)</text>
   </g>
 </svg>
