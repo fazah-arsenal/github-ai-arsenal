@@ -35,7 +35,7 @@
 
 ---
 
-## 🌟 Why FAZAH AI Arsenal v4.0?
+## 🌟 Why FAZAH AI Arsenal v6.5?
 
 Instead of letting your AI agent reinvent existing tools from scratch or burn through GitHub API rate limits, **FAZAH AI Arsenal** bundles a compressed offline index of **20,078+ real, battle-tested GitHub repositories** alongside a pure-Python **BM25 search engine**, **Repository Trust & Security Auditor**, **Side-by-Side Comparison Engine**, and **1-Command Project Stack Scaffolder** — with **zero external Python dependencies**.
 
@@ -100,9 +100,14 @@ Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, W
 }
 ```
 
-### 🧰 12 Native MCP Tools Exposed:
+### 🧰 17 Native MCP Tools (+ 4 Resources & 3 Prompts) Exposed:
 | MCP Tool | Description |
 | :--- | :--- |
+| `arsenal_give_tool` | **1-Call Autonomous Tool Broker**: picks #1 tool, scans security, extracts code snippet & optionally pulls |
+| `arsenal_get_snippet` | Extracts clean runnable code snippets from any README (saves 85% AI tokens) |
+| `arsenal_deep_scan` | Deep supply-chain security scan of `setup.py`, `package.json`, `install.sh`, `Dockerfile` |
+| `arsenal_analyze_project` | Scans local project directory & recommends missing GitHub tools & MCP servers |
+| `arsenal_memory` | Persistent agent experience memory for verified working tools on this machine |
 | `arsenal_recommend` | Intelligent tool recommender (Core Elite + 20,078+ Mega Index) |
 | `arsenal_search_offline` | Instant offline BM25 search across 20,078+ repos with zero rate limits |
 | `arsenal_stack` | Browse 8 turnkey project stacks with install commands |
