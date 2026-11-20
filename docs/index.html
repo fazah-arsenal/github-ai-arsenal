@@ -1,149 +1,583 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>⚡ FAZAH AI Arsenal — 20,078+ GitHub Tools & 17-Tool Native MCP Server</title>
-<meta name="description" content="Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) giving Claude Code, Cursor, DeepSeek, Antigravity & Windsurf instant access to 20,078+ GitHub tools." />
+<title>FAZAH AI Arsenal — 20,078+ GitHub Tools & 17-Tool Native MCP Server</title>
+<meta name="description" content="Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) giving Claude Code, Cursor, DeepSeek, Antigravity & Windsurf instant offline access to 20,078+ GitHub tools." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #050811; --panel: #0d1425; --card: #111a2e; --border: #1e293b;
-    --cyan: #38bdf8; --purple: #a855f7; --green: #22c55e; --amber: #f59e0b;
-    --text: #f8fafc; --muted: #94a3b8;
+    --bg: #030712;
+    --bg-elev: rgba(15, 23, 42, 0.65);
+    --card: rgba(15, 23, 42, 0.55);
+    --card-hover: rgba(30, 41, 59, 0.7);
+    --border: rgba(148, 163, 184, 0.14);
+    --border-hi: rgba(56, 189, 248, 0.45);
+    --cyan: #38bdf8;
+    --indigo: #818cf8;
+    --purple: #c084fc;
+    --emerald: #34d399;
+    --amber: #fbbf24;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --dim: #64748b;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: radial-gradient(circle at 80% 0%, #1e1b4b 0%, var(--bg) 50%); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
-  a { color: var(--cyan); text-decoration: none; }
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 36px; border-bottom: 1px solid var(--border); background: rgba(5,8,17,0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 20; flex-wrap: wrap; gap: 12px; }
-  .logo { font-size: 20px; font-weight: 800; background: linear-gradient(90deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .nav-links { display: flex; gap: 16px; align-items: center; font-size: 14px; font-weight: 600; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: transform .15s, opacity .15s; }
-  .btn:hover { transform: translateY(-1px); opacity: 0.92; }
-  .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #fff; }
-  .btn-ghost { background: var(--card); border: 1px solid #334155; color: var(--text); }
-  .hero { max-width: 1140px; margin: 48px auto 32px; padding: 0 24px; text-align: center; }
-  .pill { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 18px; }
-  .hero h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
-  .hero h1 span { background: linear-gradient(90deg, var(--cyan), #818cf8, var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero p { font-size: 18px; color: var(--muted); max-width: 780px; margin: 0 auto 28px; }
-  .install-box { max-width: 780px; margin: 24px auto; background: #020617; border: 1px solid #334155; border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; flex-wrap: wrap; }
-  .install-box code { font-family: Consolas, monospace; font-size: 13px; color: #7dd3fc; word-break: break-all; }
-  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 1140px; margin: 36px auto; padding: 0 24px; }
-  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
-  .stat .num { font-size: 30px; font-weight: 900; color: var(--cyan); }
-  .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
-  section { max-width: 1140px; margin: 48px auto; padding: 0 24px; }
-  h2 { font-size: 26px; font-weight: 800; margin-bottom: 18px; }
-  .search-wrap { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-  input { flex: 1; min-width: 240px; background: var(--panel); border: 1px solid #334155; color: var(--text); padding: 12px 16px; border-radius: 10px; font-size: 15px; outline: none; }
-  input:focus { border-color: var(--cyan); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
-  .card:hover { border-color: rgba(56,189,248,0.45); }
-  .card h3 { font-size: 16px; }
-  .tag { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(168,85,247,0.16); color: #d8b4fe; }
-  .cmd { background: #020617; padding: 8px 10px; border-radius: 8px; font-family: Consolas, monospace; font-size: 12px; color: #86efac; overflow-x: auto; }
-  footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; margin-top: 64px; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* Subtle Grid + Aurora Glow */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(56, 189, 248, 0.18), transparent),
+      radial-gradient(ellipse 60% 45% at 90% 10%, rgba(168, 85, 247, 0.14), transparent),
+      linear-gradient(rgba(148, 163, 184, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+    pointer-events: none;
+    z-index: -1;
+  }
+  a { color: inherit; text-decoration: none; }
+  code, pre { font-family: 'JetBrains Mono', Consolas, monospace; }
+
+  /* Navbar */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: rgba(3, 7, 18, 0.72);
+    border-bottom: 1px solid var(--border);
+  }
+  nav {
+    max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
+  .brand-icon {
+    width: 32px; height: 32px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    display: grid; place-items: center; font-size: 16px; box-shadow: 0 0 24px rgba(56,189,248,0.35);
+  }
+  .brand span { background: linear-gradient(90deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 26px; font-size: 14px; font-weight: 500; color: var(--muted); }
+  .nav-links a:hover { color: var(--text); }
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 9px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.18s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1, #a855f7);
+    color: #fff; box-shadow: 0 4px 22px rgba(99, 102, 241, 0.35);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(56, 189, 248, 0.45); }
+  .btn-outline {
+    background: rgba(15, 23, 42, 0.7); border-color: var(--border); color: var(--text);
+  }
+  .btn-outline:hover { border-color: rgba(148,163,184,0.4); background: rgba(30,41,59,0.8); }
+
+  /* Hero */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .hero { padding: 72px 0 40px; text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #7dd3fc; font-size: 12.5px; font-weight: 600; margin-bottom: 22px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 10px var(--emerald); }
+  .hero h1 {
+    font-size: clamp(36px, 5.6vw, 66px); font-weight: 900; letter-spacing: -0.04em;
+    line-height: 1.07; max-width: 920px; margin: 0 auto 20px;
+  }
+  .grad-text {
+    background: linear-gradient(95deg, #38bdf8 0%, #818cf8 48%, #c084fc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 19px); color: var(--muted);
+    max-width: 740px; margin: 0 auto 32px; font-weight: 400;
+  }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 42px; }
+  .hero-cta .btn { padding: 12px 22px; font-size: 14.5px; border-radius: 12px; }
+
+  /* Install Switcher */
+  .install-card {
+    max-width: 780px; margin: 0 auto 44px;
+    background: rgba(9, 13, 24, 0.9); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; text-align: left;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  }
+  .install-tabs {
+    display: flex; border-bottom: 1px solid var(--border);
+    background: rgba(15, 23, 42, 0.5); padding: 0 12px; gap: 4px; overflow-x: auto;
+  }
+  .itab {
+    padding: 11px 14px; font-size: 12.5px; font-weight: 600; color: var(--muted);
+    cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap;
+  }
+  .itab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+  .install-body {
+    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  }
+  .install-body pre {
+    color: #e2e8f0; font-size: 13px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; flex: 1;
+  }
+  .copy-btn {
+    background: rgba(56, 189, 248, 0.12); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.28);
+    padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  .copy-btn:hover { background: rgba(56, 189, 248, 0.22); }
+
+  /* Compatibility Logos Strip */
+  .compat {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-bottom: 52px; color: var(--dim); font-size: 12.5px; font-weight: 600;
+  }
+  .compat span {
+    padding: 6px 13px; border-radius: 8px;
+    background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); color: var(--muted);
+  }
+
+  /* Metrics Grid */
+  .metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px; margin-bottom: 72px;
+  }
+  .metric {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px; text-align: center; backdrop-filter: blur(10px);
+  }
+  .metric-val { font-size: 32px; font-weight: 900; letter-spacing: -0.03em; color: var(--text); }
+  .metric-lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* Section Headers */
+  .sec { padding: 48px 0; }
+  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 36px; }
+  .sec-eyebrow { color: var(--cyan); font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .sec-head h2 { font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .sec-head p { color: var(--muted); font-size: 15.5px; }
+
+  /* Bento Feature Grid */
+  .bento { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .bcard {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 26px; transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .bcard:hover { border-color: var(--border-hi); transform: translateY(-3px); background: var(--card-hover); }
+  .bicon {
+    width: 42px; height: 42px; border-radius: 11px;
+    display: grid; place-items: center; font-size: 20px; margin-bottom: 16px;
+    background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25);
+  }
+  .bcard h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .bcard p { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+  .bcmd {
+    display: inline-block; font-size: 12px; padding: 5px 10px; border-radius: 7px;
+    background: rgba(2, 6, 23, 0.85); border: 1px solid var(--border); color: var(--emerald);
+  }
+
+  /* Terminal Showcase */
+  .terminal {
+    background: #020617; border: 1px solid var(--border); border-radius: 18px;
+    overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.6); max-width: 960px; margin: 0 auto;
+  }
+  .term-bar {
+    background: #0f172a; padding: 12px 18px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .t-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .term-title { margin-left: 10px; font-size: 12.5px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .term-body { padding: 22px 24px; font-size: 13.5px; line-height: 1.75; overflow-x: auto; }
+  .t-prompt { color: var(--cyan); font-weight: 600; }
+  .t-ok { color: var(--emerald); }
+  .t-hi { color: var(--purple); font-weight: 600; }
+  .t-dim { color: var(--dim); }
+
+  /* Explorer */
+  .explorer-controls { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+  .search-input {
+    width: 100%; padding: 14px 18px; border-radius: 12px;
+    background: rgba(9, 13, 24, 0.9); border: 1px solid var(--border);
+    color: var(--text); font-size: 15px; outline: none; transition: border-color 0.15s;
+  }
+  .search-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,189,248,0.14); }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    padding: 6px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+    background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .pill:hover, .pill.active {
+    background: rgba(56, 189, 248, 0.15); border-color: var(--cyan); color: #fff;
+  }
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+  .tcard {
+    background: var(--card); border: 1px solid var(--border); border-radius: 15px;
+    padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .tcard:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+  .tcard-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+  .tcard h3 { font-size: 15.5px; font-weight: 700; }
+  .tcard h3 a:hover { color: var(--cyan); }
+  .tcat {
+    font-size: 11px; padding: 3px 9px; border-radius: 6px;
+    background: rgba(129, 140, 248, 0.14); color: #c7d2fe; white-space: nowrap; font-weight: 600;
+  }
+  .tdesc { font-size: 13.5px; color: var(--muted); }
+  .tfoot {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: rgba(2, 6, 23, 0.85); border: 1px solid var(--border);
+    border-radius: 9px; padding: 8px 11px;
+  }
+  .tfoot code { font-size: 12px; color: var(--emerald); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mini-copy {
+    background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 12px; font-weight: 600;
+  }
+  .mini-copy:hover { color: var(--cyan); }
+
+  /* Footer */
+  footer {
+    margin-top: 84px; border-top: 1px solid var(--border);
+    background: rgba(2, 6, 23, 0.7); padding: 48px 24px;
+  }
+  .foot-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px;
+  }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+  .foot-links a:hover { color: var(--cyan); }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    background: #0f172a; border: 1px solid var(--cyan); color: #fff;
+    padding: 11px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5); opacity: 0; transform: translateY(12px);
+    transition: all 0.2s; pointer-events: none;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .hero { padding-top: 44px; }
+  }
 </style>
 </head>
 <body>
-<nav>
-  <div class="logo">⚡ FAZAH AI Arsenal v6.5</div>
-  <div class="nav-links">
-    <a href="#explorer">Live Explorer</a>
-    <a href="#stacks">8 Stacks</a>
-    <a href="https://t.me/testtttttttt11222" target="_blank">Telegram</a>
-    <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">★ Star on GitHub</a>
-  </div>
-</nav>
 
-<div class="hero">
-  <div class="pill">UNIVERSAL AGENT SKILL • 17-TOOL NATIVE MCP SERVER • ZERO DEPENDENCIES</div>
-  <h1>Arm Any AI Agent With <span>20,078+ Real GitHub Tools</span></h1>
-  <p>Autonomous 1-call Tool Broker (<code>fazah g</code>), Deep Supply-Chain Security Scanner, Code Snippet Extractor, Isolated Sandbox, and Local Web UI — built for Claude Code, Cursor, Antigravity, DeepSeek & Windsurf.</p>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">View Repository on GitHub</a>
-    <a class="btn btn-ghost" href="https://github.com/fazah-arsenal/github-ai-arsenal/releases/latest" target="_blank">Download Latest Release</a>
-  </div>
-
-  <div class="install-box">
-    <code id="win-cmd">irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex</code>
-    <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" onclick="copyCmd('win-cmd', this)">Copy Windows</button>
-  </div>
-  <div class="install-box">
-    <code id="nix-cmd">curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash</code>
-    <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" onclick="copyCmd('nix-cmd', this)">Copy Linux / macOS</button>
-  </div>
+<div class="nav-wrap">
+  <nav>
+    <a class="brand" href="#">
+      <div class="brand-icon">⚡</div>
+      <span>FAZAH AI Arsenal</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#terminal">CLI Demo</a>
+      <a href="#explorer">Tool Explorer</a>
+      <a href="#stacks">8 Stacks</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="https://t.me/testtttttttt11222" target="_blank">Telegram</a>
+      <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">★ Star <span id="nav-stars"></span></a>
+    </div>
+  </nav>
 </div>
 
-<div class="stats-row">
-  <div class="stat"><div class="num">20,078+</div><div class="lbl">Curated Real GitHub Tools</div></div>
-  <div class="stat"><div class="num">17 + 7</div><div class="lbl">MCP Tools + Resources & Prompts</div></div>
-  <div class="stat"><div class="num">37</div><div class="lbl">Engineering Domains Covered</div></div>
-  <div class="stat"><div class="num">0 Deps</div><div class="lbl">Pure Python Stdlib Only</div></div>
-</div>
+<main class="container">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge"><span class="dot"></span> v6.5 Released • 17 Native MCP Tools + Prompts & Resources</div>
+    <h1>The Autonomous GitHub Toolbox for <span class="grad-text">Every AI Agent</span></h1>
+    <p class="hero-sub">
+      Give Claude Code, Cursor, Google Antigravity, DeepSeek Harness, and Windsurf instant offline BM25 access to <strong>20,078+ curated GitHub repositories</strong>, supply-chain security scanning, and 1-command project scaffolding — with <strong>zero Python dependencies</strong>.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">Explore on GitHub →</a>
+      <a class="btn btn-outline" href="#explorer">Browse Live Catalog</a>
+      <a class="btn btn-outline" href="https://github.com/fazah-arsenal/github-ai-arsenal/releases/latest" target="_blank">Latest Release</a>
+    </div>
 
-<section id="explorer">
-  <h2>🔍 Live Core Elite Tool Explorer</h2>
-  <div class="search-wrap">
-    <input id="q" placeholder="Filter curated elite tools (e.g. mcp, telegram, scraping, security, reverse, rag)..." oninput="renderTools()" />
-  </div>
-  <div class="grid" id="tools-grid">Loading live catalog from GitHub...</div>
-</section>
+    <!-- 1-Command Install Tabs -->
+    <div class="install-card">
+      <div class="install-tabs">
+        <div class="itab active" onclick="setInstall('win', this)">Windows (PowerShell)</div>
+        <div class="itab" onclick="setInstall('nix', this)">Linux / macOS</div>
+        <div class="itab" onclick="setInstall('pip', this)">Python pip</div>
+        <div class="itab" onclick="setInstall('mcp', this)">MCP Config JSON</div>
+      </div>
+      <div class="install-body">
+        <pre id="install-code">irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex</pre>
+        <button class="copy-btn" onclick="copyText(document.getElementById('install-code').textContent)">Copy</button>
+      </div>
+    </div>
 
-<section id="stacks">
-  <h2>🏗️ 8 Turnkey Project Stacks (1-Command Scaffolder)</h2>
-  <div class="grid" id="stacks-grid">Loading stacks...</div>
-</section>
+    <div class="compat">
+      <span>Google Antigravity</span>
+      <span>DeepSeek Harness</span>
+      <span>Claude Code</span>
+      <span>Cursor IDE</span>
+      <span>Windsurf</span>
+      <span>OpenAI Codex</span>
+      <span>Smithery &amp; Glama MCP</span>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics">
+      <div class="metric"><div class="metric-val grad-text">20,078+</div><div class="metric-lbl">Curated Real GitHub Tools</div></div>
+      <div class="metric"><div class="metric-val">17 + 7</div><div class="metric-lbl">MCP Tools + Resources &amp; Prompts</div></div>
+      <div class="metric"><div class="metric-val">37</div><div class="metric-lbl">Engineering Domains Indexed</div></div>
+      <div class="metric"><div class="metric-val" style="color:var(--emerald);">0 Deps</div><div class="metric-lbl">Pure Python 3.9+ Stdlib</div></div>
+    </div>
+  </section>
+
+  <!-- BENTO FEATURES -->
+  <section id="features" class="sec">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Built for Autonomous Agents</div>
+      <h2>Everything an AI Needs to Ship Faster &amp; Safer</h2>
+      <p>Stop wasting tokens and API limits. One lightweight skill turns any coding agent into a full-stack toolsmith.</p>
+    </div>
+    <div class="bento">
+      <div class="bcard">
+        <div class="bicon">🤖</div>
+        <h3>1-Call Autonomous Tool Broker</h3>
+        <p>Ask once in English or Arabic — returns the #1 repo from 20,078+ tools, supply-chain security verdict, install command, and clean code snippet.</p>
+        <code class="bcmd">fazah g "stealth web scraper" --pull</code>
+      </div>
+      <div class="bcard">
+        <div class="bicon">🔌</div>
+        <h3>17-Tool Native MCP Server</h3>
+        <p>Full Model Context Protocol server over stdio JSON-RPC with 17 tools, 4 live resources, and 3 slash prompts — zero external packages.</p>
+        <code class="bcmd">fazah mi github-ai-arsenal</code>
+      </div>
+      <div class="bcard">
+        <div class="bicon">🛡️</div>
+        <h3>Deep Supply-Chain Scanner</h3>
+        <p>Audits Trust Score (0–100) and scans <code>setup.py</code>, <code>package.json</code>, <code>install.sh</code> &amp; <code>Dockerfile</code> for malicious hooks before installing.</p>
+        <code class="bcmd">fazah scan unclecode/crawl4ai</code>
+      </div>
+      <div class="bcard">
+        <div class="bicon">🖥️</div>
+        <h3>Zero-Dependency Local Web UI</h3>
+        <p>Launch a sleek local dashboard on <code>127.0.0.1:8765</code> with live BM25 filtering across 20,078+ repos, 1-click audit, and stack previews.</p>
+        <code class="bcmd">fazah ui</code>
+      </div>
+      <div class="bcard">
+        <div class="bicon">🧠</div>
+        <h3>Project Advisor &amp; Memory</h3>
+        <p>Analyzes your local project dependencies to suggest missing GitHub tools &amp; MCPs, while remembering verified tools on your machine.</p>
+        <code class="bcmd">fazah az .</code>
+      </div>
+      <div class="bcard">
+        <div class="bicon">🧪</div>
+        <h3>Isolated Sandbox &amp; Self-Updater</h3>
+        <p>Test unfamiliar Python repos inside an isolated temporary <code>venv</code> without polluting global packages, and stay updated in 1 command.</p>
+        <code class="bcmd">fazah try owner/repo &amp;&amp; fazah up</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL PREVIEW -->
+  <section id="terminal" class="sec">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Ultra-Short CLI</div>
+      <h2>One Word: <code>fazah</code></h2>
+      <p>Designed for speed — both for human developers and autonomous agent loops.</p>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="t-dot" style="background:#ef4444;"></div>
+        <div class="t-dot" style="background:#f59e0b;"></div>
+        <div class="t-dot" style="background:#22c55e;"></div>
+        <span class="term-title">fazah@arsenal ~ v6.5 (20,078+ Tools • 17 MCP Tools)</span>
+      </div>
+      <div class="term-body">
+        <div><span class="t-prompt">$ fazah g "telegram bot and stealth web scraping"</span></div>
+        <div class="t-ok">=== ⚡ FAZAH Autonomous Tool Delivery ===</div>
+        <div>Winner   : <strong>aiogram</strong> — https://github.com/aiogram/aiogram (<span class="t-ok">pip install aiogram</span>)</div>
+        <div>Security : <span class="t-ok">[SAFE]</span> Risk Score: 0/100 — Scanned setup &amp; build files, 0 red flags</div>
+        <div class="t-dim">Snippet  : Clean runnable async Python snippet extracted (saved 85% AI tokens)</div>
+        <br/>
+        <div><span class="t-prompt">$ fazah cmp unclecode/crawl4ai mendableai/firecrawl</span></div>
+        <div class="t-hi">=== Repository Comparison (Winner: unclecode/crawl4ai) ===</div>
+        <div>1. unclecode/crawl4ai     | Trust: <span class="t-ok">100/100 [TRUSTED]</span> | ★ 58,400+ | Python     | Apache-2.0</div>
+        <div>2. mendableai/firecrawl   | Trust: <span class="t-ok"> 90/100 [TRUSTED]</span> | ★ 62,100+ | TypeScript | AGPL-3.0</div>
+        <br/>
+        <div><span class="t-prompt">$ fazah st saas-ai -s ./my-saas-app</span></div>
+        <div class="t-ok">=== Scaffolded Stack 'saas-ai' -&gt; ./my-saas-app ===</div>
+        <div class="t-dim">  [+] README.md   [+] setup_stack.ps1   [+] .env.example   [+] .mcp.json</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE EXPLORER -->
+  <section id="explorer" class="sec">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Interactive Catalog</div>
+      <h2>Live Core Elite Tool Explorer</h2>
+      <p>Search curated elite picks live from GitHub — install the CLI to search all 20,078+ repositories offline.</p>
+    </div>
+    <div class="explorer-controls">
+      <input id="q" class="search-input" placeholder="Search tools by name, use-case, or keyword (e.g. mcp, telegram, scraping, security, reverse, rag)..." oninput="renderTools()" />
+      <div class="pills" id="cat-pills"></div>
+    </div>
+    <div class="tool-grid" id="tools-grid">Loading live catalog from GitHub...</div>
+  </section>
+
+  <!-- TURNKEY STACKS -->
+  <section id="stacks" class="sec">
+    <div class="sec-head">
+      <div class="sec-eyebrow">1-Command Scaffolding</div>
+      <h2>8 Battle-Tested Project Stacks</h2>
+      <p>Generate complete starter architectures with install scripts, environment templates, and pre-wired MCP configs.</p>
+    </div>
+    <div class="tool-grid" id="stacks-grid">Loading turnkey stacks...</div>
+  </section>
+</main>
 
 <footer>
-  <p>⚡ Developed by <strong>FAZAH</strong> • Telegram: <a href="https://t.me/testtttttttt11222" target="_blank">@testtttttttt11222</a> • Email: <a href="mailto:mhamadabdalla150150@gmail.com">mhamadabdalla150150@gmail.com</a></p>
-  <p style="margin-top:8px;font-size:12px;">MIT License • Open Source AI Agent Infrastructure</p>
+  <div class="foot-inner">
+    <div>
+      <div class="brand" style="margin-bottom:6px;">
+        <div class="brand-icon" style="width:26px;height:26px;font-size:13px;">⚡</div>
+        <span>FAZAH AI Arsenal</span>
+      </div>
+      <div style="font-size:13px;color:var(--dim);">Created by <strong style="color:var(--text);">FAZAH</strong> • Open Source under MIT License</div>
+    </div>
+    <div class="foot-links">
+      <a href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">GitHub Repository</a>
+      <a href="https://t.me/testtttttttt11222" target="_blank">Telegram (@testtttttttt11222)</a>
+      <a href="mailto:mhamadabdalla150150@gmail.com">mhamadabdalla150150@gmail.com</a>
+    </div>
+  </div>
 </footer>
 
+<div id="toast">Copied to clipboard!</div>
+
 <script>
-let allTools = [];
-function copyCmd(id, btn) {
-  navigator.clipboard.writeText(document.getElementById(id).textContent);
-  btn.textContent = 'Copied!';
-  setTimeout(() => btn.textContent = id === 'win-cmd' ? 'Copy Windows' : 'Copy Linux / macOS', 1500);
+const INSTALL_CMDS = {
+  win: 'irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex',
+  nix: 'curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash',
+  pip: 'pip install git+https://github.com/fazah-arsenal/github-ai-arsenal.git',
+  mcp: '{\n  "mcpServers": {\n    "github-ai-arsenal": {\n      "command": "python",\n      "args": ["~/.agents/skills/github-ai-arsenal/scripts/mcp_server.py"]\n    }\n  }\n}'
+};
+
+function setInstall(key, el) {
+  document.querySelectorAll('.itab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('install-code').textContent = INSTALL_CMDS[key];
 }
+
+function copyText(txt) {
+  navigator.clipboard.writeText(txt);
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+let allTools = [];
+let activeCat = '';
+
+function selectCat(cat, el) {
+  activeCat = cat;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  renderTools();
+}
+
 function renderTools() {
   const q = (document.getElementById('q').value || '').toLowerCase();
-  const filtered = allTools.filter(t => !q || JSON.stringify(t).toLowerCase().includes(q)).slice(0, 24);
-  document.getElementById('tools-grid').innerHTML = filtered.map(t => `
-    <div class="card">
+  const filtered = allTools.filter(t => {
+    const catOk = !activeCat || t.category === activeCat;
+    const qOk = !q || JSON.stringify(t).toLowerCase().includes(q);
+    return catOk && qOk;
+  });
+  const grid = document.getElementById('tools-grid');
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="color:var(--muted);padding:20px;">No matching tools in Core Elite — run <code>fazah m -q "' + q + '"</code> to search all 20,078+ repos offline!</div>';
+    return;
+  }
+  grid.innerHTML = filtered.slice(0, 24).map(t => `
+    <div class="tcard">
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+        <div class="tcard-head">
           <h3><a href="https://github.com/${t.repo}" target="_blank">${t.name}</a></h3>
-          <span class="tag">${t.category}</span>
+          <span class="tcat">${t.category}</span>
         </div>
-        <p style="font-size:13px;color:#94a3b8;margin-top:6px;">${t.use_when}</p>
+        <p class="tdesc" style="margin-top:8px;">${t.use_when}</p>
       </div>
-      <div class="cmd">${t.install}</div>
+      <div class="tfoot">
+        <code title="${t.install}">${t.install}</code>
+        <button class="mini-copy" onclick="copyText('${t.install.replace(/'/g, "\\'")}')">Copy</button>
+      </div>
     </div>
   `).join('');
 }
-async function loadData() {
+
+async function init() {
+  // Fetch live GitHub Stars
+  try {
+    const repo = await (await fetch('https://api.github.com/repos/fazah-arsenal/github-ai-arsenal')).json();
+    if (typeof repo.stargazers_count === 'number') {
+      document.getElementById('nav-stars').textContent = `(${repo.stargazers_count})`;
+    }
+  } catch {}
+
   const base = 'https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/references';
-  const cat = await (await fetch(`${base}/catalog.json`)).json();
-  allTools = cat.tools || [];
-  renderTools();
-  const st = await (await fetch(`${base}/stacks.json`)).json();
-  document.getElementById('stacks-grid').innerHTML = Object.entries(st.stacks || {}).map(([id, s]) => `
-    <div class="card">
-      <div>
-        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
-          <h3>${s.name}</h3>
-          <span class="tag">${id}</span>
+  try {
+    const cat = await (await fetch(`${base}/catalog.json`)).json();
+    allTools = cat.tools || [];
+    const cats = [...new Set(allTools.map(t => t.category))];
+    document.getElementById('cat-pills').innerHTML =
+      `<div class="pill active" onclick="selectCat('', this)">All (${allTools.length})</div>` +
+      cats.map(c => `<div class="pill" onclick="selectCat('${c}', this)">${c}</div>`).join('');
+    renderTools();
+  } catch {
+    document.getElementById('tools-grid').textContent = 'Unable to load catalog.';
+  }
+
+  try {
+    const st = await (await fetch(`${base}/stacks.json`)).json();
+    document.getElementById('stacks-grid').innerHTML = Object.entries(st.stacks || {}).map(([id, s]) => {
+      const cmd = `fazah st ${id} -s ./my-${id}`;
+      return `
+        <div class="tcard">
+          <div>
+            <div class="tcard-head">
+              <h3>${s.name}</h3>
+              <span class="tcat">${id}</span>
+            </div>
+            <p class="tdesc" style="margin-top:8px;">${s.description}</p>
+            <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+              ${(s.components || []).map(c => `<span style="font-size:11px;padding:2px 7px;border-radius:5px;background:rgba(56,189,248,0.1);color:#7dd3fc;">${c.repo.split('/')[1]}</span>`).join('')}
+            </div>
+          </div>
+          <div class="tfoot">
+            <code>${cmd}</code>
+            <button class="mini-copy" onclick="copyText('${cmd}')">Copy</button>
+          </div>
         </div>
-        <p style="font-size:13px;color:#94a3b8;margin-top:6px;">${s.description}</p>
-      </div>
-      <div class="cmd">fazah st ${id} -s ./my-${id}</div>
-    </div>
-  `).join('');
+      `;
+    }).join('');
+  } catch {}
 }
-loadData();
+init();
 </script>
 </body>
 </html>
