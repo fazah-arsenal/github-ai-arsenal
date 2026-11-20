@@ -93,6 +93,19 @@ class TestGitHubAIArsenal(unittest.TestCase):
         dl = json.loads(proc_l.stdout)
         self.assertGreaterEqual(dl["count"], 1)
 
+    def test_analyze_project_and_deep_scan(self):
+        proc_az = self._run_cli("analyze", ".", "--json")
+        self.assertEqual(proc_az.returncode, 0, proc_az.stderr)
+        daz = json.loads(proc_az.stdout)
+        self.assertIn("detected_stack", daz)
+        self.assertIn("recommended_core_tools", daz)
+
+        proc_sc = self._run_cli("scan", "fazah-arsenal/github-ai-arsenal", "--json")
+        self.assertEqual(proc_sc.returncode, 0, proc_sc.stderr)
+        dsc = json.loads(proc_sc.stdout)
+        self.assertIn("verdict", dsc)
+        self.assertIn("files_scanned", dsc)
+
     def test_native_mcp_server_stdio(self):
         # Simulate stdio JSON-RPC handshake & tools listing
         reqs = (
