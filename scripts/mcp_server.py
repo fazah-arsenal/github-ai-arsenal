@@ -208,16 +208,36 @@ MCP_TOOLS: List[Dict[str, Any]] = [
     },
     {
         "name": "arsenal_memory",
-        "description": "Agent experience memory: log, list, or clear verified working/failed GitHub tools on this machine so future calls remember what works best.",
+        "description": "Agent experience memory: list, inspect mistakes, clear, or log working/failed GitHub tools on this machine.",
         "inputSchema": {
             "type": "object",
             "properties": {
-                "action": {"type": "string", "default": "list"},
+                "action": {"type": "string", "default": "list", "enum": ["list", "mistakes", "clear", "learn"]},
                 "repo": {"type": "string", "default": ""},
                 "task": {"type": "string", "default": ""},
-                "outcome": {"type": "string", "default": "success"},
+                "outcome": {"type": "string", "default": "success", "enum": ["success", "failed"]},
+                "error_reason": {"type": "string", "default": ""},
+                "learned_fix": {"type": "string", "default": ""},
+                "alternative_repo": {"type": "string", "default": ""},
                 "note": {"type": "string", "default": ""},
             },
+        },
+    },
+    {
+        "name": "arsenal_learn",
+        "description": "Adaptive Mistake Learning: Teach FAZAH AI Arsenal about a tool failure or success on this machine so future tool selections automatically avoid broken packages and recommend verified alternatives.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "repo": {"type": "string", "description": "owner/repo that failed or succeeded"},
+                "task": {"type": "string", "description": "The task you were attempting"},
+                "outcome": {"type": "string", "enum": ["failed", "success"]},
+                "error_reason": {"type": "string", "description": "Specific failure or error trace", "default": ""},
+                "learned_fix": {"type": "string", "description": "Solution, workaround, or prerequisite", "default": ""},
+                "alternative_repo": {"type": "string", "description": "Working replacement repo (owner/repo)", "default": ""},
+                "note": {"type": "string", "default": ""},
+            },
+            "required": ["repo", "task", "outcome"],
         },
     },
 ]
@@ -293,11 +313,25 @@ def _call_tool(name: str, args: Dict[str, Any]) -> Dict[str, Any]:
         return arsenal.snippet_repo_data(args["repo"], max_blocks=int(args.get("max_blocks") or 4))
     if name == "arsenal_memory":
         return arsenal.memory_data(
-            args.get("action", "list"),
-            args.get("repo", ""),
-            args.get("task", ""),
-            args.get("outcome", "success"),
-            args.get("note", ""),
+            action=args.get("action", "list"),
+            repo_input=args.get("repo", ""),
+            task=args.get("task", ""),
+            outcome=args.get("outcome", "success"),
+            note=args.get("note", ""),
+            error_reason=args.get("error_reason", ""),
+            learned_fix=args.get("learned_fix", ""),
+            alternative_repo=args.get("alternative_repo", ""),
+        )
+    if name == "arsenal_learn":
+        return arsenal.memory_data(
+            action="learn",
+            repo_input=args["repo"],
+            task=args.get("task", ""),
+            outcome=args["outcome"],
+            note=args.get("note", ""),
+            error_reason=args.get("error_reason", ""),
+            learned_fix=args.get("learned_fix", ""),
+            alternative_repo=args.get("alternative_repo", ""),
         )
     raise ValueError(f"Unknown MCP tool: {name}")
 
