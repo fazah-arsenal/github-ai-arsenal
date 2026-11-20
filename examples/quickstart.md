@@ -6,8 +6,8 @@
 # 1. Check machine & index health
 fazah doc
 
-# 2. Recommend tools in Arabic or English
-fazah r "بوت تليجرام ذكي مع كشط مواقع"
+# 2. Recommend tools (English & Arabic supported)
+fazah r "telegram bot with stealth web scraping"
 fazah r "security audit and reverse engineering"
 
 # 3. Instant offline BM25 search across 20,078+ tools
