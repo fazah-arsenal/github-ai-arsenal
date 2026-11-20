@@ -65,7 +65,7 @@
 ### 1️⃣ على نظام Windows (PowerShell)
 **تثبيت مباشر بأمر واحد من الإنترنت (One-Liner Remote Install):**
 ```powershell
-$env:GH_ARSENAL_REPO="fazah-arsenal/github-ai-arsenal"; irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex
+irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex
 ```
 **أو التثبيت المحلي بعد تحميل المستودع:**
 ```powershell
@@ -75,7 +75,7 @@ $env:GH_ARSENAL_REPO="fazah-arsenal/github-ai-arsenal"; irm "https://raw.githubu
 ### 2️⃣ على نظام Linux / macOS
 **تثبيت مباشر بأمر واحد:**
 ```bash
-GH_ARSENAL_REPO="fazah-arsenal/github-ai-arsenal" curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash
+curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash
 ```
 **أو التثبيت المحلي:**
 ```bash
