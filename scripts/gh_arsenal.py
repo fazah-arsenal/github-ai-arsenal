@@ -680,6 +680,121 @@ def mcp_inject_data(server_name: str, target_path: str = "") -> Dict[str, Any]:
     return {"ok": True, "injected_server": name, "config_file": str(cfg_file), "total_servers": len(existing["mcpServers"])}
 
 
+DANGEROUS_PATTERNS: List[tuple[str, str, int]] = [
+    (r"curl\s+[^\n|]+\|\s*(ba)?sh", "Pipes remote curl output directly into shell (curl | sh)", 35),
+    (r"wget\s+[^\n|]+\|\s*(ba)?sh", "Pipes remote wget output directly into shell (wget | sh)", 35),
+    (r"\beval\s*\(", "Dynamic code execution via eval()", 15),
+    (r"\bexec\s*\(", "Dynamic code execution via exec()", 15),
+    (r"base64\.(b64decode|decodebytes)|atob\(", "Obfuscated Base64 decoding inside install/entry script", 20),
+    (r"subprocess\.[a-zA-Z_]+\([^)]*shell\s*=\s*True", "Shell command execution with shell=True", 15),
+    (r"(preinstall|postinstall)\"\s*:\s*\"[^\"]*(curl|wget|powershell|node\s+-e)", "Suspicious npm preinstall/postinstall lifecycle hook", 30),
+    (r"discord(app)?\.com/api/webhooks/|api\.telegram\.org/bot", "Hardcoded Discord/Telegram webhook URL (possible exfiltration)", 35),
+]
+
+
+def deep_scan_repo_data(repo_input: str) -> Dict[str, Any]:
+    slug = parse_repo_slug(repo_input)
+    st, info = _http_get_json(f"https://api.github.com/repos/{slug}")
+    branch = info.get("default_branch", "main") if st == 200 and isinstance(info, dict) else "main"
+    candidates = ["setup.py", "pyproject.toml", "package.json", "install.sh", "install.ps1", "Dockerfile", "Makefile"]
+
+    scanned_files: List[str] = []
+    findings: List[Dict[str, Any]] = []
+    risk_score = 0
+
+    for fname in candidates:
+        f_st, raw = _http_get_bytes(
+            f"https://raw.githubusercontent.com/{slug}/{branch}/{fname}",
+            headers={"User-Agent": USER_AGENT},
+            timeout=10,
+        )
+        if f_st != 200 or not raw:
+            continue
+        scanned_files.append(fname)
+        text = raw.decode("utf-8", errors="replace")[:40000]
+        for pattern, reason, penalty in DANGEROUS_PATTERNS:
+            if re.search(pattern, text, re.IGNORECASE):
+                risk_score += penalty
+                findings.append({"file": fname, "severity": "HIGH" if penalty >= 30 else "MEDIUM", "finding": reason})
+
+    verdict = "SAFE" if risk_score == 0 else ("REVIEW" if risk_score < 35 else "DANGEROUS")
+    return {
+        "repo": slug,
+        "branch": branch,
+        "risk_score": min(100, risk_score),
+        "verdict": verdict,
+        "files_scanned": scanned_files,
+        "findings": findings,
+        "summary": (
+            f"Scanned {len(scanned_files)} critical install/build files: "
+            + ("No supply-chain red flags detected." if not findings else f"{len(findings)} potential risk pattern(s) flagged.")
+        ),
+    }
+
+
+def analyze_project_data(path_input: str = ".") -> Dict[str, Any]:
+    root = Path(path_input).expanduser().resolve()
+    if not root.exists():
+        raise FileNotFoundError(f"Directory not found: {root}")
+
+    detected_stack: List[str] = []
+    queries: List[str] = []
+    files_found: List[str] = []
+
+    checks = {
+        "package.json": ("Node.js / JS", "javascript typescript ui"),
+        "requirements.txt": ("Python", "python cli fastapi"),
+        "pyproject.toml": ("Python (Modern)", "python packaging ruff"),
+        "Cargo.toml": ("Rust", "rust cli systems"),
+        "go.mod": ("Go", "go systems backend"),
+        "Dockerfile": ("Docker", "docker devops security"),
+        "docker-compose.yml": ("Docker Compose", "devops monitoring"),
+        ".mcp.json": ("MCP Configured", "mcp-servers"),
+    }
+    for fname, (label, q) in checks.items():
+        fpath = root / fname
+        if fpath.exists():
+            files_found.append(fname)
+            detected_stack.append(label)
+            queries.append(q)
+
+    # Read dependency hints from package.json / requirements.txt
+    dep_text = ""
+    for df in ("package.json", "requirements.txt", "pyproject.toml"):
+        p = root / df
+        if p.exists():
+            try:
+                dep_text += " " + p.read_text(encoding="utf-8", errors="ignore").lower()[:4000]
+            except Exception:
+                pass
+
+    suggestions_query = " ".join(queries) if queries else "developer tools mcp security"
+    if "telegram" in dep_text or "aiogram" in dep_text:
+        detected_stack.append("Telegram Bot")
+        suggestions_query += " telegram bot"
+    if "fastapi" in dep_text or "flask" in dep_text:
+        detected_stack.append("Python Web API")
+        suggestions_query += " fastapi postgres"
+    if "react" in dep_text or "next" in dep_text:
+        detected_stack.append("React / Next.js")
+        suggestions_query += " ui frontend playwright"
+    if "openai" in dep_text or "anthropic" in dep_text or "litellm" in dep_text:
+        detected_stack.append("AI / LLM App")
+        suggestions_query += " llm rag mcp"
+
+    recs = recommend_data(suggestions_query, limit=6)
+    missing_mcp = ".mcp.json" not in files_found
+    return {
+        "project_path": str(root),
+        "detected_files": files_found,
+        "detected_stack": sorted(set(detected_stack)) or ["General Workspace"],
+        "missing_mcp_config": missing_mcp,
+        "quick_tip": "Run `fazah mi github-ai-arsenal` to connect 14 Native MCP tools to this project!" if missing_mcp else "MCP config detected.",
+        "recommended_core_tools": recs.get("core_matches", [])[:5],
+        "recommended_mega_tools": recs.get("mega_matches", [])[:5],
+    }
+
+
 
 # ==================== CLI COMMAND HANDLERS ====================
 
@@ -887,6 +1002,44 @@ def cmd_mcp_inject(args: argparse.Namespace) -> int:
         _print_json(res)
         return 0
     print(f"Injected MCP Server '{res['injected_server']}' -> {res['config_file']} (Total servers: {res['total_servers']})")
+    return 0
+
+
+def cmd_scan(args: argparse.Namespace) -> int:
+    res = deep_scan_repo_data(args.repo)
+    if args.json:
+        _print_json(res)
+        return 0
+    print(f"=== Deep Supply-Chain Security Scan: {res['repo']} ===")
+    print(f"Verdict       : [{res['verdict']}] (Risk Score: {res['risk_score']}/100)")
+    print(f"Files Scanned : {', '.join(res['files_scanned']) if res['files_scanned'] else '(none found)'}")
+    print(f"Summary       : {res['summary']}")
+    for f in res["findings"]:
+        print(f"  [{f['severity']}] {f['file']}: {f['finding']}")
+    return 0
+
+
+def cmd_analyze(args: argparse.Namespace) -> int:
+    res = analyze_project_data(args.path)
+    if args.json:
+        _print_json(res)
+        return 0
+    print(f"=== FAZAH Project Advisor: {res['project_path']} ===")
+    print(f"Detected Stack : {', '.join(res['detected_stack'])}")
+    print(f"Config Files   : {', '.join(res['detected_files']) if res['detected_files'] else '(none)'}")
+    print(f"Tip            : {res['quick_tip']}")
+    print("\nTop Recommended Tools for This Project:")
+    for idx, t in enumerate(res["recommended_core_tools"], 1):
+        print(f"  {idx}. {t['name']} — https://github.com/{t['repo']} ({t['install']})")
+    return 0
+
+
+def cmd_ui(args: argparse.Namespace) -> int:
+    if str(SKILL_ROOT / "scripts") not in sys.path:
+        sys.path.insert(0, str(SKILL_ROOT / "scripts"))
+    import web_ui
+
+    web_ui.run_ui(host=args.host, port=args.port, open_browser=not args.no_browser)
     return 0
 
 
@@ -1212,6 +1365,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_pub.add_argument("--repo", "-r", default="fazah-arsenal/github-ai-arsenal")
     p_pub.add_argument("--token", "-k", default="")
     p_pub.set_defaults(func=cmd_publish)
+
+    p_scn = sub.add_parser("scan", help="Deep supply-chain security scan of install/build files (setup.py, package.json, etc.)")
+    p_scn.add_argument("repo")
+    p_scn.add_argument("--json", action="store_true")
+    p_scn.set_defaults(func=cmd_scan)
+
+    p_anz = sub.add_parser("analyze", aliases=["az"], help="Analyze a local project folder and recommend matching GitHub tools & MCP servers")
+    p_anz.add_argument("path", nargs="?", default=".")
+    p_anz.add_argument("--json", action="store_true")
+    p_anz.set_defaults(func=cmd_analyze)
+
+    p_ui = sub.add_parser("ui", help="Launch the zero-dependency interactive local Web UI dashboard (http://127.0.0.1:8765)")
+    p_ui.add_argument("--host", default="127.0.0.1")
+    p_ui.add_argument("--port", "-p", type=int, default=8765)
+    p_ui.add_argument("--no-browser", action="store_true")
+    p_ui.set_defaults(func=cmd_ui)
 
     return p
 
