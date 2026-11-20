@@ -997,7 +997,7 @@ def cmd_doctor(args: argparse.Namespace) -> int:
         _print_json(report)
         return 0
 
-    print("=== FAZAH AI Arsenal v4.0 Doctor (github.com/fazah-arsenal/github-ai-arsenal) ===")
+    print("=== FAZAH AI Arsenal v6.5 Doctor (github.com/fazah-arsenal/github-ai-arsenal) ===")
     print(f"Core Elite Tools : {report['core_elite_tools']}")
     print(f"Mega Index Tools : {report['mega_index_tools']:,} (across {report['mega_index_categories']} domains)")
     print(f"Project Stacks   : {report['project_stacks']} ready blueprints")
