@@ -47,7 +47,7 @@ Exposed MCP Tools:
 ```bash
 fazah doc                                  # Check local runtimes & index health
 fazah info                                 # Breakdown of 20,078+ tools across 37 domains
-fazah r "بوت تليجرام وكشط مواقع"           # Smart Arabic/English recommender
+fazah r "telegram bot and web scraping"    # Smart Arabic/English recommender
 fazah m -q "postgres vector" -n 10         # Instant offline BM25 search
 fazah q unclecode/crawl4ai                 # Auto-detect install & run commands
 fazah cmp unclecode/crawl4ai mendableai/firecrawl   # Side-by-side repo comparison
