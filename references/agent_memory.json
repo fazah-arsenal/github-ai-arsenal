@@ -1,0 +1,15 @@
+[
+  {
+    "repo": "unclecode/crawl4ai",
+    "task": "web scraping",
+    "outcome": "success",
+    "fail_count": 0,
+    "success_count": 1,
+    "error_type": "none",
+    "error_reason": "Verified reliable pure-python LLM web crawler",
+    "learned_fix": "",
+    "alternative_repo": "",
+    "note": "Verified reliable pure-python LLM web crawler",
+    "updated_at": "2026-11-20"
+  }
+]
