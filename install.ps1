@@ -8,7 +8,7 @@ $SourceDir = if ($LocalScript) { Split-Path -Parent $LocalScript } else { "" }
 $TempExtract = ""
 
 if (-not $SourceDir -or -not (Test-Path (Join-Path $SourceDir "SKILL.md"))) {
-    $Repo = if ($env:GH_ARSENAL_REPO) { $env:GH_ARSENAL_REPO } else { "mhamadabdalla150150-blip/github-ai-arsenal" }
+    $Repo = if ($env:GH_ARSENAL_REPO) { $env:GH_ARSENAL_REPO } else { "fazah-arsenal/github-ai-arsenal" }
     $Branch = if ($env:GH_ARSENAL_BRANCH) { $env:GH_ARSENAL_BRANCH } else { "main" }
     $ZipUrl = "https://github.com/$Repo/archive/refs/heads/$Branch.zip"
     $TempZip = Join-Path $env:TEMP "$SkillName-install.zip"
