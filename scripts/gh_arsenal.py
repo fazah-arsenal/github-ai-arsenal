@@ -795,6 +795,169 @@ def analyze_project_data(path_input: str = ".") -> Dict[str, Any]:
     }
 
 
+MEMORY_PATH = SKILL_ROOT / "references" / "agent_memory.json"
+
+
+def load_memory() -> List[Dict[str, Any]]:
+    if not MEMORY_PATH.exists():
+        return []
+    try:
+        return json.loads(MEMORY_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
+def memory_data(action: str = "list", repo_input: str = "", task: str = "", outcome: str = "success", note: str = "") -> Dict[str, Any]:
+    items = load_memory()
+    act = action.strip().lower()
+    if act == "list":
+        return {"count": len(items), "entries": items}
+    if act == "clear":
+        MEMORY_PATH.write_text("[]", encoding="utf-8")
+        return {"ok": True, "action": "cleared", "count": 0}
+    if act == "log" and repo_input:
+        slug = parse_repo_slug(repo_input)
+        entry = {
+            "repo": slug,
+            "task": task or "general",
+            "outcome": outcome if outcome in ("success", "failed") else "success",
+            "note": note or "",
+            "logged_at": datetime.date.today().isoformat(),
+        }
+        items = [x for x in items if not (x.get("repo", "").lower() == slug.lower() and x.get("task", "").lower() == entry["task"].lower())]
+        items.insert(0, entry)
+        MEMORY_PATH.write_text(json.dumps(items[:100], ensure_ascii=False, indent=2), encoding="utf-8")
+        return {"ok": True, "action": "logged", "entry": entry, "total": len(items)}
+    raise ValueError("Usage: memory [list|log|clear] [owner/repo] [--task TEXT] [--outcome success|failed] [--note TEXT]")
+
+
+def snippet_repo_data(repo_input: str, max_blocks: int = 4) -> Dict[str, Any]:
+    slug = parse_repo_slug(repo_input)
+    st, info = _http_get_json(f"https://api.github.com/repos/{slug}")
+    branch = info.get("default_branch", "main") if st == 200 and isinstance(info, dict) else "main"
+    readme = ""
+    for candidate in ("README.md", "readme.md", "SKILL.md"):
+        r_st, raw = _http_get_bytes(
+            f"https://raw.githubusercontent.com/{slug}/{branch}/{candidate}",
+            headers={"User-Agent": USER_AGENT},
+            timeout=10,
+        )
+        if r_st == 200 and raw:
+            readme = raw.decode("utf-8", errors="replace")[:35000]
+            break
+    blocks = re.findall(r"```([a-zA-Z0-9_+-]*)\n(.*?)```", readme, re.DOTALL)
+    snippets = []
+    for lang, code in blocks:
+        cleaned = code.strip()
+        if len(cleaned) < 12 or len(cleaned) > 1800:
+            continue
+        snippets.append({"lang": lang or "text", "code": cleaned})
+        if len(snippets) >= max_blocks:
+            break
+    return {
+        "repo": slug,
+        "branch": branch,
+        "snippets_found": len(snippets),
+        "snippets": snippets,
+    }
+
+
+def give_tool_data(task: str, auto_pull: bool = False, dest: str = "./github_tools") -> Dict[str, Any]:
+    # 1. Check agent experience memory first
+    task_low = task.lower()
+    mem_hits = [
+        m for m in load_memory()
+        if m.get("outcome") == "success" and any(w in (m.get("task", "") + " " + m.get("note", "")).lower() for w in re.findall(r"[a-zA-Z0-9\u0600-\u06FF]+", task_low) if len(w) > 2)
+    ]
+
+    # 2. Pick top recommendation from Core + 20,078+ Mega Index
+    recs = recommend_data(task, limit=3)
+    winner_repo = ""
+    winner_name = ""
+    winner_reason = ""
+    winner_install = ""
+    if recs.get("core_matches"):
+        top = recs["core_matches"][0]
+        winner_repo = top["repo"]
+        winner_name = top["name"]
+        winner_reason = top["use_when"]
+        winner_install = top["install"]
+    elif recs.get("mega_matches"):
+        top = recs["mega_matches"][0]
+        winner_repo = top["r"]
+        winner_name = top["n"]
+        winner_reason = top.get("d", "")
+    else:
+        raise RuntimeError(f"No matching tool found for task: {task}")
+
+    # 3. Auto-fetch quickstart, deep security scan & code snippets
+    qs = quickstart_repo_data(winner_repo)
+    try:
+        scan = deep_scan_repo_data(winner_repo)
+    except Exception as exc:
+        scan = {"verdict": "UNKNOWN", "risk_score": 0, "summary": str(exc)}
+    try:
+        snips = snippet_repo_data(winner_repo, max_blocks=2)
+    except Exception:
+        snips = {"snippets": []}
+
+    pulled_info = None
+    if auto_pull:
+        if scan.get("verdict") == "DANGEROUS":
+            pulled_info = {"ok": False, "blocked": True, "reason": "Blocked auto-pull due to DANGEROUS supply-chain scan verdict."}
+        else:
+            pulled_info = pull_repo_data(winner_repo, dest=dest)
+
+    return {
+        "task": task,
+        "delivered_tool": {
+            "name": winner_name,
+            "repo": winner_repo,
+            "url": f"https://github.com/{winner_repo}",
+            "why": winner_reason,
+            "install": winner_install or qs.get("install_command") or (qs.get("recommended_commands") or [""])[0],
+        },
+        "security_scan": {
+            "verdict": scan.get("verdict", "SAFE"),
+            "risk_score": scan.get("risk_score", 0),
+            "summary": scan.get("summary", ""),
+        },
+        "code_snippets": snips.get("snippets", []),
+        "verified_in_memory": mem_hits[:2],
+        "auto_pulled": pulled_info,
+        "alternatives": [
+            {"name": x["name"], "repo": x["repo"]} for x in recs.get("core_matches", [])[1:3]
+        ],
+    }
+
+
+def try_repo_data(repo_input: str, test_cmd: str = "") -> Dict[str, Any]:
+    slug = parse_repo_slug(repo_input)
+    _, repo_name = slug.split("/", 1)
+    sandbox_root = (Path.cwd() / ".fazah_sandbox" / repo_name).resolve()
+    venv_dir = sandbox_root / ".venv"
+
+    pulled = pull_repo_data(slug, dest=str(sandbox_root.parent))
+    if not venv_dir.exists():
+        subprocess.run([sys.executable, "-m", "venv", str(venv_dir)], check=True, timeout=60)
+
+    py_bin = venv_dir / ("Scripts" if os.name == "nt" else "bin") / ("python.exe" if os.name == "nt" else "python")
+    output = ""
+    if test_cmd:
+        proc = subprocess.run(test_cmd, shell=True, cwd=str(sandbox_root), capture_output=True, text=True, timeout=45)
+        output = (proc.stdout + "\n" + proc.stderr).strip()[:3000]
+
+    return {
+        "ok": True,
+        "repo": slug,
+        "sandbox_dir": str(sandbox_root),
+        "venv_python": str(py_bin),
+        "files_extracted": pulled.get("files_extracted", 0),
+        "test_output": output,
+        "how_to_use": f"Run isolated Python commands with: \"{py_bin}\" -m pip install -r requirements.txt",
+    }
+
+
 
 # ==================== CLI COMMAND HANDLERS ====================
 
@@ -1040,6 +1203,70 @@ def cmd_ui(args: argparse.Namespace) -> int:
     import web_ui
 
     web_ui.run_ui(host=args.host, port=args.port, open_browser=not args.no_browser)
+    return 0
+
+
+def cmd_give(args: argparse.Namespace) -> int:
+    res = give_tool_data(args.task, auto_pull=args.pull, dest=args.dest)
+    if args.json:
+        _print_json(res)
+        return 0
+    dt = res["delivered_tool"]
+    sc = res["security_scan"]
+    print(f"=== ⚡ FAZAH Autonomous Tool Delivery ===")
+    print(f"Task     : {res['task']}")
+    print(f"Winner   : {dt['name']} — {dt['url']}")
+    print(f"Why      : {dt['why']}")
+    print(f"Install  : {dt['install']}")
+    print(f"Security : [{sc['verdict']}] Risk Score: {sc['risk_score']}/100 — {sc['summary']}")
+    if res["verified_in_memory"]:
+        print(f"Memory   : Previously verified on this machine ({res['verified_in_memory'][0]['repo']})")
+    if res["code_snippets"]:
+        print("\nReady-to-Use Code Snippet:")
+        s0 = res["code_snippets"][0]
+        print(f"```{s0['lang']}\n{s0['code'][:600]}\n```")
+    if res["auto_pulled"]:
+        print(f"\nAuto-Pulled: {res['auto_pulled']}")
+    return 0
+
+
+def cmd_snippet(args: argparse.Namespace) -> int:
+    res = snippet_repo_data(args.repo, max_blocks=args.max_blocks)
+    if args.json:
+        _print_json(res)
+        return 0
+    print(f"=== Extracted Code Snippets: {res['repo']} ({res['snippets_found']} found) ===")
+    for idx, s in enumerate(res["snippets"], 1):
+        print(f"\n--- Snippet {idx} ({s['lang']}) ---")
+        print(s["code"])
+    return 0
+
+
+def cmd_memory(args: argparse.Namespace) -> int:
+    res = memory_data(args.action, args.repo, args.task, args.outcome, args.note)
+    if args.json:
+        _print_json(res)
+        return 0
+    if "entries" in res:
+        print(f"Agent Experience Memory ({res['count']} entries):")
+        for e in res["entries"]:
+            print(f"  - [{e['outcome'].upper():7s}] {e['repo']:28s} | task: {e['task']} | {e['note']}")
+    else:
+        print(f"Memory {res.get('action')}: {res}")
+    return 0
+
+
+def cmd_try(args: argparse.Namespace) -> int:
+    res = try_repo_data(args.repo, test_cmd=args.cmd)
+    if args.json:
+        _print_json(res)
+        return 0
+    print(f"=== Isolated Sandbox Ready: {res['repo']} ===")
+    print(f"Sandbox Dir : {res['sandbox_dir']}")
+    print(f"Venv Python : {res['venv_python']}")
+    print(f"How To Use  : {res['how_to_use']}")
+    if res["test_output"]:
+        print(f"\nCommand Output:\n{res['test_output']}")
     return 0
 
 
@@ -1381,6 +1608,34 @@ def build_parser() -> argparse.ArgumentParser:
     p_ui.add_argument("--port", "-p", type=int, default=8765)
     p_ui.add_argument("--no-browser", action="store_true")
     p_ui.set_defaults(func=cmd_ui)
+
+    p_giv = sub.add_parser("give", aliases=["g"], help="1-call Autonomous Tool Broker: pick best tool, scan security, extract snippet & optionally pull")
+    p_giv.add_argument("task")
+    p_giv.add_argument("--pull", action="store_true", help="Automatically download repo ZIP if security scan is safe")
+    p_giv.add_argument("--dest", "-d", default="./github_tools")
+    p_giv.add_argument("--json", action="store_true")
+    p_giv.set_defaults(func=cmd_give)
+
+    p_snp = sub.add_parser("snippet", aliases=["sn"], help="Extract clean runnable code snippets from a repo README (saves 85%% tokens)")
+    p_snp.add_argument("repo")
+    p_snp.add_argument("--max-blocks", "-n", type=int, default=4)
+    p_snp.add_argument("--json", action="store_true")
+    p_snp.set_defaults(func=cmd_snippet)
+
+    p_mem = sub.add_parser("memory", aliases=["mem"], help="Agent experience memory: log/list/clear verified working tools on this machine")
+    p_mem.add_argument("action", nargs="?", default="list", choices=["list", "log", "clear"])
+    p_mem.add_argument("repo", nargs="?", default="")
+    p_mem.add_argument("--task", "-t", default="")
+    p_mem.add_argument("--outcome", "-o", default="success", choices=["success", "failed"])
+    p_mem.add_argument("--note", "-m", default="")
+    p_mem.add_argument("--json", action="store_true")
+    p_mem.set_defaults(func=cmd_memory)
+
+    p_try = sub.add_parser("try", help="Pull a GitHub repo into an isolated Python venv sandbox without polluting global packages")
+    p_try.add_argument("repo")
+    p_try.add_argument("--cmd", "-c", default="", help="Optional test command to run inside the sandbox")
+    p_try.add_argument("--json", action="store_true")
+    p_try.set_defaults(func=cmd_try)
 
     return p
 
