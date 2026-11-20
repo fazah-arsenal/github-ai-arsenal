@@ -35,3 +35,7 @@ fazah-ui = "scripts.web_ui:run_ui"
 
 [tool.setuptools.packages.find]
 include = ["scripts*", "references*"]
+
+[tool.setuptools.package-data]
+references = ["*.json", "*.json.gz", "*.md"]
+scripts = ["*.py"]
