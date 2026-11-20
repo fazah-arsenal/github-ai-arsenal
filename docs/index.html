@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>⚡ FAZAH AI Arsenal — 20,078+ GitHub Tools & 17-Tool Native MCP Server</title>
+<meta name="description" content="Autonomous AI Tool Broker & 17-Tool Native MCP Server (+ Prompts & Resources) giving Claude Code, Cursor, DeepSeek, Antigravity & Windsurf instant access to 20,078+ GitHub tools." />
+<style>
+  :root {
+    --bg: #050811; --panel: #0d1425; --card: #111a2e; --border: #1e293b;
+    --cyan: #38bdf8; --purple: #a855f7; --green: #22c55e; --amber: #f59e0b;
+    --text: #f8fafc; --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at 80% 0%, #1e1b4b 0%, var(--bg) 50%); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
+  a { color: var(--cyan); text-decoration: none; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 36px; border-bottom: 1px solid var(--border); background: rgba(5,8,17,0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 20; flex-wrap: wrap; gap: 12px; }
+  .logo { font-size: 20px; font-weight: 800; background: linear-gradient(90deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-links { display: flex; gap: 16px; align-items: center; font-size: 14px; font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: transform .15s, opacity .15s; }
+  .btn:hover { transform: translateY(-1px); opacity: 0.92; }
+  .btn-primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #fff; }
+  .btn-ghost { background: var(--card); border: 1px solid #334155; color: var(--text); }
+  .hero { max-width: 1140px; margin: 48px auto 32px; padding: 0 24px; text-align: center; }
+  .pill { display: inline-block; padding: 6px 14px; border-radius: 999px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); color: var(--cyan); font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+  .hero h1 span { background: linear-gradient(90deg, var(--cyan), #818cf8, var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 780px; margin: 0 auto 28px; }
+  .install-box { max-width: 780px; margin: 24px auto; background: #020617; border: 1px solid #334155; border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; flex-wrap: wrap; }
+  .install-box code { font-family: Consolas, monospace; font-size: 13px; color: #7dd3fc; word-break: break-all; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 1140px; margin: 36px auto; padding: 0 24px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+  .stat .num { font-size: 30px; font-weight: 900; color: var(--cyan); }
+  .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  section { max-width: 1140px; margin: 48px auto; padding: 0 24px; }
+  h2 { font-size: 26px; font-weight: 800; margin-bottom: 18px; }
+  .search-wrap { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  input { flex: 1; min-width: 240px; background: var(--panel); border: 1px solid #334155; color: var(--text); padding: 12px 16px; border-radius: 10px; font-size: 15px; outline: none; }
+  input:focus { border-color: var(--cyan); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+  .card:hover { border-color: rgba(56,189,248,0.45); }
+  .card h3 { font-size: 16px; }
+  .tag { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 6px; background: rgba(168,85,247,0.16); color: #d8b4fe; }
+  .cmd { background: #020617; padding: 8px 10px; border-radius: 8px; font-family: Consolas, monospace; font-size: 12px; color: #86efac; overflow-x: auto; }
+  footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; margin-top: 64px; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">⚡ FAZAH AI Arsenal v6.5</div>
+  <div class="nav-links">
+    <a href="#explorer">Live Explorer</a>
+    <a href="#stacks">8 Stacks</a>
+    <a href="https://t.me/testtttttttt11222" target="_blank">Telegram</a>
+    <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">★ Star on GitHub</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="pill">UNIVERSAL AGENT SKILL • 17-TOOL NATIVE MCP SERVER • ZERO DEPENDENCIES</div>
+  <h1>Arm Any AI Agent With <span>20,078+ Real GitHub Tools</span></h1>
+  <p>Autonomous 1-call Tool Broker (<code>fazah g</code>), Deep Supply-Chain Security Scanner, Code Snippet Extractor, Isolated Sandbox, and Local Web UI — built for Claude Code, Cursor, Antigravity, DeepSeek & Windsurf.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a class="btn btn-primary" href="https://github.com/fazah-arsenal/github-ai-arsenal" target="_blank">View Repository on GitHub</a>
+    <a class="btn btn-ghost" href="https://github.com/fazah-arsenal/github-ai-arsenal/releases/latest" target="_blank">Download Latest Release</a>
+  </div>
+
+  <div class="install-box">
+    <code id="win-cmd">irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex</code>
+    <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" onclick="copyCmd('win-cmd', this)">Copy Windows</button>
+  </div>
+  <div class="install-box">
+    <code id="nix-cmd">curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.sh" | bash</code>
+    <button class="btn btn-ghost" style="padding:6px 12px;font-size:12px;" onclick="copyCmd('nix-cmd', this)">Copy Linux / macOS</button>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat"><div class="num">20,078+</div><div class="lbl">Curated Real GitHub Tools</div></div>
+  <div class="stat"><div class="num">17 + 7</div><div class="lbl">MCP Tools + Resources & Prompts</div></div>
+  <div class="stat"><div class="num">37</div><div class="lbl">Engineering Domains Covered</div></div>
+  <div class="stat"><div class="num">0 Deps</div><div class="lbl">Pure Python Stdlib Only</div></div>
+</div>
+
+<section id="explorer">
+  <h2>🔍 Live Core Elite Tool Explorer</h2>
+  <div class="search-wrap">
+    <input id="q" placeholder="Filter curated elite tools (e.g. mcp, telegram, scraping, security, reverse, rag)..." oninput="renderTools()" />
+  </div>
+  <div class="grid" id="tools-grid">Loading live catalog from GitHub...</div>
+</section>
+
+<section id="stacks">
+  <h2>🏗️ 8 Turnkey Project Stacks (1-Command Scaffolder)</h2>
+  <div class="grid" id="stacks-grid">Loading stacks...</div>
+</section>
+
+<footer>
+  <p>⚡ Developed by <strong>FAZAH</strong> • Telegram: <a href="https://t.me/testtttttttt11222" target="_blank">@testtttttttt11222</a> • Email: <a href="mailto:mhamadabdalla150150@gmail.com">mhamadabdalla150150@gmail.com</a></p>
+  <p style="margin-top:8px;font-size:12px;">MIT License • Open Source AI Agent Infrastructure</p>
+</footer>
+
+<script>
+let allTools = [];
+function copyCmd(id, btn) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent);
+  btn.textContent = 'Copied!';
+  setTimeout(() => btn.textContent = id === 'win-cmd' ? 'Copy Windows' : 'Copy Linux / macOS', 1500);
+}
+function renderTools() {
+  const q = (document.getElementById('q').value || '').toLowerCase();
+  const filtered = allTools.filter(t => !q || JSON.stringify(t).toLowerCase().includes(q)).slice(0, 24);
+  document.getElementById('tools-grid').innerHTML = filtered.map(t => `
+    <div class="card">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+          <h3><a href="https://github.com/${t.repo}" target="_blank">${t.name}</a></h3>
+          <span class="tag">${t.category}</span>
+        </div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:6px;">${t.use_when}</p>
+      </div>
+      <div class="cmd">${t.install}</div>
+    </div>
+  `).join('');
+}
+async function loadData() {
+  const base = 'https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/references';
+  const cat = await (await fetch(`${base}/catalog.json`)).json();
+  allTools = cat.tools || [];
+  renderTools();
+  const st = await (await fetch(`${base}/stacks.json`)).json();
+  document.getElementById('stacks-grid').innerHTML = Object.entries(st.stacks || {}).map(([id, s]) => `
+    <div class="card">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+          <h3>${s.name}</h3>
+          <span class="tag">${id}</span>
+        </div>
+        <p style="font-size:13px;color:#94a3b8;margin-top:6px;">${s.description}</p>
+      </div>
+      <div class="cmd">fazah st ${id} -s ./my-${id}</div>
+    </div>
+  `).join('');
+}
+loadData();
+</script>
+</body>
+</html>
