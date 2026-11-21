@@ -32,6 +32,7 @@ Telegram = "https://t.me/testtttttttt11222"
 fazah = "scripts.gh_arsenal:main"
 fazah-mcp = "scripts.mcp_server:main"
 fazah-ui = "scripts.web_ui:run_ui"
+fazah-link = "scripts.gh_arsenal:auto_link_cli"
 
 [tool.setuptools.packages.find]
 include = ["scripts*", "references*"]
