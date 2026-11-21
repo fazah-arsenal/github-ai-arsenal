@@ -91,6 +91,41 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 ---
 
+## 📋 System Requirements & Prerequisites
+
+FAZAH AI Arsenal is built with a **Zero-Dependency & Offline-First** architecture. You only need standard Python to run the entire tool.
+
+| Component | Status | Requirement | Notes |
+| :--- | :---: | :--- | :--- |
+| **Python** | **REQUIRED** | Python 3.9, 3.10, 3.11, 3.12, or 3.13 | Standard Python installation (ensure added to PATH). |
+| **Disk & RAM** | **MINIMAL** | ~50 MB disk · <80 MB RAM | Entire 20k index is compressed in a 4.6 MB file and runs in memory. |
+| **Internet** | **OPTIONAL** | Only for initial `pip install` | 100% of searches, recommendations, and code delivery operate **offline**. |
+| **Git CLI** | **OPTIONAL** | Not required | If `git` is missing, FAZAH automatically downloads repositories via **HTTP ZIP Fallback**. |
+| **Docker** | **OPTIONAL** | Not required | Standalone native Python execution. Container image is provided as an alternative. |
+| **GitHub Token** | **OPTIONAL** | Zero rate limits offline | The offline index (20,078 tools) needs **no token**. A token is only needed if scanning live external repos >60 times/hour. |
+
+### 🛠️ Troubleshooting Windows PATH (`'pip' is not recognized`):
+If your terminal reports `'pip' is not recognized as an internal or external command`:
+1. **Quick Fix (Run via python launcher):**
+   ```cmd
+   python -m pip install fazah-arsenal
+   ```
+   or:
+   ```cmd
+   py -m pip install fazah-arsenal
+   ```
+2. **Permanent Fix (Add Python & Scripts to Windows PATH):**
+   Run this single command in **PowerShell**:
+   ```powershell
+   [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:LOCALAPPDATA\Programs\Python\Python312;$env:LOCALAPPDATA\Programs\Python\Python312\Scripts", [EnvironmentVariableTarget]::User)
+   ```
+3. **Automated 1-Click Installer (Fixes PATH automatically):**
+   ```powershell
+   irm "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/install.ps1" | iex
+   ```
+
+---
+
 ## ⚡ 1-Command Installation
 
 ### 🐍 PyPI (Cross-Platform — Recommended)
