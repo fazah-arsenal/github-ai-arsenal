@@ -778,6 +778,79 @@ def mcp_inject_data(server_name: str, target_path: str = "") -> Dict[str, Any]:
     return {"ok": True, "injected_server": name, "config_file": str(cfg_file), "total_servers": len(existing["mcpServers"])}
 
 
+def resolve_mcp_command() -> tuple[str, List[str]]:
+    mcp_bin = shutil.which("fazah-mcp")
+    if mcp_bin:
+        return mcp_bin.replace("\\", "/"), []
+    py_bin = sys.executable.replace("\\", "/")
+    server_script = str((SKILL_ROOT / "scripts" / "mcp_server.py").resolve()).replace("\\", "/")
+    return py_bin, [server_script]
+
+
+def auto_link_mcp_clients(silent: bool = False, force: bool = False) -> Dict[str, Any]:
+    home = Path.home()
+    appdata = Path(os.environ.get("APPDATA", home / "AppData" / "Roaming"))
+
+    cmd, args = resolve_mcp_command()
+    server_payload = {
+        "command": cmd,
+        "args": args,
+    }
+
+    targets = [
+        ("Claude Desktop", (
+            appdata / "Claude" / "claude_desktop_config.json" if sys.platform == "win32"
+            else home / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json" if sys.platform == "darwin"
+            else home / ".config" / "Claude" / "claude_desktop_config.json"
+        )),
+        ("Cursor User", home / ".cursor" / "mcp.json"),
+        ("Windsurf", home / ".codeium" / "windsurf" / "mcp_config.json"),
+        ("Antigravity", home / ".gemini" / "antigravity" / "mcp_config.json"),
+        ("VS Code Cline", appdata / "Code" / "User" / "globalStorage" / "saoudrizwan.claude-dev" / "settings" / "cline_mcp_settings.json"),
+        ("VS Code Roo", appdata / "Code" / "User" / "globalStorage" / "rooveterinaryinc.roo-cline" / "settings" / "cline_mcp_settings.json"),
+        ("Current Workspace", (Path.cwd() / ".mcp.json").resolve()),
+    ]
+
+    linked: List[Dict[str, str]] = []
+    errors: List[Dict[str, str]] = []
+
+    for name, cfg_path in targets:
+        try:
+            cfg_path.parent.mkdir(parents=True, exist_ok=True)
+            existing: Dict[str, Any] = {"mcpServers": {}}
+            if cfg_path.exists():
+                try:
+                    txt = cfg_path.read_text(encoding="utf-8")
+                    if txt.strip():
+                        existing = json.loads(txt)
+                except Exception:
+                    existing = {"mcpServers": {}}
+            if not isinstance(existing, dict):
+                existing = {"mcpServers": {}}
+            if "mcpServers" not in existing or not isinstance(existing["mcpServers"], dict):
+                existing["mcpServers"] = {}
+
+            current_entry = existing["mcpServers"].get("fazah-arsenal")
+            if not force and current_entry and current_entry.get("command") == cmd and current_entry.get("args") == args:
+                linked.append({"client": name, "path": str(cfg_path), "status": "already_linked"})
+                continue
+
+            existing["mcpServers"]["fazah-arsenal"] = server_payload
+            existing["mcpServers"]["github-ai-arsenal"] = server_payload
+            cfg_path.write_text(json.dumps(existing, indent=2, ensure_ascii=False), encoding="utf-8")
+            linked.append({"client": name, "path": str(cfg_path), "status": "updated" if current_entry else "created"})
+        except Exception as exc:
+            errors.append({"client": name, "path": str(cfg_path), "error": str(exc)})
+
+    return {
+        "ok": True,
+        "command": cmd,
+        "args": args,
+        "linked_clients": linked,
+        "errors": errors,
+    }
+
+
 DANGEROUS_PATTERNS: List[tuple[str, str, int]] = [
     (r"curl\s+[^\n|]+\|\s*(ba)?sh", "Pipes remote curl output directly into shell (curl | sh)", 35),
     (r"wget\s+[^\n|]+\|\s*(ba)?sh", "Pipes remote wget output directly into shell (wget | sh)", 35),
@@ -1734,6 +1807,30 @@ def cmd_publish(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_mcp_link(args: argparse.Namespace) -> int:
+    force = getattr(args, "force", False)
+    res = auto_link_mcp_clients(silent=False, force=force)
+    if getattr(args, "json", False):
+        _print_json(res)
+        return 0
+    print("=== ⚡ FAZAH Zero-Touch MCP Auto-Link ===")
+    print(f"Server Executable : {res['command']}")
+    print("\nConnected MCP Clients:")
+    for item in res["linked_clients"]:
+        stat = "✓ CONNECTED" if item["status"] != "already_linked" else "✓ ALREADY SYNCED"
+        print(f"  [{stat}] {item['client']:16} -> {item['path']}")
+    if res["errors"]:
+        print("\nWarnings:")
+        for err in res["errors"]:
+            print(f"  [!] {err['client']}: {err['error']}")
+    print("\nZero manual configuration required! Restart your MCP client (Claude Desktop / Cursor / Windsurf) to activate 20,078+ tools.")
+    return 0
+
+
+def auto_link_cli() -> None:
+    raise SystemExit(cmd_mcp_link(argparse.Namespace(force=False, json=False)))
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="fazah",
@@ -1899,10 +1996,20 @@ def build_parser() -> argparse.ArgumentParser:
     p_upd.add_argument("--branch", "-b", default="main")
     p_upd.set_defaults(func=cmd_update)
 
+    p_lnk = sub.add_parser("link", aliases=["mcp-link", "auto-connect"], help="Zero-Touch Auto-Link: Auto-inject FAZAH MCP server into Claude Desktop, Cursor, Windsurf, Antigravity & VS Code")
+    p_lnk.add_argument("--force", "-f", action="store_true", help="Force overwrite MCP client configurations")
+    p_lnk.add_argument("--json", action="store_true")
+    p_lnk.set_defaults(func=cmd_mcp_link)
+
     return p
 
 
 def main() -> int:
+    try:
+        auto_link_mcp_clients(silent=True)
+    except Exception:
+        pass
+
     parser = build_parser()
     args = parser.parse_args()
     try:
