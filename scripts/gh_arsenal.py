@@ -1401,11 +1401,13 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     print(f"Mega Index Tools : {report['mega_index_tools']:,} (across {report['mega_index_categories']} domains)")
     print(f"Project Stacks   : {report['project_stacks']} ready blueprints")
     print(f"Token Savings    : {sav['tokens_saved']:,} tokens saved (~${sav['usd_saved']:,.2f} USD across {sav['api_calls_avoided']} actions)")
-    print(f"Native MCP Server: {'READY (scripts/mcp_server.py)' if report['mcp_server_ready'] else 'missing'}")
-    print(f"GitHub Token     : {'SET (5,000 req/hr)' if report['github_token_set'] else 'NOT SET (offline 20k+ index unlimited)'}")
-    print("Runtimes:")
-    for k, v in report["runtimes"].items():
-        print(f"  - {k:8s}: {v}")
+    print(f"Native MCP Server: {'READY (scripts/mcp_server.py · 19 Tools · 5 Resources)' if report['mcp_server_ready'] else 'missing'}")
+    print(f"GitHub Token     : {'SET (5,000 req/hr)' if report['github_token_set'] else 'NOT SET (Optional — 20k+ offline index has ZERO rate limit)'}")
+    print("System Runtimes:")
+    print(f"  ✓ Python (Required) : {report['runtimes']['python']} (Healthy)")
+    print(f"  - Git (Optional)    : {report['runtimes']['git'] if report['runtimes']['git'] != 'missing' else 'missing (Optional — ZIP fallback active)'}")
+    print(f"  - Docker (Optional) : {report['runtimes']['docker'] if report['runtimes']['docker'] != 'missing' else 'missing (Optional — local Python engine active)'}")
+    print(f"  - Node / npx        : {report['runtimes']['node']} / {report['runtimes']['npx']}")
     print("Installed Agent Skills:")
     for k, v in report["installed_skills"].items():
         print(f"  - {k:16s}: {', '.join(v) if v else '(none)'}")
