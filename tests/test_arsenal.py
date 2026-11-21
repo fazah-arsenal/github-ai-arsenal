@@ -197,6 +197,17 @@ class TestGitHubAIArsenal(unittest.TestCase):
         self.assertIn("Cursor User", client_names)
         self.assertIn("Current Workspace", client_names)
 
+    def test_quota_and_token_savings_tracker(self):
+        proc = self._run_cli("savings", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertIn("total_tokens_saved", data)
+        self.assertIn("total_usd_saved", data)
+        self.assertGreater(data["total_tokens_saved"], 0)
+        self.assertGreater(data["total_usd_saved"], 0)
+        self.assertIn("breakdown", data)
+        self.assertIn("offline_searches", data["breakdown"])
+
 
 if __name__ == "__main__":
     unittest.main()
