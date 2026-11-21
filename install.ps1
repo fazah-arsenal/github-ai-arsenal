@@ -55,11 +55,23 @@ $FazahCmd = Join-Path $BinDir "fazah.cmd"
 $MainScript = Join-Path $env:USERPROFILE ".agents\skills\$SkillName\scripts\gh_arsenal.py"
 "@echo off`r`npython `"$MainScript`" %*" | Set-Content -Path $FazahCmd -Encoding ASCII
 
+# Auto-add Python Scripts directory and .local\bin to User PATH permanently
 $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if (-not $UserPath -or ($UserPath -notlike "*$BinDir*")) {
-    $NewPath = if ($UserPath) { "$UserPath;$BinDir" } else { $BinDir }
-    [Environment]::SetEnvironmentVariable("Path", $NewPath, "User")
-    $env:Path = "$env:Path;$BinDir"
+$PathsToAdd = @($BinDir)
+try {
+    $pyExe = (Get-Command python -ErrorAction SilentlyContinue).Source
+    if ($pyExe) {
+        $pyScripts = Join-Path (Split-Path -Parent $pyExe) "Scripts"
+        if (Test-Path $pyScripts) { $PathsToAdd += $pyScripts }
+    }
+} catch {}
+
+foreach ($p in $PathsToAdd) {
+    if (-not $UserPath -or ($UserPath -notlike "*$p*")) {
+        $UserPath = if ($UserPath) { "$UserPath;$p" } else { $p }
+        [Environment]::SetEnvironmentVariable("Path", $UserPath, "User")
+        $env:Path = "$env:Path;$p"
+    }
 }
 
 # Auto-link all MCP clients (Antigravity, Cursor, Claude, Windsurf, VS Code) on install
