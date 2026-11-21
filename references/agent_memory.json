@@ -3,13 +3,39 @@
     "repo": "unclecode/crawl4ai",
     "task": "web scraping",
     "outcome": "success",
-    "fail_count": 0,
-    "success_count": 1,
+    "fail_count": 1,
+    "success_count": 7,
     "error_type": "none",
-    "error_reason": "Verified reliable pure-python LLM web crawler",
-    "learned_fix": "",
-    "alternative_repo": "",
-    "note": "Verified reliable pure-python LLM web crawler",
-    "updated_at": "2026-11-20"
+    "error_reason": "Network timeout on proxy",
+    "learned_fix": "Use firecrawl instead",
+    "alternative_repo": "mendableai/firecrawl",
+    "note": "Works great",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "repo": "bogus/broken-scraper",
+    "task": "scraping",
+    "outcome": "failed",
+    "fail_count": 5,
+    "success_count": 0,
+    "error_type": "missing_dependency",
+    "error_reason": "ModuleNotFoundError: No module named 'libxml2'",
+    "learned_fix": "Use unclecode/crawl4ai which is pure python",
+    "alternative_repo": "unclecode/crawl4ai",
+    "note": "",
+    "updated_at": "2026-11-21"
+  },
+  {
+    "repo": "broken-org/broken-scraper",
+    "task": "web scraping",
+    "outcome": "failed",
+    "fail_count": 1,
+    "success_count": 0,
+    "error_type": "rate_limited",
+    "error_reason": "Cloudflare 403 Forbidden captcha block",
+    "learned_fix": "Use crawl4ai instead",
+    "alternative_repo": "unclecode/crawl4ai",
+    "note": "",
+    "updated_at": "2026-11-21"
   }
 ]
