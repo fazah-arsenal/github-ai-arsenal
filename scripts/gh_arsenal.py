@@ -2165,6 +2165,18 @@ def cmd_install_reqs(args: Optional[argparse.Namespace] = None) -> int:
     for c in link_res.get("linked_clients", []):
         print(f"    ✓ {c['client']} : {c['path']}")
 
+    # Synchronize ~/.local/bin/fazah.cmd and agent skill script
+    try:
+        bin_dir = Path.home() / ".local" / "bin"
+        bin_dir.mkdir(parents=True, exist_ok=True)
+        fazah_cmd = bin_dir / "fazah.cmd"
+        fazah_cmd.write_text("@echo off\r\npython -m scripts.gh_arsenal %*\r\n", encoding="ascii")
+        skill_script = Path.home() / ".agents" / "skills" / "github-ai-arsenal" / "scripts" / "gh_arsenal.py"
+        if skill_script.parent.exists():
+            shutil.copy2(Path(__file__).resolve(), skill_script)
+    except Exception:
+        pass
+
     print("=" * 72)
     print("  [✓] All essential requirements verified. Arsenal is 100% operational!")
     print("=" * 72)
