@@ -26,7 +26,7 @@ $Targets = @(
     (Join-Path $env:USERPROFILE ".agents\skills\$SkillName"),
     (Join-Path $env:USERPROFILE ".gemini\config\skills\$SkillName")
 )
-foreach ($extra in @(".claude\skills", ".codex\skills", ".cursor\skills")) {
+foreach ($extra in @(".claude\skills", ".codex\skills", ".cursor\skills", ".opencode\skills", ".deepseek\skills")) {
     $root = Join-Path $env:USERPROFILE $extra
     if (Test-Path $root) { $Targets += (Join-Path $root $SkillName) }
 }
