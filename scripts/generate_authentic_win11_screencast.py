@@ -1,12 +1,18 @@
 """
-FAZAH AI Arsenal v6.5 — Authentic Windows 11 Screencast Walkthrough Generator
-Uses the real Windows 11 Bloom Dark wallpaper and authentic Fluent UI elements:
-- Official 4K Windows 11 Wallpaper (C:/Windows/Web/Wallpaper/Windows/img19.jpg)
-- Authentic Windows 11 Centered Taskbar with Start, Search, Weather, Tray & Clock
-- Realistic Windows Terminal (Acrylic tab bar, tabs, command typing)
-- Realistic Google Antigravity IDE (Gemini 3.8 Flash header, Explorer, MCP status, Agent chat, live editor)
+FAZAH AI Arsenal v6.5 — Pixel-Perfect Authentic Windows 11 & Antigravity Screencast
+Uses:
+- Real 4K Windows 11 Dark Mode Bloom Wallpaper (C:/Windows/Web/Wallpaper/Windows/img19.jpg)
+- Real Antigravity Official Logo (C:/Users/Compumarts/AppData/Local/Programs/Antigravity IDE/resources/app/extensions/agy/img/logo.png)
+- Real VS Code Editor Icon (C:/Users/Compumarts/AppData/Local/Programs/Antigravity IDE/resources/app/resources/win32/code_150x150.png)
+- Authentic Windows Terminal with Acrylic Tab Bar & PowerShell
+- Authentic Google Antigravity IDE UI from inside:
+  * Full menu bar, title bar, command search bar, model selector
+  * Activity bar (left), File Explorer with MCP server status
+  * Syntax-highlighted VS Code Dark+ code editor with line numbers & breadcrumbs
+  * Real Antigravity Agent Chat panel with avatars, thinking accordions, tool call cards, and dialogue
+  * Real Terminal showing pip install, fazah link, and fazah savings
 - English Studio Voiceover (edge-tts en-US-GuyNeural)
-- Exports assets/demo_walkthrough.mp4 & assets/demo_preview.gif
+- Generates assets/demo_walkthrough.mp4 & assets/demo_preview.gif
 """
 
 import asyncio
@@ -28,36 +34,60 @@ FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 
 # Fonts
 FONT_DIR = "C:/Windows/Fonts"
-font_title = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 24)
-font_subtitle = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 15)
-font_header = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 17)
-font_card = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 14)
-font_body = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 14)
-font_body_bold = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 14)
-font_caption = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 15)
+font_title = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 22)
+font_subtitle = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 14)
+font_header = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 15)
+font_card = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 13)
+font_body = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 13)
+font_body_bold = ImageFont.truetype(os.path.join(FONT_DIR, "segoeuib.ttf"), 13)
+font_caption = ImageFont.truetype(os.path.join(FONT_DIR, "segoeui.ttf"), 14)
 
-font_code_large = ImageFont.truetype(os.path.join(FONT_DIR, "consolab.ttf"), 15)
-font_code = ImageFont.truetype(os.path.join(FONT_DIR, "consola.ttf"), 13)
+font_code_large = ImageFont.truetype(os.path.join(FONT_DIR, "consolab.ttf"), 14)
+font_code = ImageFont.truetype(os.path.join(FONT_DIR, "consola.ttf"), 12)
 font_code_small = ImageFont.truetype(os.path.join(FONT_DIR, "consola.ttf"), 11)
 
-# Palette
+# Syntax Highlighting Colors (VS Code Dark+)
+SYNTAX_KEYWORD = (197, 134, 192)   # purple/magenta
+SYNTAX_CLASS = (78, 201, 176)      # teal
+SYNTAX_FUNC = (220, 220, 170)      # yellow
+SYNTAX_STRING = (206, 145, 120)    # orange/brown
+SYNTAX_COMMENT = (106, 153, 85)    # green
+SYNTAX_VAR = (156, 220, 254)       # light blue
+TEXT_WHITE = (243, 244, 246)
+TEXT_MUTED = (160, 165, 175)
+TEXT_DIM = (110, 115, 125)
+
+# Accent colors
 ACCENT_BLUE = (0, 120, 215)
 ACCENT_CYAN = (56, 189, 248)
 ACCENT_PURPLE = (168, 85, 247)
 ACCENT_GREEN = (34, 197, 94)
 ACCENT_AMBER = (245, 158, 11)
 ACCENT_RED = (239, 68, 68)
-TEXT_WHITE = (243, 244, 246)
-TEXT_MUTED = (160, 170, 185)
-TEXT_DIM = (110, 120, 135)
 
-# Load Real Windows 11 Wallpaper
+# Load Real Assets
 WALLPAPER_PATH = "C:/Windows/Web/Wallpaper/Windows/img19.jpg"
 if os.path.exists(WALLPAPER_PATH):
     BASE_WALLPAPER = Image.open(WALLPAPER_PATH).resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
 else:
-    # Fallback dark background
     BASE_WALLPAPER = Image.new("RGB", (WIDTH, HEIGHT), (15, 23, 42))
+
+LOGO_PATH = "C:/Users/Compumarts/AppData/Local/Programs/Antigravity IDE/resources/app/extensions/agy/img/logo.png"
+if os.path.exists(LOGO_PATH):
+    REAL_AGY_LOGO_ORIG = Image.open(LOGO_PATH).convert("RGBA")
+    REAL_AGY_LOGO_24 = REAL_AGY_LOGO_ORIG.resize((24, 24), Image.Resampling.LANCZOS)
+    REAL_AGY_LOGO_18 = REAL_AGY_LOGO_ORIG.resize((18, 18), Image.Resampling.LANCZOS)
+    REAL_AGY_LOGO_32 = REAL_AGY_LOGO_ORIG.resize((32, 32), Image.Resampling.LANCZOS)
+else:
+    REAL_AGY_LOGO_24 = Image.new("RGBA", (24, 24), (168, 85, 247, 255))
+    REAL_AGY_LOGO_18 = Image.new("RGBA", (18, 18), (168, 85, 247, 255))
+    REAL_AGY_LOGO_32 = Image.new("RGBA", (32, 32), (168, 85, 247, 255))
+
+CODE_ICON_PATH = "C:/Users/Compumarts/AppData/Local/Programs/Antigravity IDE/resources/app/resources/win32/code_150x150.png"
+if os.path.exists(CODE_ICON_PATH):
+    REAL_CODE_ICON = Image.open(CODE_ICON_PATH).convert("RGBA").resize((24, 24), Image.Resampling.LANCZOS)
+else:
+    REAL_CODE_ICON = Image.new("RGBA", (24, 24), (0, 120, 215, 255))
 
 SCENES = [
     {
@@ -108,21 +138,20 @@ def draw_windows11_taskbar(img, active_app="terminal", clock_str="2:30 PM"):
     draw = ImageDraw.Draw(img)
     ty = HEIGHT - 48
     
-    # Fluent Translucent Taskbar with Acrylic effect
-    taskbar_layer = Image.new("RGBA", (WIDTH, 48), (18, 22, 34, 215))
+    # Taskbar Acrylic layer
+    taskbar_layer = Image.new("RGBA", (WIDTH, 48), (18, 22, 34, 225))
     img.paste(taskbar_layer, (0, ty), taskbar_layer)
     draw.line([(0, ty), (WIDTH, ty)], fill=(45, 55, 75), width=1)
 
     # 1. Left: Weather Widget
-    draw.text((24, ty + 15), "⛅ 24°C", font=font_code, fill=TEXT_WHITE)
-    draw.text((80, ty + 16), "Mostly sunny", font=font_code_small, fill=TEXT_MUTED)
+    draw.text((24, ty + 14), "⛅ 24°C", font=font_code, fill=TEXT_WHITE)
+    draw.text((80, ty + 15), "Mostly sunny", font=font_code_small, fill=TEXT_MUTED)
 
-    # 2. Center: Centered App Icons
-    cx = 530
+    # 2. Center: Windows 11 App Icons
+    cx = 520
 
-    # Start Button (Windows 11 Blue 4-squares Fluent logo)
+    # Start Button (Windows 11 Blue 4-squares)
     draw.rounded_rectangle([cx, ty + 6, cx + 36, ty + 42], radius=6, fill=(35, 45, 65) if active_app == "start" else (0,0,0,0))
-    # 4 squares
     draw.rectangle([cx + 9, ty + 14, cx + 16, ty + 21], fill=(0, 164, 239))
     draw.rectangle([cx + 19, ty + 14, cx + 26, ty + 21], fill=(0, 164, 239))
     draw.rectangle([cx + 9, ty + 24, cx + 16, ty + 31], fill=(0, 164, 239))
@@ -133,20 +162,18 @@ def draw_windows11_taskbar(img, active_app="terminal", clock_str="2:30 PM"):
     draw.rounded_rectangle([sx, ty + 8, sx + 120, ty + 40], radius=16, fill=(28, 35, 50), outline=(50, 62, 85))
     draw.text((sx + 14, ty + 14), "🔍 Search", font=font_code_small, fill=TEXT_MUTED)
 
-    # App 1: File Explorer (Yellow folder icon)
+    # File Explorer
     fx = sx + 128
-    draw.rounded_rectangle([fx, ty + 6, fx + 36, ty + 42], radius=6, fill=(32, 40, 58) if active_app == "explorer" else (0,0,0,0))
     draw.rectangle([fx + 8, ty + 16, fx + 28, ty + 32], fill=(234, 179, 8), outline=(202, 138, 4))
     draw.rectangle([fx + 8, ty + 13, fx + 18, ty + 17], fill=(245, 158, 11))
 
-    # App 2: Microsoft Edge (Cyan circular swirl)
-    ex = fx + 42
-    draw.rounded_rectangle([ex, ty + 6, ex + 36, ty + 42], radius=6, fill=(32, 40, 58) if active_app == "edge" else (0,0,0,0))
+    # Microsoft Edge
+    ex = fx + 40
     draw.ellipse([ex + 8, ty + 14, ex + 28, ty + 34], fill=(14, 165, 233))
     draw.ellipse([ex + 12, ty + 18, ex + 24, ty + 30], fill=(56, 189, 248))
 
-    # App 3: Windows Terminal (Dark square with >_ prompt)
-    tx = ex + 42
+    # Windows Terminal
+    tx = ex + 40
     is_term = (active_app == "terminal")
     draw.rounded_rectangle([tx, ty + 6, tx + 36, ty + 42], radius=6, fill=(45, 58, 85) if is_term else (25, 32, 48))
     draw.rectangle([tx + 8, ty + 14, tx + 28, ty + 32], fill=(12, 12, 16), outline=(75, 85, 105))
@@ -154,14 +181,17 @@ def draw_windows11_taskbar(img, active_app="terminal", clock_str="2:30 PM"):
     if is_term:
         draw.line([(tx + 10, ty + 44), (tx + 26, ty + 44)], fill=ACCENT_CYAN, width=2)
 
-    # App 4: Google Antigravity (Deep indigo square with Gemini sparkle)
-    ax = tx + 42
+    # Google Antigravity IDE (Using the REAL 24x24 Antigravity Logo)
+    ax = tx + 40
     is_agy = (active_app == "antigravity")
     draw.rounded_rectangle([ax, ty + 6, ax + 36, ty + 42], radius=6, fill=(45, 58, 85) if is_agy else (25, 32, 48))
-    draw.rectangle([ax + 8, ty + 14, ax + 28, ty + 32], fill=(20, 24, 45), outline=(90, 80, 160))
-    draw.text((ax + 11, ty + 13), "✦", font=font_card, fill=ACCENT_PURPLE)
+    img.paste(REAL_AGY_LOGO_24, (ax + 6, ty + 12), REAL_AGY_LOGO_24)
     if is_agy:
         draw.line([(ax + 10, ty + 44), (ax + 26, ty + 44)], fill=ACCENT_PURPLE, width=2)
+
+    # VS Code / Code Icon
+    vx = ax + 40
+    img.paste(REAL_CODE_ICON, (vx + 6, ty + 12), REAL_CODE_ICON)
 
     # 3. Right: System Tray & Clock
     rx = WIDTH - 220
@@ -172,25 +202,31 @@ def draw_windows11_taskbar(img, active_app="terminal", clock_str="2:30 PM"):
     draw.text((rx + 125, ty + 26), "11/21/2026", font=font_code_small, fill=TEXT_MUTED)
     draw.text((rx + 195, ty + 16), "🔔", font=font_code_small, fill=TEXT_MUTED)
 
-def draw_desktop_icons(draw):
-    icons = [
-        ("Recycle Bin", "🗑️"),
-        ("This PC", "🖥️"),
-        ("Antigravity", "✦"),
-        ("Projects", "📁"),
-    ]
-    for i, (name, icon) in enumerate(icons):
-        iy = 35 + i * 82
-        draw.text((36, iy), icon, font=font_header, fill=TEXT_WHITE)
-        draw.text((20, iy + 26), name, font=font_code_small, fill=TEXT_WHITE)
+def draw_desktop_icons(img):
+    draw = ImageDraw.Draw(img)
+    # 1. Recycle Bin
+    draw.text((36, 35), "🗑️", font=font_header, fill=TEXT_WHITE)
+    draw.text((20, 61), "Recycle Bin", font=font_code_small, fill=TEXT_WHITE)
+
+    # 2. This PC
+    draw.text((36, 115), "🖥️", font=font_header, fill=TEXT_WHITE)
+    draw.text((25, 141), "This PC", font=font_code_small, fill=TEXT_WHITE)
+
+    # 3. Google Antigravity Desktop Shortcut (Real Logo)
+    img.paste(REAL_AGY_LOGO_32, (34, 195), REAL_AGY_LOGO_32)
+    draw.text((16, 230), "Antigravity", font=font_code_small, fill=TEXT_WHITE)
+
+    # 4. Projects Folder
+    draw.text((36, 275), "📁", font=font_header, fill=TEXT_WHITE)
+    draw.text((22, 301), "Projects", font=font_code_small, fill=TEXT_WHITE)
 
 def draw_caption_bar(draw, text, progress):
-    bar_h = 52
+    bar_h = 50
     bar_y = HEIGHT - 48 - bar_h - 10
     draw.rounded_rectangle([40, bar_y, WIDTH - 40, bar_y + bar_h], radius=10, fill=(10, 14, 24), outline=(40, 52, 75), width=1)
     
     cx = 62
-    cy = bar_y + 26
+    cy = bar_y + 25
     for i in range(7):
         phase = (progress * 15 + i) % 3.14
         h = int(18 * (0.5 + 0.5 * np.sin(phase)))
@@ -228,34 +264,29 @@ async def generate_speech_tracks(temp_dir: Path):
         print(f"   -> {dur:.2f}s ({tracks[-1]['frames']} frames)")
     return tracks
 
-# ----------------- SCENE RENDERERS -----------------
+# ----------------- REALISTIC APP RENDERERS -----------------
 
 def render_desktop_open_terminal(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
     draw_windows11_taskbar(img, active_app="terminal")
+    draw = ImageDraw.Draw(img)
 
     prog = frame / total
-    # Mouse moves from desktop towards taskbar terminal icon
     mx = int(350 + prog * 315)
     my = int(320 + prog * 360)
 
-    # Windows Terminal Window animating up
+    # Windows Terminal Window
     if prog > 0.40:
         wx, wy, ww, wh = 160, 80, 960, 520
-        # Terminal Window Card
         draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(12, 12, 14), outline=(48, 54, 66), width=1)
-        # Windows Terminal Acrylic Tab Bar
+        # Windows Terminal Tab Bar
         draw.rectangle([wx, wy, wx + ww, wy + 34], fill=(28, 32, 42))
-        # Active Tab
         draw.rounded_rectangle([wx + 8, wy + 4, wx + 230, wy + 34], radius=4, fill=(12, 12, 14))
         draw.text((wx + 18, wy + 9), ">_ Administrator: Windows Terminal", font=font_code_small, fill=TEXT_WHITE)
         draw.text((wx + 242, wy + 8), "+  v", font=font_code_small, fill=TEXT_MUTED)
-        # Window buttons
         draw.text((wx + ww - 65, wy + 8), "—  □  ✕", font=font_code_small, fill=TEXT_MUTED)
 
-        # Terminal Prompt
         draw.text((wx + 20, wy + 48), "Windows PowerShell", font=font_code, fill=TEXT_WHITE)
         draw.text((wx + 20, wy + 70), "Copyright (C) Microsoft Corporation. All rights reserved.", font=font_code, fill=TEXT_MUTED)
         draw.text((wx + 20, wy + 115), "PS C:\\Users\\Compumarts> ", font=font_code, fill=TEXT_WHITE)
@@ -268,9 +299,9 @@ def render_desktop_open_terminal(frame, total, scene):
 
 def render_terminal_install_link(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
     draw_windows11_taskbar(img, active_app="terminal")
+    draw = ImageDraw.Draw(img)
 
     wx, wy, ww, wh = 140, 60, 1000, 540
     draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(12, 12, 14), outline=(48, 54, 66), width=1)
@@ -311,57 +342,84 @@ def render_terminal_install_link(frame, total, scene):
 
 def render_launch_antigravity(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
 
     prog = frame / total
     draw_windows11_taskbar(img, active_app="antigravity" if prog > 0.4 else "terminal")
+    draw = ImageDraw.Draw(img)
 
-    # Antigravity window smooth launch animation
-    scale = min(1.0, 0.4 + prog * 1.0)
-    ww = int(1140 * scale)
+    # Window expand animation
+    scale = min(1.0, 0.45 + prog * 0.9)
+    ww = int(1160 * scale)
     wh = int(550 * scale)
     wx = (WIDTH - ww) // 2
     wy = 35 + (550 - wh) // 2
 
     # Antigravity Window Body
-    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(16, 21, 34), outline=(42, 54, 76), width=1)
-    # Title Bar
-    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 32, 50))
-    draw.text((wx + 15, wy + 9), "✦ Antigravity — [FAZAH AI Arsenal] — Gemini 3.8 Flash (Thinking)", font=font_code_small, fill=TEXT_WHITE)
+    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(18, 18, 24), outline=(42, 48, 64), width=1)
+    
+    # 1. Top Title Bar (Authentic Antigravity IDE)
+    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 24, 32))
+    img.paste(REAL_AGY_LOGO_18, (wx + 12, wy + 10), REAL_AGY_LOGO_18)
+    draw.text((wx + 36, wy + 10), "Antigravity", font=font_body_bold, fill=TEXT_WHITE)
+    draw.text((wx + 125, wy + 11), "File  Edit  Selection  View  Go  Run  Terminal  Help", font=font_code_small, fill=TEXT_MUTED)
+
+    # Center Search Bar Pill
+    cx_search = wx + ww // 2 - 130
+    draw.rounded_rectangle([cx_search, wy + 6, cx_search + 260, wy + 32], radius=13, fill=(15, 15, 20), outline=(45, 45, 55))
+    draw.text((cx_search + 15, wy + 10), "🔍 FAZAH AI Arsenal (Ctrl+P)", font=font_code_small, fill=TEXT_MUTED)
+
+    # Right: Model Selector & Window Buttons
+    draw.rounded_rectangle([wx + ww - 240, wy + 7, wx + ww - 85, wy + 31], radius=12, fill=(30, 25, 45), outline=ACCENT_PURPLE)
+    draw.text((wx + ww - 230, wy + 10), "✦ Gemini 3.8 Flash ▼", font=font_code_small, fill=ACCENT_PURPLE)
     draw.text((wx + ww - 65, wy + 9), "—  □  ✕", font=font_code_small, fill=TEXT_MUTED)
 
     if scale > 0.85:
-        # Activity Bar (Left icon strip)
-        draw.rectangle([wx, wy + 38, wx + 48, wy + wh], fill=(12, 16, 26))
-        draw.text((wx + 14, wy + 55), "🗀", font=font_card, fill=TEXT_WHITE)
+        # 2. Activity Bar (Leftmost Strip)
+        draw.rectangle([wx, wy + 38, wx + 48, wy + wh], fill=(15, 15, 20))
+        draw.text((wx + 14, wy + 55), "📄", font=font_card, fill=TEXT_WHITE)
         draw.text((wx + 14, wy + 95), "🔍", font=font_card, fill=TEXT_MUTED)
         draw.text((wx + 14, wy + 135), "🌿", font=font_card, fill=TEXT_MUTED)
         draw.text((wx + 14, wy + 175), "🧩", font=font_card, fill=ACCENT_CYAN)
+        draw.text((wx + 14, wy + wh - 30), "⚙", font=font_card, fill=TEXT_MUTED)
 
-        # Explorer Panel
-        draw.rectangle([wx + 48, wy + 38, wx + 200, wy + wh], fill=(15, 20, 32))
-        draw.text((wx + 60, wy + 52), "EXPLORER", font=font_code_small, fill=TEXT_MUTED)
-        draw.text((wx + 60, wy + 78), "📁 scripts", font=font_code_small, fill=TEXT_WHITE)
-        draw.text((wx + 72, wy + 102), "🐍 mcp_server.py", font=font_code_small, fill=ACCENT_CYAN)
-        draw.text((wx + 72, wy + 124), "🐍 gh_arsenal.py", font=font_code_small, fill=ACCENT_CYAN)
-        draw.text((wx + 60, wy + 150), "📁 references", font=font_code_small, fill=TEXT_WHITE)
-        draw.text((wx + 60, wy + 175), "⚙ .mcp.json", font=font_code_small, fill=ACCENT_GREEN)
-        draw.text((wx + 60, wy + 210), "MCP SERVERS:", font=font_code_small, fill=TEXT_MUTED)
-        draw.text((wx + 60, wy + 230), "● fazah-arsenal", font=font_code_small, fill=ACCENT_GREEN)
+        # 3. Explorer Panel
+        draw.rectangle([wx + 48, wy + 38, wx + 220, wy + wh], fill=(22, 22, 30))
+        draw.text((wx + 60, wy + 50), "EXPLORER: ARSENAL", font=font_code_small, fill=TEXT_MUTED)
+        draw.text((wx + 60, wy + 75), "▼ scripts", font=font_code_small, fill=TEXT_WHITE)
+        draw.text((wx + 75, wy + 96), "🐍 gh_arsenal.py", font=font_code_small, fill=ACCENT_CYAN)
+        draw.text((wx + 75, wy + 116), "🐍 mcp_server.py", font=font_code_small, fill=ACCENT_CYAN)
+        draw.text((wx + 60, wy + 140), "▼ references", font=font_code_small, fill=TEXT_WHITE)
+        draw.text((wx + 75, wy + 160), "📦 mega_index.json", font=font_code_small, fill=TEXT_MUTED)
+        draw.text((wx + 60, wy + 185), "⚙ .mcp.json", font=font_code_small, fill=ACCENT_GREEN)
+        
+        # MCP Servers Widget in Explorer
+        draw.rounded_rectangle([wx + 55, wy + 215, wx + 212, wy + 265], radius=6, fill=(15, 22, 32), outline=(35, 45, 60))
+        draw.text((wx + 64, wy + 222), "MCP SERVERS:", font=font_code_small, fill=TEXT_MUTED)
+        draw.text((wx + 64, wy + 242), "● fazah-arsenal", font=font_code_small, fill=ACCENT_GREEN)
 
-        # Center Code Editor
-        draw.rectangle([wx + 200, wy + 38, wx + 650, wy + wh], fill=(12, 17, 28))
-        draw.rectangle([wx + 200, wy + 38, wx + 340, wy + 70], fill=(20, 28, 45))
-        draw.text((wx + 215, wy + 46), "main.py ✕", font=font_code_small, fill=TEXT_WHITE)
-        draw.text((wx + 215, wy + 90), "# Google Antigravity Agent Workspace\n# FAZAH AI Arsenal MCP server ready (18 Tools)\n\nimport asyncio", font=font_code, fill=TEXT_MUTED)
+        # 4. Center Editor Area
+        ex = wx + 220
+        ew = ww - 220 - 410
+        draw.rectangle([ex, wy + 38, ex + ew, wy + wh], fill=(30, 30, 30)) # VS Code Dark+ BG
+        # Tab
+        draw.rectangle([ex, wy + 38, ex + 140, wy + 68], fill=(30, 30, 30))
+        draw.text((ex + 15, wy + 46), "main.py ✕", font=font_code_small, fill=TEXT_WHITE)
+        draw.line([(ex, wy + 68), (ex + ew, wy + 68)], fill=(40, 40, 40), width=1)
+        # Editor content
+        draw.text((ex + 20, wy + 85), "# Antigravity Autonomous Agent Workspace\n# FAZAH AI Arsenal Native MCP Server Ready (18 Tools)\n\nimport asyncio", font=font_code, fill=TEXT_MUTED)
 
-        # Right Agent Chat Pane
-        draw.rectangle([wx + 650, wy + 38, wx + ww, wy + wh], fill=(16, 22, 36))
-        draw.line([(wx + 650, wy + 38), (wx + 650, wy + wh)], fill=(40, 52, 75), width=1)
-        draw.text((wx + 665, wy + 48), "AGENT CHAT · Gemini 3.8 Flash", font=font_card, fill=ACCENT_PURPLE)
-        draw.text((wx + 665, wy + 70), "MCP: fazah-arsenal (Active)", font=font_code_small, fill=ACCENT_GREEN)
+        # 5. Right Agent Chat Pane
+        cx = ex + ew
+        draw.rectangle([cx, wy + 38, wx + ww, wy + wh], fill=(20, 20, 26))
+        draw.line([(cx, wy + 38), (cx, wy + wh)], fill=(40, 40, 50), width=1)
+        
+        # Agent Chat Header
+        draw.text((cx + 15, wy + 46), "✦ Agent · Gemini 3.8 Flash", font=font_card, fill=ACCENT_PURPLE)
+        draw.rounded_rectangle([cx + 310, wy + 44, cx + 390, wy + 64], radius=4, fill=(16, 35, 26), outline=ACCENT_GREEN)
+        draw.text((cx + 318, wy + 48), "● Ready", font=font_code_small, fill=ACCENT_GREEN)
 
+    # Mouse animation
     mx = int(720 - (1.0 - prog) * 220)
     my = int(240 + (1.0 - prog) * 160)
     draw_mouse_cursor(draw, mx, my)
@@ -371,48 +429,69 @@ def render_launch_antigravity(frame, total, scene):
 
 def render_antigravity_verify_dialog(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
     draw_windows11_taskbar(img, active_app="antigravity")
 
-    wx, wy, ww, wh = 70, 35, 1140, 550
-    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(16, 21, 34), outline=(42, 54, 76), width=1)
-    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 32, 50))
-    draw.text((wx + 15, wy + 9), "✦ Antigravity — Agent Dialogue Session — Gemini 3.8 Flash", font=font_code_small, fill=TEXT_WHITE)
+    wx, wy, ww, wh = 70, 35, 1140, 555
+    draw = ImageDraw.Draw(img)
+    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(18, 18, 24), outline=(42, 48, 64), width=1)
+    
+    # Title Bar
+    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 24, 32))
+    img.paste(REAL_AGY_LOGO_18, (wx + 12, wy + 10), REAL_AGY_LOGO_18)
+    draw.text((wx + 36, wy + 10), "Antigravity — FAZAH AI Arsenal", font=font_body_bold, fill=TEXT_WHITE)
+    draw.rounded_rectangle([wx + ww - 240, wy + 7, wx + ww - 85, wy + 31], radius=12, fill=(30, 25, 45), outline=ACCENT_PURPLE)
+    draw.text((wx + ww - 230, wy + 10), "✦ Gemini 3.8 Flash ▼", font=font_code_small, fill=ACCENT_PURPLE)
     draw.text((wx + ww - 65, wy + 9), "—  □  ✕", font=font_code_small, fill=TEXT_MUTED)
 
-    # Sidebar
-    draw.rectangle([wx, wy + 38, wx + 180, wy + wh], fill=(13, 17, 28))
-    draw.text((wx + 16, wy + 52), "WORKSPACE", font=font_code_small, fill=TEXT_MUTED)
-    draw.text((wx + 16, wy + 76), "📁 FAZAH-Arsenal", font=font_code_small, fill=TEXT_WHITE)
-    draw.text((wx + 26, wy + 98), "⚙ .mcp.json [✓]", font=font_code_small, fill=ACCENT_GREEN)
-    draw.text((wx + 16, wy + 140), "ACTIVE SERVERS:", font=font_code_small, fill=TEXT_MUTED)
-    draw.text((wx + 16, wy + 162), "● fazah-arsenal", font=font_code_small, fill=ACCENT_GREEN)
-    draw.text((wx + 26, wy + 182), "18 tools active", font=font_code_small, fill=TEXT_MUTED)
+    # Activity Bar & Sidebar
+    draw.rectangle([wx, wy + 38, wx + 48, wy + wh], fill=(15, 15, 20))
+    draw.text((wx + 14, wy + 55), "📄", font=font_card, fill=TEXT_WHITE)
+    draw.text((wx + 14, wy + 95), "🔍", font=font_card, fill=TEXT_MUTED)
+    draw.text((wx + 14, wy + 135), "🌿", font=font_card, fill=TEXT_MUTED)
+    draw.text((wx + 14, wy + 175), "🧩", font=font_card, fill=ACCENT_CYAN)
 
-    # Chat Pane
-    cx = wx + 180
-    cw = ww - 180
-    draw.rectangle([cx, wy + 38, wx + ww, wy + wh], fill=(15, 20, 32))
+    draw.rectangle([wx + 48, wy + 38, wx + 220, wy + wh], fill=(22, 22, 30))
+    draw.text((wx + 60, wy + 50), "EXPLORER", font=font_code_small, fill=TEXT_MUTED)
+    draw.text((wx + 60, wy + 74), "📁 FAZAH-Arsenal", font=font_code_small, fill=TEXT_WHITE)
+    draw.text((wx + 75, wy + 96), "⚙ .mcp.json [✓]", font=font_code_small, fill=ACCENT_GREEN)
+    
+    # MCP Status widget
+    draw.rounded_rectangle([wx + 55, wy + 130, wx + 212, wy + 180], radius=6, fill=(15, 24, 35), outline=ACCENT_GREEN)
+    draw.text((wx + 64, wy + 138), "MCP STATUS:", font=font_code_small, fill=TEXT_MUTED)
+    draw.text((wx + 64, wy + 156), "● fazah-arsenal", font=font_code_small, fill=ACCENT_GREEN)
+
+    # Main Agent Workspace (center-right)
+    cx = wx + 220
+    cw = ww - 220
+    draw.rectangle([cx, wy + 38, wx + ww, wy + wh], fill=(20, 20, 26))
 
     prog = frame / total
 
-    # 1. User Message
+    # 1. User Message (Authentic Antigravity Chat Bubble)
     if prog > 0.08:
-        draw.rounded_rectangle([cx + 30, wy + 52, cx + cw - 30, wy + 115], radius=8, fill=(24, 32, 50), outline=(42, 55, 80))
-        draw.text((cx + 45, wy + 62), "USER:", font=font_code_small, fill=ACCENT_AMBER)
-        draw.text((cx + 45, wy + 82), '"Is the FAZAH AI Arsenal tool linked to you and ready?"', font=font_body, fill=TEXT_WHITE)
+        # User Avatar
+        draw.ellipse([cx + 25, wy + 55, cx + 55, wy + 85], fill=(30, 41, 59))
+        draw.text((cx + 36, wy + 62), "U", font=font_body_bold, fill=TEXT_WHITE)
 
-    # 2. Antigravity Agent Tool Checking Box
+        draw.rounded_rectangle([cx + 65, wy + 52, cx + cw - 35, wy + 105], radius=8, fill=(28, 35, 48), outline=(45, 55, 75))
+        draw.text((cx + 80, wy + 60), "User · 2:31 PM", font=font_code_small, fill=TEXT_MUTED)
+        draw.text((cx + 80, wy + 78), '"Is the FAZAH AI Arsenal tool linked to you and ready?"', font=font_body_bold, fill=TEXT_WHITE)
+
+    # 2. Antigravity Agent Thinking & Tool Inspection Box
     if prog > 0.32:
-        draw.rounded_rectangle([cx + 30, wy + 128, cx + cw - 30, wy + 180], radius=8, fill=(18, 25, 42), outline=ACCENT_PURPLE)
-        draw.text((cx + 45, wy + 136), "ANTIGRAVITY AGENT (Gemini 3.8 Flash):", font=font_code_small, fill=ACCENT_PURPLE)
-        draw.text((cx + 45, wy + 154), "▶ Inspecting MCP registry: list_tools()  →  Active server: 'fazah-arsenal' (18 Native Tools)", font=font_code, fill=ACCENT_CYAN)
+        # Assistant Avatar (Real Antigravity Logo)
+        img.paste(REAL_AGY_LOGO_24, (cx + 28, wy + 124), REAL_AGY_LOGO_24)
 
-    # 3. Antigravity Agent Response
+        # Tool Accordion Box
+        draw.rounded_rectangle([cx + 65, wy + 120, cx + cw - 35, wy + 172], radius=6, fill=(18, 25, 40), outline=ACCENT_PURPLE)
+        draw.text((cx + 80, wy + 128), "▾ Thought for 0.8s  ·  Tool Execution", font=font_code_small, fill=ACCENT_PURPLE)
+        draw.text((cx + 80, wy + 148), "▶ call: mcp_fazah_arsenal_list_tools()  →  18 active tools, 20,078 repos indexed", font=font_code, fill=ACCENT_CYAN)
+
+    # 3. Antigravity Agent Official Response
     if prog > 0.55:
-        draw.rounded_rectangle([cx + 30, wy + 195, cx + cw - 30, wy + 405], radius=8, fill=(16, 24, 38), outline=ACCENT_GREEN, width=1)
-        draw.text((cx + 45, wy + 208), "AGENT RESPONSE:", font=font_code_small, fill=ACCENT_GREEN)
+        draw.rounded_rectangle([cx + 65, wy + 185, cx + cw - 35, wy + 400], radius=8, fill=(18, 24, 36), outline=ACCENT_GREEN, width=1)
+        draw.text((cx + 80, wy + 196), "Antigravity Assistant · Gemini 3.8 Flash", font=font_code_small, fill=ACCENT_GREEN)
         
         reply_lines = [
             "Yes! FAZAH AI Arsenal is successfully linked and active via native MCP.",
@@ -426,89 +505,118 @@ def render_antigravity_verify_dialog(frame, total, scene):
             "What project would you like me to build for you today?"
         ]
         for idx, line in enumerate(reply_lines):
-            draw.text((cx + 45, wy + 232 + idx * 21), line, font=font_code if idx > 1 else font_body_bold, fill=TEXT_WHITE if idx <= 2 else (ACCENT_GREEN if "•" in line else TEXT_MUTED))
+            draw.text((cx + 80, wy + 220 + idx * 20), line, font=font_code if idx > 1 else font_body_bold, fill=TEXT_WHITE if idx <= 2 else (ACCENT_GREEN if "•" in line else TEXT_MUTED))
+
+    # Bottom Chat Input Bar
+    draw.rounded_rectangle([cx + 25, wy + wh - 55, cx + cw - 25, wy + wh - 12], radius=8, fill=(15, 18, 26), outline=(40, 50, 70))
+    draw.text((cx + 42, wy + wh - 38), "Ask Antigravity a question or request changes...", font=font_body, fill=TEXT_DIM)
+    draw.rounded_rectangle([cx + cw - 65, wy + wh - 48, cx + cw - 35, wy + wh - 18], radius=6, fill=ACCENT_BLUE)
+    draw.text((cx + cw - 54, wy + wh - 40), "↑", font=font_body_bold, fill=TEXT_WHITE)
 
     draw_caption_bar(draw, scene["narration"], prog)
     return img
 
 def render_antigravity_live_build(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
     draw_windows11_taskbar(img, active_app="antigravity")
 
-    wx, wy, ww, wh = 70, 35, 1140, 550
-    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(16, 21, 34), outline=(42, 54, 76), width=1)
-    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 32, 50))
-    draw.text((wx + 15, wy + 9), "✦ Antigravity — Autonomous Code Generation — Gemini 3.8 Flash", font=font_code_small, fill=TEXT_WHITE)
+    wx, wy, ww, wh = 70, 35, 1140, 555
+    draw = ImageDraw.Draw(img)
+    draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(18, 18, 24), outline=(42, 48, 64), width=1)
+    
+    # Title Bar
+    draw.rectangle([wx, wy, wx + ww, wy + 38], fill=(24, 24, 32))
+    img.paste(REAL_AGY_LOGO_18, (wx + 12, wy + 10), REAL_AGY_LOGO_18)
+    draw.text((wx + 36, wy + 10), "Antigravity — [scraper.py] — Autonomous Build", font=font_body_bold, fill=TEXT_WHITE)
+    draw.rounded_rectangle([wx + ww - 240, wy + 7, wx + ww - 85, wy + 31], radius=12, fill=(30, 25, 45), outline=ACCENT_PURPLE)
+    draw.text((wx + ww - 230, wy + 10), "✦ Gemini 3.8 Flash ▼", font=font_code_small, fill=ACCENT_PURPLE)
     draw.text((wx + ww - 65, wy + 9), "—  □  ✕", font=font_code_small, fill=TEXT_MUTED)
 
     prog = frame / total
 
-    # Left: Agent Chat pane (420px)
-    cx, cy, cw, ch = wx, wy + 38, 420, wh - 38
-    draw.rectangle([cx, cy, cx + cw, cy + ch], fill=(14, 19, 32))
-    draw.line([(cx + cw, cy), (cx + cw, cy + ch)], fill=(40, 52, 75), width=1)
+    # Left: Agent Chat pane (430px)
+    cx, cy, cw, ch = wx, wy + 38, 440, wh - 38
+    draw.rectangle([cx, cy, cx + cw, cy + ch], fill=(20, 20, 26))
+    draw.line([(cx + cw, cy), (cx + cw, cy + ch)], fill=(40, 40, 50), width=1)
 
-    draw.rounded_rectangle([cx + 15, cy + 15, cx + cw - 15, cy + 75], radius=6, fill=(24, 32, 52))
-    draw.text((cx + 25, cy + 22), "USER TASK:", font=font_code_small, fill=ACCENT_AMBER)
-    draw.text((cx + 25, cy + 40), '"Build me an async web scraper\nand store results in PostgreSQL"', font=font_code_small, fill=TEXT_WHITE)
+    # User Request bubble
+    draw.ellipse([cx + 15, cy + 18, cx + 45, cy + 48], fill=(30, 41, 59))
+    draw.text((cx + 25, cy + 25), "U", font=font_body_bold, fill=TEXT_WHITE)
+    draw.rounded_rectangle([cx + 55, cy + 15, cx + cw - 15, cy + 70], radius=6, fill=(28, 35, 48))
+    draw.text((cx + 65, cy + 22), "User · 2:32 PM", font=font_code_small, fill=TEXT_MUTED)
+    draw.text((cx + 65, cy + 40), '"Build an async scraper with PostgreSQL"', font=font_body_bold, fill=TEXT_WHITE)
 
-    if prog > 0.18:
-        draw.rounded_rectangle([cx + 15, cy + 90, cx + cw - 15, cy + 180], radius=6, fill=(18, 25, 42), outline=ACCENT_CYAN)
-        draw.text((cx + 25, cy + 98), "ANTIGRAVITY TOOL CALLS:", font=font_code_small, fill=ACCENT_CYAN)
-        draw.text((cx + 25, cy + 120), "1. arsenal_give('unclecode/crawl4ai')", font=font_code_small, fill=ACCENT_GREEN)
-        draw.text((cx + 25, cy + 140), "2. arsenal_recommend('postgres async')", font=font_code_small, fill=ACCENT_GREEN)
-        draw.text((cx + 25, cy + 160), "✓ Offline AST checked: 0 vulnerabilities", font=font_code_small, fill=TEXT_MUTED)
+    # Tool Calls Progression
+    if prog > 0.16:
+        img.paste(REAL_AGY_LOGO_18, (cx + 20, cy + 85), REAL_AGY_LOGO_18)
+        draw.rounded_rectangle([cx + 55, cy + 82, cx + cw - 15, cy + 172], radius=6, fill=(18, 25, 40), outline=ACCENT_CYAN)
+        draw.text((cx + 65, cy + 90), "ANTIGRAVITY TOOL CALLS (MCP):", font=font_code_small, fill=ACCENT_CYAN)
+        draw.text((cx + 65, cy + 112), "1. arsenal_give('unclecode/crawl4ai')", font=font_code_small, fill=ACCENT_GREEN)
+        draw.text((cx + 65, cy + 132), "2. arsenal_recommend('postgres async')", font=font_code_small, fill=ACCENT_GREEN)
+        draw.text((cx + 65, cy + 152), "✓ Verified imports resolved in 3ms offline", font=font_code_small, fill=TEXT_MUTED)
 
-    if prog > 0.38:
-        draw.rounded_rectangle([cx + 15, cy + 195, cx + cw - 15, cy + 295], radius=6, fill=(16, 35, 26), outline=ACCENT_GREEN)
-        draw.text((cx + 25, cy + 205), "AGENT OUTCOME:", font=font_code_small, fill=ACCENT_GREEN)
-        draw.text((cx + 25, cy + 228), "• Crawl4AI + asyncpg selected", font=font_code_small, fill=TEXT_WHITE)
-        draw.text((cx + 25, cy + 248), "• Injected code into scraper.py", font=font_code_small, fill=TEXT_WHITE)
-        draw.text((cx + 25, cy + 268), "• 0 tokens wasted on web search", font=font_code_small, fill=ACCENT_CYAN)
+    if prog > 0.36:
+        draw.rounded_rectangle([cx + 55, cy + 184, cx + cw - 15, cy + 285], radius=6, fill=(16, 32, 24), outline=ACCENT_GREEN)
+        draw.text((cx + 65, cy + 192), "AGENT OUTCOME:", font=font_code_small, fill=ACCENT_GREEN)
+        draw.text((cx + 65, cy + 214), "• Selected crawl4ai + asyncpg", font=font_code_small, fill=TEXT_WHITE)
+        draw.text((cx + 65, cy + 234), "• Injected code into scraper.py", font=font_code_small, fill=TEXT_WHITE)
+        draw.text((cx + 65, cy + 254), "• 0 tokens burned on web search", font=font_code_small, fill=ACCENT_CYAN)
 
-    # Right: Code Editor showing scraper.py
+    # Right: Authentic VS Code Dark+ Code Editor
     ex, ey, ew, eh = cx + cw, cy, ww - cw, ch
-    draw.rectangle([ex, ey, wx + ww, ey + eh], fill=(10, 15, 26))
-    draw.rectangle([ex, ey, ex + 200, ey + 32], fill=(18, 25, 42))
+    draw.rectangle([ex, ey, wx + ww, ey + eh], fill=(30, 30, 30))
+    
+    # Editor Tab Bar
+    draw.rectangle([ex, ey, ex + 150, ey + 32], fill=(30, 30, 30))
     draw.text((ex + 18, ey + 8), "scraper.py [Generated] ✕", font=font_code_small, fill=ACCENT_CYAN)
+    draw.line([(ex, ey + 32), (wx + ww, ey + 32)], fill=(45, 45, 45), width=1)
 
-    code_text = """import asyncio
-from crawl4ai import AsyncWebCrawler
-import asyncpg
+    # Line Numbers Gutter (45px width)
+    draw.rectangle([ex, ey + 32, ex + 45, ey + eh], fill=(30, 30, 30))
+    draw.line([(ex + 45, ey + 32), (ex + 45, ey + eh)], fill=(45, 45, 45), width=1)
 
-async def scrape_and_store(target_url: str):
-    print(f"[*] Crawling: {target_url}")
-    async with AsyncWebCrawler(verbose=True) as crawler:
-        result = await crawler.arun(url=target_url)
-        content_markdown = result.markdown
+    code_lines = [
+        ("import asyncio", SYNTAX_KEYWORD),
+        ("from crawl4ai import AsyncWebCrawler", SYNTAX_KEYWORD),
+        ("import asyncpg", SYNTAX_KEYWORD),
+        ("", TEXT_WHITE),
+        ("async def scrape_and_store(target_url: str):", SYNTAX_FUNC),
+        ("    print(f'[*] Crawling: {target_url}')", SYNTAX_STRING),
+        ("    async with AsyncWebCrawler(verbose=True) as crawler:", SYNTAX_KEYWORD),
+        ("        result = await crawler.arun(url=target_url)", SYNTAX_VAR),
+        ("        content_markdown = result.markdown", SYNTAX_VAR),
+        ("", TEXT_WHITE),
+        ("    # Store cleanly in PostgreSQL via asyncpg", SYNTAX_COMMENT),
+        ("    conn = await asyncpg.connect('postgresql://user:pass@localhost/db')", SYNTAX_STRING),
+        ("    await conn.execute(", SYNTAX_FUNC),
+        ("        'INSERT INTO pages(url, text) VALUES($1, $2)',", SYNTAX_STRING),
+        ("        target_url, content_markdown", SYNTAX_VAR),
+        ("    )", SYNTAX_WHITE := TEXT_WHITE),
+        ("    await conn.close()", SYNTAX_FUNC),
+        ("    print('[✓] Saved to PostgreSQL successfully!')", SYNTAX_STRING),
+        ("", TEXT_WHITE),
+        ("if __name__ == '__main__':", SYNTAX_KEYWORD),
+        ("    asyncio.run(scrape_and_store('https://news.ycombinator.com'))", SYNTAX_FUNC)
+    ]
 
-    # Store cleanly in PostgreSQL via asyncpg
-    conn = await asyncpg.connect("postgresql://user:pass@localhost/arsenal_db")
-    await conn.execute(
-        "INSERT INTO scraped_pages(url, content) VALUES($1, $2)",
-        target_url, content_markdown
-    )
-    await conn.close()
-    print("[✓] Saved to PostgreSQL successfully!")
-
-if __name__ == "__main__":
-    asyncio.run(scrape_and_store("https://news.ycombinator.com"))"""
-
-    lines = code_text.splitlines()
-    visible_lines = min(len(lines), int((prog - 0.25) * 35)) if prog > 0.25 else 0
+    visible_lines = min(len(code_lines), int((prog - 0.22) * 32)) if prog > 0.22 else 0
     for idx in range(visible_lines):
-        draw.text((ex + 25, ey + 45 + idx * 20), lines[idx], font=font_code, fill=TEXT_WHITE if not lines[idx].strip().startswith("#") else ACCENT_GREEN)
+        line_txt, col = code_lines[idx]
+        ly = ey + 42 + idx * 19
+        # Draw Line Number
+        draw.text((ex + 14, ly), f"{idx + 1:>2}", font=font_code_small, fill=TEXT_DIM)
+        # Draw Code with syntax color
+        draw.text((ex + 55, ly), line_txt, font=font_code, fill=col)
 
     draw_caption_bar(draw, scene["narration"], prog)
     return img
 
 def render_terminal_check_savings(frame, total, scene):
     img = BASE_WALLPAPER.copy()
-    draw = ImageDraw.Draw(img)
-    draw_desktop_icons(draw)
+    draw_desktop_icons(img)
     draw_windows11_taskbar(img, active_app="terminal")
+    draw = ImageDraw.Draw(img)
 
     wx, wy, ww, wh = 100, 50, 1080, 520
     draw.rounded_rectangle([wx, wy, wx + ww, wy + wh], radius=8, fill=(12, 12, 14), outline=ACCENT_CYAN, width=1)
@@ -518,7 +626,7 @@ def render_terminal_check_savings(frame, total, scene):
     draw.text((wx + ww - 65, wy + 8), "—  □  ✕", font=font_code_small, fill=TEXT_MUTED)
 
     prog = frame / total
-    draw.text((wx + 25, wy + 46), "PS C:\\Users\\Compumarts> fazah savings", font=font_code_large, fill=ACCENT_CYAN)
+    draw.text((wx + 25, wy + 46), "PS C:\\Users\\Compumarts\\Desktop\\ادوات\\FAZAH AI Arsenal> fazah savings", font=font_code_large, fill=ACCENT_CYAN)
 
     kpis = [
         ("320,000", "Tokens Saved", ACCENT_GREEN),
@@ -568,8 +676,8 @@ RENDERERS = {
     "terminal_check_savings": render_terminal_check_savings,
 }
 
-async def build_authentic_win11_screencast():
-    temp_dir = Path("temp_win11_screencast")
+async def build_pixel_perfect_screencast():
+    temp_dir = Path("temp_pixel_screencast")
     temp_dir.mkdir(parents=True, exist_ok=True)
     
     output_mp4 = Path("assets/demo_walkthrough.mp4")
@@ -581,7 +689,7 @@ async def build_authentic_win11_screencast():
     concat_list = temp_dir / "concat_list.txt"
 
     print("═══════════════════════════════════════════════════════════════════")
-    print("🎬 FAZAH AI ARSENAL v6.5 — AUTHENTIC WINDOWS 11 SCREENCAST")
+    print("🎬 FAZAH AI ARSENAL v6.5 — PIXEL-PERFECT WIN11 & ANTIGRAVITY")
     print("═══════════════════════════════════════════════════════════════════")
 
     # 1. Voiceover
@@ -662,10 +770,10 @@ async def build_authentic_win11_screencast():
         pass
 
     mp4_sz = output_mp4.stat().st_size / (1024 * 1024)
-    print(f"\n🎉 SUCCESS: All media assets ready!")
+    print(f"\n🎉 SUCCESS: Pixel-perfect media assets ready!")
     print(f"   MP4 Video: {output_mp4} ({mp4_sz:.2f} MB)")
     print(f"   GIF Preview: {output_gif}")
     print("═══════════════════════════════════════════════════════════════════")
 
 if __name__ == "__main__":
-    asyncio.run(build_authentic_win11_screencast())
+    asyncio.run(build_pixel_perfect_screencast())
