@@ -7,6 +7,10 @@
     "github-ai-arsenal": {
       "command": "C:/Users/Compumarts/AppData/Local/Programs/Python/Python312/Scripts/fazah-mcp.EXE",
       "args": []
+    },
+    "arsenal": {
+      "command": "fazah-mcp",
+      "args": []
     }
   }
 }
