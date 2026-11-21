@@ -254,6 +254,9 @@ class ArsenalUIHandler(BaseHTTPRequestHandler):
                 action = (qs.get("action") or ["list"])[0]
                 self._send_json(arsenal.memory_data(action=action))
                 return
+            if parsed.path == "/api/savings":
+                self._send_json(arsenal.load_savings())
+                return
             self._send_json({"error": "Not found"}, 404)
         except Exception as exc:
             self._send_json({"error": str(exc)}, 500)
