@@ -1,24 +1,24 @@
 {
-  "total_tokens_saved": 644500,
-  "total_usd_saved": 3.86,
-  "api_calls_avoided": 109,
-  "hours_saved": 2.15,
-  "events_count": 109,
+  "total_tokens_saved": 786000,
+  "total_usd_saved": 4.69,
+  "api_calls_avoided": 134,
+  "hours_saved": 2.65,
+  "events_count": 134,
   "breakdown": {
     "offline_searches": {
-      "count": 68,
-      "tokens_saved": 238000,
-      "usd_saved": 1.37
+      "count": 84,
+      "tokens_saved": 294000,
+      "usd_saved": 1.69
     },
     "autonomous_tool_delivery": {
-      "count": 15,
-      "tokens_saved": 187500,
-      "usd_saved": 1.11
+      "count": 18,
+      "tokens_saved": 225000,
+      "usd_saved": 1.33
     },
     "security_scans": {
-      "count": 23,
-      "tokens_saved": 184000,
-      "usd_saved": 1.14
+      "count": 29,
+      "tokens_saved": 232000,
+      "usd_saved": 1.44
     },
     "self_healing_retries_saved": {
       "count": 2,
@@ -32,6 +32,206 @@
     }
   },
   "history": [
+    {
+      "timestamp": "2026-11-21T13:52:28.186104+00:00",
+      "category": "offline_searches",
+      "task": "security audit and reverse engineering",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:52:27.920722+00:00",
+      "category": "offline_searches",
+      "task": "بوت تليجرام وكشط مواقع",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:52:26.825619+00:00",
+      "category": "offline_searches",
+      "task": "mcp postgres",
+      "detail": "Found 5306 matches",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:52:26.403408+00:00",
+      "category": "autonomous_tool_delivery",
+      "task": "web scraping",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 12500,
+      "usd_saved": 0.075
+    },
+    {
+      "timestamp": "2026-11-21T13:52:25.734955+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:52:23.021715+00:00",
+      "category": "offline_searches",
+      "task": "web scraping",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:52:21.100017+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "fazah-arsenal/github-ai-arsenal",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:52:14.433820+00:00",
+      "category": "offline_searches",
+      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:52:14.195867+00:00",
+      "category": "offline_searches",
+      "task": "scraping",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:51:25.666964+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "tiangolo/fastapi",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:51:11.437332+00:00",
+      "category": "offline_searches",
+      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:50:32.628287+00:00",
+      "category": "autonomous_tool_delivery",
+      "task": "fastapi web api",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 12500,
+      "usd_saved": 0.075
+    },
+    {
+      "timestamp": "2026-11-21T13:50:31.947096+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:50:29.495066+00:00",
+      "category": "offline_searches",
+      "task": "fastapi web api",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:51.439871+00:00",
+      "category": "offline_searches",
+      "task": "build telegram bot",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:45.537817+00:00",
+      "category": "offline_searches",
+      "task": "web scraper",
+      "detail": "Found 2708 matches",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:42.282300+00:00",
+      "category": "offline_searches",
+      "task": "security audit and reverse engineering",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:42.016396+00:00",
+      "category": "offline_searches",
+      "task": "بوت تليجرام وكشط مواقع",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:40.922514+00:00",
+      "category": "offline_searches",
+      "task": "mcp postgres",
+      "detail": "Found 5306 matches",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:40.509906+00:00",
+      "category": "autonomous_tool_delivery",
+      "task": "web scraping",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 12500,
+      "usd_saved": 0.075
+    },
+    {
+      "timestamp": "2026-11-21T13:49:38.757414+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "unclecode/crawl4ai",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:49:34.698991+00:00",
+      "category": "offline_searches",
+      "task": "web scraping",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:30.884550+00:00",
+      "category": "security_scans",
+      "task": "deep_scan",
+      "detail": "fazah-arsenal/github-ai-arsenal",
+      "tokens_saved": 8000,
+      "usd_saved": 0.048
+    },
+    {
+      "timestamp": "2026-11-21T13:49:23.547175+00:00",
+      "category": "offline_searches",
+      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
+    {
+      "timestamp": "2026-11-21T13:49:23.297413+00:00",
+      "category": "offline_searches",
+      "task": "scraping",
+      "detail": "recommend",
+      "tokens_saved": 3500,
+      "usd_saved": 0.021
+    },
     {
       "timestamp": "2026-11-21T13:42:45.124801+00:00",
       "category": "offline_searches",
@@ -231,206 +431,6 @@
       "detail": "fazah-arsenal/github-ai-arsenal",
       "tokens_saved": 8000,
       "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T13:28:30.729830+00:00",
-      "category": "offline_searches",
-      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T13:28:30.504875+00:00",
-      "category": "offline_searches",
-      "task": "scraping",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:38.644046+00:00",
-      "category": "offline_searches",
-      "task": "security audit and reverse engineering",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:38.388265+00:00",
-      "category": "offline_searches",
-      "task": "بوت تليجرام وكشط مواقع",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:37.438140+00:00",
-      "category": "offline_searches",
-      "task": "mcp postgres",
-      "detail": "Found 5306 matches",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:37.061168+00:00",
-      "category": "autonomous_tool_delivery",
-      "task": "web scraping",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 12500,
-      "usd_saved": 0.075
-    },
-    {
-      "timestamp": "2026-11-21T12:52:36.676762+00:00",
-      "category": "security_scans",
-      "task": "deep_scan",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 8000,
-      "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T12:52:34.434304+00:00",
-      "category": "offline_searches",
-      "task": "web scraping",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:32.689275+00:00",
-      "category": "security_scans",
-      "task": "deep_scan",
-      "detail": "fazah-arsenal/github-ai-arsenal",
-      "tokens_saved": 8000,
-      "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T12:52:30.398162+00:00",
-      "category": "offline_searches",
-      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:52:30.164507+00:00",
-      "category": "offline_searches",
-      "task": "scraping",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:48.662224+00:00",
-      "category": "offline_searches",
-      "task": "security audit and reverse engineering",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:48.396061+00:00",
-      "category": "offline_searches",
-      "task": "بوت تليجرام وكشط مواقع",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:47.357100+00:00",
-      "category": "offline_searches",
-      "task": "mcp postgres",
-      "detail": "Found 5306 matches",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:46.937624+00:00",
-      "category": "autonomous_tool_delivery",
-      "task": "web scraping",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 12500,
-      "usd_saved": 0.075
-    },
-    {
-      "timestamp": "2026-11-21T12:49:46.395024+00:00",
-      "category": "security_scans",
-      "task": "deep_scan",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 8000,
-      "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T12:49:43.639163+00:00",
-      "category": "offline_searches",
-      "task": "web scraping",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:41.830181+00:00",
-      "category": "security_scans",
-      "task": "deep_scan",
-      "detail": "fazah-arsenal/github-ai-arsenal",
-      "tokens_saved": 8000,
-      "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T12:49:38.420174+00:00",
-      "category": "offline_searches",
-      "task": "python packaging ruff docker devops security mcp-servers telegram bot",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:49:38.180959+00:00",
-      "category": "offline_searches",
-      "task": "scraping",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:41:52.908577+00:00",
-      "category": "offline_searches",
-      "task": "كشط مواقع وتخزين ذكي",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:41:42.369137+00:00",
-      "category": "autonomous_tool_delivery",
-      "task": "unclecode/crawl4ai",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 12500,
-      "usd_saved": 0.075
-    },
-    {
-      "timestamp": "2026-11-21T12:41:42.012917+00:00",
-      "category": "security_scans",
-      "task": "deep_scan",
-      "detail": "unclecode/crawl4ai",
-      "tokens_saved": 8000,
-      "usd_saved": 0.048
-    },
-    {
-      "timestamp": "2026-11-21T12:41:40.692436+00:00",
-      "category": "offline_searches",
-      "task": "unclecode/crawl4ai",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
-    },
-    {
-      "timestamp": "2026-11-21T12:41:16.569080+00:00",
-      "category": "offline_searches",
-      "task": "security audit and reverse engineering",
-      "detail": "recommend",
-      "tokens_saved": 3500,
-      "usd_saved": 0.021
     }
   ]
 }
