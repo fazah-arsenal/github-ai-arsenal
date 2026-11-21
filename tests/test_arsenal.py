@@ -185,6 +185,18 @@ class TestGitHubAIArsenal(unittest.TestCase):
         resp4 = json.loads(lines[3])
         self.assertGreaterEqual(len(resp4.get("result", {}).get("prompts", [])), 3)
 
+    def test_zero_touch_mcp_auto_link(self):
+        proc = self._run_cli("link", "--json")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        data = json.loads(proc.stdout)
+        self.assertTrue(data.get("ok"))
+        self.assertIn("linked_clients", data)
+        self.assertGreaterEqual(len(data["linked_clients"]), 4)
+        client_names = [c["client"] for c in data["linked_clients"]]
+        self.assertIn("Claude Desktop", client_names)
+        self.assertIn("Cursor User", client_names)
+        self.assertIn("Current Workspace", client_names)
+
 
 if __name__ == "__main__":
     unittest.main()
