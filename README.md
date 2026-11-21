@@ -57,6 +57,18 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 ---
 
+## 🎬 Video Walkthrough
+
+<div align="center">
+
+https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4
+
+> **Full 35-second demo** showing Zero-Touch MCP Auto-Link, 1-Call Autonomous Tool Delivery, Adaptive Error Memory, and the Token Savings Dashboard — all running locally with zero API rate limits.
+
+</div>
+
+---
+
 ## 🖥️ Live CLI Preview
 
 <div align="center">
@@ -100,21 +112,24 @@ curl -fsSL "https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/ma
 Inject automatically into your workspace `.mcp.json`:
 ```bash
 fazah mi arsenal
+# Or use the full zero-touch auto-link command (injects into ALL clients at once):
+fazah link
 ```
 
 Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, Windsurf, DeepSeek):
 ```json
 {
   "mcpServers": {
-    "github-ai-arsenal": {
-      "command": "python",
-      "args": ["~/.agents/skills/github-ai-arsenal/scripts/mcp_server.py"]
+    "fazah-arsenal": {
+      "command": "fazah-mcp",
+      "args": []
     }
   }
 }
 ```
+> **Tip:** `fazah link` auto-detects and updates Claude Desktop, Cursor, Windsurf, Antigravity, VS Code Cline, VS Code Roo, and your current workspace `.mcp.json` in a single command — zero manual editing required.
 
-### 🧰 17 Native MCP Tools (+ 4 Resources & 3 Prompts) Exposed:
+### 🧰 18 Native MCP Tools (+ 5 Resources & 3 Prompts) Exposed:
 | MCP Tool | Description |
 | :--- | :--- |
 | `arsenal_give_tool` | **1-Call Autonomous Tool Broker**: picks #1 tool, scans security, extracts code snippet & optionally pulls |
@@ -134,6 +149,8 @@ Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, W
 | `arsenal_inspect_repo` | Inspect repo metadata, top files, and `README.md`/`SKILL.md` without cloning |
 | `arsenal_pull_repo` | Download and extract any GitHub repository ZIP without `git` |
 | `arsenal_install_skill` | Auto-discover or synthesize `SKILL.md` and install any repo as a local skill |
+| `arsenal_learn` | **Teach FAZAH a failure**: record a broken package + error + fix so future calls auto-avoid it |
+| `arsenal_savings` | **Token & Quota Tracker**: exact tokens, USD, and API calls saved by using offline index + 1-call delivery |
 
 ---
 
@@ -159,11 +176,13 @@ fazah st list                              # List all 8 turnkey project stacks
 fazah st saas-ai -s ./my-saas-app          # Scaffold a complete starter project
 fazah bm add unclecode/crawl4ai -m "Best"  # Bookmark a favorite repository
 fazah mi github-ai-arsenal                 # Auto-inject MCP server into .mcp.json
+fazah link                                  # Zero-Touch: inject into ALL MCP clients at once
 fazah t -t mcp                             # Fetch live trending GitHub repos
 fazah s "deepseek coding agent"            # Live GitHub API search
 fazah i danielmiessler/fabric              # Inspect repo structure & README without cloning
 fazah p unclecode/crawl4ai -d ./tools      # Download & extract repo ZIP without git
 fazah is anthropics/skills                 # Install any GitHub repo as a local SKILL.md
+fazah savings                              # View token & quota savings dashboard (tokens saved, USD, API calls avoided)
 fazah up                                   # Self-update FAZAH AI Arsenal & 20k+ index from GitHub
 ```
 
@@ -196,6 +215,25 @@ pip install git+https://github.com/fazah-arsenal/github-ai-arsenal.git
 ```bash
 python -m unittest tests/test_arsenal.py
 ```
+
+**Current Test Suite: 14 tests, 100% passing.**
+
+| Test | Status |
+|:--|:--|
+| `test_stats_has_over_20000_tools` | ✅ PASS |
+| `test_doctor_command` | ✅ PASS |
+| `test_mega_offline_search_and_ranking` | ✅ PASS |
+| `test_recommend_arabic_and_english` | ✅ PASS |
+| `test_stack_command` | ✅ PASS |
+| `test_quickstart_and_bookmarks` | ✅ PASS |
+| `test_audit_repo_offline_fallback` | ✅ PASS |
+| `test_mcp_config_generator` | ✅ PASS |
+| `test_native_mcp_server_stdio` | ✅ PASS |
+| `test_give_snippet_and_memory` | ✅ PASS |
+| `test_analyze_project_and_deep_scan` | ✅ PASS |
+| `test_adaptive_error_learning_and_self_healing` | ✅ PASS |
+| `test_zero_touch_mcp_auto_link` | ✅ PASS |
+| `test_quota_and_token_savings_tracker` | ✅ PASS |
 
 ---
 
