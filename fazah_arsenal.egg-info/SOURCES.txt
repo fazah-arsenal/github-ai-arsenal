@@ -13,10 +13,15 @@ references/bookmarks.json
 references/catalog.json
 references/mcp-servers.md
 references/mega_index.json.gz
+references/savings_tracker.json
 references/stacks.json
 scripts/__init__.py
 scripts/build_mega_index.py
 scripts/bump_version.py
+scripts/generate_authentic_win11_screencast.py
+scripts/generate_demo_video.py
+scripts/generate_narrated_video.py
+scripts/generate_pc_screencast_video.py
 scripts/gh_arsenal.py
 scripts/mcp_server.py
 scripts/web_ui.py
