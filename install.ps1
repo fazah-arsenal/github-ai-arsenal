@@ -53,7 +53,7 @@ $BinDir = Join-Path $env:USERPROFILE ".local\bin"
 New-Item -ItemType Directory -Path $BinDir -Force | Out-Null
 $FazahCmd = Join-Path $BinDir "fazah.cmd"
 $MainScript = Join-Path $env:USERPROFILE ".agents\skills\$SkillName\scripts\gh_arsenal.py"
-"@echo off`r`npython `"$MainScript`" %*" | Set-Content -Path $FazahCmd -Encoding ASCII
+"@echo off`r`npython -m scripts.gh_arsenal %*`r`nif %errorlevel% neq 0 python `"$MainScript`" %*" | Set-Content -Path $FazahCmd -Encoding ASCII
 
 # Auto-add Python Scripts directory and .local\bin to User PATH permanently
 $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
