@@ -240,6 +240,14 @@ MCP_TOOLS: List[Dict[str, Any]] = [
             "required": ["repo", "task", "outcome"],
         },
     },
+    {
+        "name": "arsenal_savings",
+        "description": "Token & Quota Savings Tracker: View the exact number of tokens, API queries, and USD costs saved by using FAZAH AI Arsenal's offline index and 1-call autonomous delivery instead of expensive LLM web browsing and multi-turn trial-and-error.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {},
+        },
+    },
 ]
 
 MCP_RESOURCES: List[Dict[str, Any]] = [
@@ -247,6 +255,7 @@ MCP_RESOURCES: List[Dict[str, Any]] = [
     {"uri": "arsenal://stacks", "name": "8 Turnkey Project Stacks", "mimeType": "application/json"},
     {"uri": "arsenal://bookmarks", "name": "Saved Favorite Tools", "mimeType": "application/json"},
     {"uri": "arsenal://memory", "name": "Agent Experience Memory", "mimeType": "application/json"},
+    {"uri": "arsenal://savings", "name": "Token & Quota Savings", "mimeType": "application/json"},
 ]
 
 MCP_PROMPTS: List[Dict[str, Any]] = [
@@ -333,6 +342,8 @@ def _call_tool(name: str, args: Dict[str, Any]) -> Dict[str, Any]:
             learned_fix=args.get("learned_fix", ""),
             alternative_repo=args.get("alternative_repo", ""),
         )
+    if name == "arsenal_savings":
+        return arsenal.load_savings()
     raise ValueError(f"Unknown MCP tool: {name}")
 
 
@@ -388,6 +399,8 @@ def handle_message(msg: Dict[str, Any]) -> None:
             payload = arsenal.bookmark_data("list")
         elif uri == "arsenal://memory":
             payload = arsenal.memory_data("list")
+        elif uri == "arsenal://savings":
+            payload = arsenal.load_savings()
         else:
             payload = {"error": f"Unknown resource URI: {uri}"}
         _send({
