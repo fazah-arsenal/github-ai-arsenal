@@ -57,27 +57,27 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 ---
 
-## 🎬 Video Walkthrough (720p HD · Studio English Narration)
+## 🎬 Video Walkthrough (Windows PC Live Screencast Demo)
 
 <div align="center">
 
-<video src="https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4" controls="controls" width="100%" poster="assets/hero-banner.svg"></video>
+<a href="https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4">
+  <img src="assets/demo_preview.gif" alt="FAZAH AI Arsenal Live Windows Screencast Walkthrough" width="100%" style="border-radius: 12px; border: 1px solid #30363d;"/>
+</a>
 
 <p align="center">
   <a href="https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4">
-    <b>▶ Click here to view / download full MP4 video (3-Minute Live Demo)</b>
+    <b>▶ Click here to view / download full MP4 video with Studio Audio (demo_walkthrough.mp4)</b>
   </a>
 </p>
 
-> **Full 3-Minute Studio Walkthrough** with English voiceover covering:
-> 1. **Overview & Architecture** (20,078 Tools, 5,306 MCP Servers)
-> 2. **Downloading & Installing** (`pip install fazah-arsenal` & 1-line script)
-> 3. **Zero-Touch MCP Auto-Link** (`fazah link` — auto-configures 7 MCP clients)
-> 4. **Live MCP Client Demo** (Active stdio session: agent calls `search` → `audit` → `give`)
-> 5. **Google Antigravity Integration** (Autonomous tool resolution & token saving)
-> 6. **DeepSeek & Universal AI** (DeepSeek V3/R1, Claude, Cursor with 18 tools)
-> 7. **Token & Quota Savings Tracker** (`fazah savings` — 320k+ tokens spared)
-> 8. **Adaptive Error Memory & Self-Healing** (`fazah memory mistakes`)
+> **Full Windows PC Live Screencast Walkthrough** with studio English voiceover:
+> 1. **Windows 11 Desktop:** Launching Command Prompt directly from the desktop.
+> 2. **Setup in CMD:** Running `pip install fazah-arsenal` & `fazah link` (7 MCP clients auto-configured).
+> 3. **Google Antigravity IDE:** Launching Antigravity and opening the agent conversation pane.
+> 4. **Live Agent Dialogue:** Asking *"Is the FAZAH AI Arsenal tool linked to you?"* — Agent confirms connection & 18 active tools.
+> 5. **Autonomous Engineering:** Asking Antigravity to build an async web scraper with PostgreSQL — delivers verified code in 1 turn.
+> 6. **Token & Quota ROI:** Running `fazah savings` in CMD to review 320,000+ tokens and \$1.90 USD saved.
 
 </div>
 
