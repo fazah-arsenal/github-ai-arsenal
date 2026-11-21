@@ -1,5 +1,6 @@
 [console_scripts]
 fazah = scripts.gh_arsenal:main
+fazah-console = scripts.gh_arsenal:cmd_console
 fazah-link = scripts.gh_arsenal:auto_link_cli
 fazah-mcp = scripts.mcp_server:main
 fazah-ui = scripts.web_ui:run_ui
