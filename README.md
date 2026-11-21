@@ -61,12 +61,10 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 <div align="center">
 
-<a href="https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4">
-  <img src="assets/demo_preview.gif" alt="FAZAH AI Arsenal Live Windows Screencast Walkthrough" width="100%" style="border-radius: 12px; border: 1px solid #30363d;"/>
-</a>
+[![FAZAH AI Arsenal Windows 11 Screencast Walkthrough](https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/assets/demo_preview.gif)](https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/assets/demo_walkthrough.mp4)
 
 <p align="center">
-  <a href="https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4">
+  <a href="https://raw.githubusercontent.com/fazah-arsenal/github-ai-arsenal/main/assets/demo_walkthrough.mp4">
     <b>▶ Click here to view / download full MP4 video with Studio Audio (demo_walkthrough.mp4)</b>
   </a>
 </p>
@@ -75,11 +73,75 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 > 1. **Windows 11 Desktop:** Launching Command Prompt directly from the desktop.
 > 2. **Setup in CMD:** Running `pip install fazah-arsenal` & `fazah link` (7 MCP clients auto-configured).
 > 3. **Google Antigravity IDE:** Launching Antigravity and opening the agent conversation pane.
-> 4. **Live Agent Dialogue:** Asking *"Is the FAZAH AI Arsenal tool linked to you?"* — Agent confirms connection & 18 active tools.
+> 4. **Live Agent Dialogue:** Asking *"Is the FAZAH AI Arsenal tool linked to you?"* — Agent confirms connection & 19 active tools.
 > 5. **Autonomous Engineering:** Asking Antigravity to build an async web scraper with PostgreSQL — delivers verified code in 1 turn.
-> 6. **Token & Quota ROI:** Running `fazah savings` in CMD to review 320,000+ tokens and \$1.90 USD saved.
+> 6. **Token & Quota ROI:** Running `fazah savings` in CMD to review 640,000+ tokens and $3.80+ USD saved.
 
 </div>
+
+---
+
+## 💻 Interactive Terminal Console & Self-Loading Center (`fazah`)
+
+Simply run `fazah` or `fazah console` with no arguments to launch the **Interactive Terminal REPL**:
+
+```bash
+# Launch the interactive console directly
+fazah
+# or
+python -m scripts.gh_arsenal console
+```
+
+```text
+ ███████╗ █████╗ ███████╗ █████╗ ██╗  ██╗    █████╗ ██╗
+ ██╔════╝██╔══██╗╚══███╔╝██╔══██╗██║  ██║   ██╔══██╗██║
+ █████╗  ███████║  ███╔╝ ███████║███████║   ███████║██║
+ ██╔══╝  ██╔══██║ ███╔╝  ██╔══██║██╔══██║   ██╔══██║██║
+ ██║     ██║  ██║███████╗██║  ██║██║  ██║██╗██║  ██║██║
+ ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   FAZAH AI ARSENAL v6.5 — Universal Autonomous Tool Broker
+   20,078 Real Tools · 19 Native MCP Tools · Zero-Dependency
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[*] INITIALIZING FAZAH AI ARSENAL SUBSYSTEMS...
+  [==>                 ]  16%  Checking Python Runtime & Environment      ... [✓ Python 3.12]
+  [=====>              ]  33%  Mounting BM25 Mega-Index (20,078 tools)    ... [✓ 20,078 repos ready (3ms)]
+  [=========>          ]  50%  Auditing MCP Client Registries             ... [✓ 7 clients linked]
+  [============>       ]  66%  Loading Adaptive Error Memory              ... [✓ 3 learned reflexes]
+  [===============>    ]  83%  Syncing Token & Quota Savings Ledger       ... [✓ 644,500 tokens (~$3.86)]
+  [===================>] 100%  Checking GitHub API Authentication         ... [✓ 5,000 req/hr (Active)]
+
+[✓] ALL SUBSYSTEMS OPERATIONAL & READY.
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       COMMAND PALETTE & QUICK ACTIONS                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  [1]  🔍 search <query>    : Offline BM25 Search across 20,078 tools        │
+│  [2]  🎯 rec <prompt>      : Smart AI Recommender (Arabic & English)        │
+│  [3]  📦 give <task>       : 1-Call Autonomous Tool Broker (Pick & Deliver) │
+│  [4]  🛡️  audit <repo>      : Trust Score & Zero-Day Security Scan           │
+│  [5]  🔗 link              : Zero-Touch MCP Auto-Link to 7 AI Clients       │
+│  [6]  🔑 token [key]       : Set / Verify GitHub Personal Access Token      │
+│  [7]  🛠️  install-reqs      : Audit & Install Runtimes / Fix Windows PATH    │
+│  [8]  ⚙️  settings          : Configure Default Paths, Limits & Auto-Link    │
+│  [9]  💰 savings           : Token & Cost Savings Ledger ($2.96+ Spared)    │
+│  [10] 🧠 memory            : Adaptive Error Memory & Learned Solutions      │
+│  [11] 🚀 stack <name>      : 1-Click Project Blueprints (8 Turnkey Stacks)  │
+│  [12] 🔄 update            : Self-Update Arsenal & Mega-Index from GitHub   │
+│  [0]  🚪 exit              : Exit Console                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+💡 Tip: Enter option number [1-12], command name, or type any task directly!
+
+fazah [644k saved]>
+```
+
+### 🌟 Console Quick Actions & Interactive Highlights
+
+- **`[6] 🔑 token`**: Easily configure your GitHub Personal Access Token interactively. Tests connection live with GitHub API, unlocks 5,000 req/hr rate limits, saves to config, and persists to Windows User Environment (`setx GITHUB_TOKEN`).
+- **`[7] 🛠️ install-reqs`**: Complete environment diagnostic. If `pip` is not recognized on Windows (missing from PATH), it **automatically detects the Python Scripts directory and fixes Windows PATH permanently** with zero manual intervention. Also audits Git, Docker, and MCP client paths.
+- **`[8] ⚙️ settings`**: Interactively configure your default download folders, search limit sizes, automatic security scans, and auto-linking preferences.
+- **Natural Language Execution**: In the console, you don't even need to type command names — simply type your task directly in Arabic or English (e.g. `fastapi auth postgresql` or `أريد أداة تفريغ صوت`) and the AI agent automatically analyzes and recommends the top tools!
 
 ---
 
