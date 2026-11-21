@@ -57,13 +57,20 @@ Instead of letting your AI agent reinvent existing tools from scratch or burn th
 
 ---
 
-## 🎬 Video Walkthrough
+## 🎬 Video Walkthrough (720p HD · Studio English Narration)
 
 <div align="center">
 
 https://github.com/fazah-arsenal/github-ai-arsenal/raw/main/assets/demo_walkthrough.mp4
 
-> **Full 35-second demo** showing Zero-Touch MCP Auto-Link, 1-Call Autonomous Tool Delivery, Adaptive Error Memory, and the Token Savings Dashboard — all running locally with zero API rate limits.
+> **Full 2.5-Minute Studio Walkthrough** with English voiceover covering:
+> 1. **Overview & Architecture** (20,078 Tools, 5,306 MCP Servers)
+> 2. **Downloading & Installing** (`pip install fazah-arsenal` & 1-line script)
+> 3. **Zero-Touch MCP Auto-Link** (`fazah link` — auto-configures 7 MCP clients)
+> 4. **Google Antigravity Integration** (Autonomous tool resolution & token saving)
+> 5. **DeepSeek & Universal AI** (DeepSeek V3/R1, Claude, Cursor with 18 tools)
+> 6. **Token & Quota Savings Tracker** (`fazah savings` — 320k+ tokens spared)
+> 7. **Adaptive Error Memory & Self-Healing** (`fazah memory mistakes`)
 
 </div>
 
