@@ -143,7 +143,7 @@ Or paste into your MCP client configuration (Antigravity, Claude Code, Cursor, W
 ```
 > **Tip:** `fazah link` auto-detects and updates Claude Desktop, Cursor, Windsurf, Antigravity, VS Code Cline, VS Code Roo, and your current workspace `.mcp.json` in a single command — zero manual editing required.
 
-### 🧰 18 Native MCP Tools (+ 5 Resources & 3 Prompts) Exposed:
+### 🧰 19 Native MCP Tools (+ 5 Resources & 3 Prompts) Exposed:
 | MCP Tool | Description |
 | :--- | :--- |
 | `arsenal_give_tool` | **1-Call Autonomous Tool Broker**: picks #1 tool, scans security, extracts code snippet & optionally pulls |
