@@ -337,8 +337,12 @@ def _call_tool(name: str, args: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _send(obj: Dict[str, Any]) -> None:
-    sys.stdout.write(json.dumps(obj, ensure_ascii=False) + "\n")
-    sys.stdout.flush()
+    try:
+        sys.stdout.write(json.dumps(obj, ensure_ascii=False) + "\n")
+        sys.stdout.flush()
+    except Exception as exc:
+        sys.stderr.write(f"[mcp_server] Write error: {exc}\n")
+        sys.stderr.flush()
 
 
 def handle_message(msg: Dict[str, Any]) -> None:
@@ -448,7 +452,22 @@ def handle_message(msg: Dict[str, Any]) -> None:
 
 
 def main() -> None:
-    for line in sys.stdin:
+    # Ensure standard IO is configured for UTF-8 with immediate line flushing
+    try:
+        if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+            sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
+        if sys.stdin.encoding and sys.stdin.encoding.lower() != "utf-8":
+            sys.stdin.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+    while True:
+        try:
+            line = sys.stdin.readline()
+        except Exception:
+            break
+        if not line:
+            break
         line = line.strip()
         if not line:
             continue
