@@ -100,10 +100,17 @@ SYNONYM_MAP: Dict[str, List[str]] = {
     "العاب": ["game", "engine", "unity", "godot"],
 }
 
+_mcp_cmd = "fazah-mcp" if shutil.which("fazah-mcp") else "python"
+_mcp_args = [] if shutil.which("fazah-mcp") else [str((SKILL_ROOT / "scripts" / "mcp_server.py").resolve()).replace("\\", "/")]
+
 MCP_TEMPLATES: Dict[str, Dict[str, Any]] = {
     "arsenal": {
-        "command": "python",
-        "args": [str((SKILL_ROOT / "scripts" / "mcp_server.py").resolve())],
+        "command": _mcp_cmd,
+        "args": _mcp_args,
+    },
+    "github-ai-arsenal": {
+        "command": _mcp_cmd,
+        "args": _mcp_args,
     },
     "github": {
         "command": "docker",
