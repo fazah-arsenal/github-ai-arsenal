@@ -836,8 +836,13 @@ def auto_link_mcp_clients(silent: bool = False, force: bool = False) -> Dict[str
         ("Cursor User", home / ".cursor" / "mcp.json"),
         ("Windsurf", home / ".codeium" / "windsurf" / "mcp_config.json"),
         ("Antigravity", home / ".gemini" / "antigravity" / "mcp_config.json"),
+        ("DeepSeek Agents", home / ".agents" / "mcp.json"),
+        ("DeepSeek Harness", appdata / "DeepSeek Harness" / "mcp.json"),
+        ("OpenCode Desktop", home / ".opencode" / "mcp.json"),
         ("VS Code Cline", appdata / "Code" / "User" / "globalStorage" / "saoudrizwan.claude-dev" / "settings" / "cline_mcp_settings.json"),
         ("VS Code Roo", appdata / "Code" / "User" / "globalStorage" / "rooveterinaryinc.roo-cline" / "settings" / "cline_mcp_settings.json"),
+        ("Claude Code CLI", home / ".claude.json"),
+        ("Codex Agents", home / ".codex" / "mcp.json"),
         ("Current Workspace", (Path.cwd() / ".mcp.json").resolve()),
     ]
 
