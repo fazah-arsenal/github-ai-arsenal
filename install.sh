@@ -48,5 +48,9 @@ exec python3 "$HOME/.agents/skills/github-ai-arsenal/scripts/gh_arsenal.py" "$@"
 EOF
 chmod +x "$HOME/.local/bin/fazah"
 
+# Auto-link all MCP clients (Claude, Cursor, Windsurf, Antigravity, VS Code) on install
+echo "Auto-linking all local MCP environments..."
+python3 "$HOME/.agents/skills/github-ai-arsenal/scripts/gh_arsenal.py" link 2>/dev/null || true
+
 echo "Installed $SKILL_NAME (20,078+ GitHub tools, Native MCP Server & short 'fazah' CLI) successfully!"
 echo "Try now: fazah doc | fazah r 'telegram bot' | fazah m -q 'postgres'"
