@@ -62,5 +62,13 @@ if (-not $UserPath -or ($UserPath -notlike "*$BinDir*")) {
     $env:Path = "$env:Path;$BinDir"
 }
 
+# Auto-link all MCP clients (Antigravity, Cursor, Claude, Windsurf, VS Code) on install
+Write-Host "Auto-linking all local MCP environments..." -ForegroundColor Cyan
+try {
+    python "$MainScript" link
+} catch {
+    Write-Host "Notice: Run 'fazah link' once Python is added to PATH." -ForegroundColor Yellow
+}
+
 Write-Host "Installed $SkillName (20,078+ GitHub tools, Native MCP Server & short 'fazah' CLI) successfully!" -ForegroundColor Green
 Write-Host "Try now: fazah doc | fazah r `"telegram bot`" | fazah m -q `"postgres`"" -ForegroundColor Yellow
